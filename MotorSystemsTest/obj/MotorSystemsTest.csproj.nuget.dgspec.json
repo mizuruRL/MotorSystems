@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsTest\\MotorSystemsTest.csproj": {}
+    "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj": {}
   },
   "projects": {
-    "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsApp\\MotorSystemsApp.csproj": {
+    "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsApp\\MotorSystemsApp.csproj",
+        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj",
         "projectName": "MotorSystemsApp",
-        "projectPath": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsApp\\MotorSystemsApp.csproj",
-        "packagesPath": "C:\\Users\\Mizuru\\.nuget\\packages\\",
-        "outputPath": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsApp\\obj\\",
+        "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj",
+        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mizuru\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -107,21 +107,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsTest\\MotorSystemsTest.csproj": {
+    "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsTest\\MotorSystemsTest.csproj",
+        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj",
         "projectName": "MotorSystemsTest",
-        "projectPath": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsTest\\MotorSystemsTest.csproj",
-        "packagesPath": "C:\\Users\\Mizuru\\.nuget\\packages\\",
-        "outputPath": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsTest\\obj\\",
+        "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj",
+        "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mizuru\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -135,8 +135,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsApp\\MotorSystemsApp.csproj": {
-                "projectPath": "D:\\Edu.pt\\Universidade\\3º Ano\\PV\\MotorSystemsApp\\MotorSystemsApp\\MotorSystemsApp.csproj"
+              "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj": {
+                "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj"
               }
             }
           }
@@ -187,7 +187,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
