@@ -34,4 +34,3 @@ namespace MotorSystemsTest
         public void Dispose() => DbContext.Dispose();
     }
 }
-}
