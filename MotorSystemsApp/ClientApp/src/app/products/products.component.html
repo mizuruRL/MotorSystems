@@ -1,0 +1,28 @@
+<h1 id="tableLabel">Stock Table</h1>
+
+<p *ngIf="!products"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="products">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Brand</th>
+      <th>Price</th>
+      <th>Available</th>
+      <th>Needed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.brand }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.availableQuantity }}</td>
+      <td>{{ product.quantityNeeded }}</td>
+    </tr>
+  </tbody>
+</table>

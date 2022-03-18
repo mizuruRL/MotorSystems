@@ -13,5 +13,7 @@ namespace MotorSystemsApp.Data
         {
 
         }
+
+        public DbSet<Product> Product { get; set; }
     }
 }
