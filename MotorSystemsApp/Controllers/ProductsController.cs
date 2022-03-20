@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotorSystemsApp.Data;
 using MotorSystemsApp.Models;
+using System.Linq;
 
 namespace MotorSystemsApp.Controllers
 {
@@ -26,7 +27,32 @@ namespace MotorSystemsApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Product.ToListAsync();
+            List<Product> products = await _context.Product.ToListAsync();
+            List<ProductNeeded> needed = await _context.ProductNeeded.ToListAsync();
+            
+            var neededByProd = (from neededP in needed
+                                    group neededP by neededP.ProductId into gr
+                                    select new
+                                    {
+                                        ProductId = gr.Key,
+                                        QuantityNeeded = gr.Sum(x => x.QuantityNeeded),
+                                        EarliestNeed = gr.Min(x=>x.NeededForDate) 
+                                    });
+
+            var final = (from product in products
+                         join neededP in neededByProd on product.Id equals neededP.ProductId
+                         select new { product, neededP }).ToList();
+
+            foreach(var p in final)
+            {
+                TimeSpan diff = p.neededP.EarliestNeed - DateTime.Now;                
+                p.product.DaysUntilNextNeed = diff.Days; 
+                p.product.QuantityNeeded = p.neededP.QuantityNeeded;
+                p.product.MissingQuantity = p.product.AvailableQuantity > p.product.QuantityNeeded ? 0 : p.product.QuantityNeeded - p.product.AvailableQuantity;
+                
+            }
+
+            return products;
         }
 
         // GET: api/Products/5

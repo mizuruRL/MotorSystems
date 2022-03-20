@@ -15,5 +15,73 @@ namespace MotorSystemsApp.Data
         }
 
         public DbSet<Product> Product { get; set; }
+        public DbSet<ProductNeeded> ProductNeeded { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Product>().HasData
+                (
+                    new Product
+                    {
+                        Id = 1,
+                        Name = "Prod1",
+                        Description = "Desc1",
+                        Brand = "Brand1",
+                        Price = 30,
+                        //QuantityNeeded = 50,
+                        AvailableQuantity = 30,
+                        Category = "Category1"
+                    },
+                    new Product
+                    {
+                        Id = 2,
+                        Name = "Prod2",
+                        Description = "Desc2",
+                        Brand = "Brand2",
+                        Price = 10,
+                        //QuantityNeeded = 25,
+                        AvailableQuantity = 30,
+                        Category="Category2"
+                    },
+                    new Product
+                    {
+                        Id = 3,
+                        Name = "Prod3",
+                        Description = "Desc3",
+                        Brand = "Brand3",
+                        Price = 13,
+                        //QuantityNeeded = 25,
+                        AvailableQuantity = 2,
+                        Category = "Category3"
+                    }
+                );
+
+            modelBuilder.Entity<ProductNeeded>().HasData
+                (
+                    new ProductNeeded
+                    {
+                        Id = 1,
+                        ProductId = 1,
+                        NeededForDate = new DateTime(2022, 3, 30),
+                        QuantityNeeded = 10
+                    },
+                    new ProductNeeded
+                    {
+                        Id = 2,
+                        ProductId = 1,
+                        NeededForDate = new DateTime(2022, 3, 29),
+                        QuantityNeeded=38
+                    },
+                    new ProductNeeded
+                    {
+                        Id = 3,
+                        ProductId = 3,
+                        NeededForDate = new DateTime(2022, 3, 24),
+                        QuantityNeeded = 4
+                    }
+                );
+        }
     }
 }

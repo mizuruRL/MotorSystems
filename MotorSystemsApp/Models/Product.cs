@@ -9,8 +9,12 @@ namespace MotorSystemsApp.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Brand { get; set; }
-        public double Price { get; set; }
-        public double QuantityNeeded { get; set; }
-        public double AvailableQuantity { get; set; }
+        public float Price { get; set; }
+        public float QuantityNeeded { get; set; }
+        public float AvailableQuantity { get; set; }
+
+        public float MissingQuantity { get; set; }
+        public int DaysUntilNextNeed { get; set; }
+        public string Category { get; set; }
     }
 }

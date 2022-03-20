@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorSystemsApp.Data;
 
@@ -11,9 +12,10 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220320194119_add-category")]
+    partial class addcategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -478,19 +480,6 @@ namespace MotorSystemsApp.Data.Migrations
                             Name = "Prod2",
                             Price = 10f,
                             QuantityNeeded = 0f
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AvailableQuantity = 2f,
-                            Brand = "Brand3",
-                            Category = "Category3",
-                            DaysUntilNextNeed = 0,
-                            Description = "Desc3",
-                            MissingQuantity = 0f,
-                            Name = "Prod3",
-                            Price = 13f,
-                            QuantityNeeded = 0f
                         });
                 });
 
@@ -519,22 +508,22 @@ namespace MotorSystemsApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 10
                         },
                         new
                         {
                             Id = 2,
-                            NeededForDate = new DateTime(2022, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 38
                         },
                         new
                         {
                             Id = 3,
-                            NeededForDate = new DateTime(2022, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ProductId = 3,
+                            NeededForDate = new DateTime(2022, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
                             QuantityNeeded = 4
                         });
                 });

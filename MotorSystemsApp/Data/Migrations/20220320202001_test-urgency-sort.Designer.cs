@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220318172335_product-data-test")]
-    partial class productdatatest
+    [Migration("20220320202001_test-urgency-sort")]
+    partial class testurgencysort
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -419,26 +419,36 @@ namespace MotorSystemsApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("AvailableQuantity")
-                        .HasColumnType("float");
+                    b.Property<float>("AvailableQuantity")
+                        .HasColumnType("real");
 
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DaysUntilNextNeed")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("MissingQuantity")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
-                    b.Property<double>("QuantityNeeded")
-                        .HasColumnType("float");
+                    b.Property<float>("QuantityNeeded")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -448,22 +458,86 @@ namespace MotorSystemsApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AvailableQuantity = 40.0,
+                            AvailableQuantity = 30f,
                             Brand = "Brand1",
-                            Description = "Description1",
-                            Name = "Name1",
-                            Price = 20.0,
-                            QuantityNeeded = 30.0
+                            Category = "Category1",
+                            DaysUntilNextNeed = 0,
+                            Description = "Desc1",
+                            MissingQuantity = 0f,
+                            Name = "Prod1",
+                            Price = 30f,
+                            QuantityNeeded = 0f
                         },
                         new
                         {
                             Id = 2,
-                            AvailableQuantity = 60.0,
+                            AvailableQuantity = 30f,
                             Brand = "Brand2",
-                            Description = "Description2",
-                            Name = "Name2",
-                            Price = 30.0,
-                            QuantityNeeded = 70.0
+                            Category = "Category2",
+                            DaysUntilNextNeed = 0,
+                            Description = "Desc2",
+                            MissingQuantity = 0f,
+                            Name = "Prod2",
+                            Price = 10f,
+                            QuantityNeeded = 0f
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableQuantity = 23f,
+                            Brand = "Brand3",
+                            Category = "Category3",
+                            DaysUntilNextNeed = 0,
+                            Description = "Desc3",
+                            MissingQuantity = 0f,
+                            Name = "Prod3",
+                            Price = 13f,
+                            QuantityNeeded = 0f
+                        });
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.ProductNeeded", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("NeededForDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantityNeeded")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductNeeded");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
+                            QuantityNeeded = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NeededForDate = new DateTime(2022, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
+                            QuantityNeeded = 38
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NeededForDate = new DateTime(2022, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 3,
+                            QuantityNeeded = 4
                         });
                 });
 

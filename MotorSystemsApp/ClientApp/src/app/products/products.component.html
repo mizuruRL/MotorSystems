@@ -5,24 +5,25 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="products">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Name</th>
-      <th>Description</th>
+      <th>Category</th>
       <th>Brand</th>
       <th>Price</th>
       <th>Available</th>
       <th>Needed</th>
+      <th>Missing</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
-      <td>{{ product.id }}</td>
       <td>{{ product.name }}</td>
-      <td>{{ product.description }}</td>
+      <td>{{ product.category }}</td>
       <td>{{ product.brand }}</td>
-      <td>{{ product.price }}</td>
+      <td>{{ product.price | currency: 'EUR' }}</td>
       <td>{{ product.availableQuantity }}</td>
       <td>{{ product.quantityNeeded }}</td>
+      <td [style.background]="getBackground(product.missingQuantity, product.daysUntilNextNeed)">{{ product.missingQuantity }}</td> 
     </tr>
   </tbody>
 </table>
+<button (click)="sortByUrgency()" class="btn-primary">Order by missing stock urgency</button>

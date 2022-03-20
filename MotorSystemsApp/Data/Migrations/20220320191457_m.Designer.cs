@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220318163005_ti")]
-    partial class ti
+    [Migration("20220320191457_m")]
+    partial class m
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -419,30 +419,107 @@ namespace MotorSystemsApp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("AvailableQuantity")
-                        .HasColumnType("float");
+                    b.Property<float>("AvailableQuantity")
+                        .HasColumnType("real");
 
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DaysUntilNextNeed")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("MissingQuantity")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
-                    b.Property<double>("QuantityNeeded")
-                        .HasColumnType("float");
+                    b.Property<float>("QuantityNeeded")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
                     b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableQuantity = 30f,
+                            Brand = "Brand1",
+                            DaysUntilNextNeed = 0,
+                            Description = "Desc1",
+                            MissingQuantity = 0f,
+                            Name = "Prod1",
+                            Price = 30f,
+                            QuantityNeeded = 0f
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableQuantity = 30f,
+                            Brand = "Brand2",
+                            DaysUntilNextNeed = 0,
+                            Description = "Desc2",
+                            MissingQuantity = 0f,
+                            Name = "Prod2",
+                            Price = 10f,
+                            QuantityNeeded = 0f
+                        });
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.ProductNeeded", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("NeededForDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantityNeeded")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductNeeded");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NeededForDate = new DateTime(2022, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
+                            QuantityNeeded = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NeededForDate = new DateTime(2022, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
+                            QuantityNeeded = 38
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NeededForDate = new DateTime(2022, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
+                            QuantityNeeded = 4
+                        });
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
