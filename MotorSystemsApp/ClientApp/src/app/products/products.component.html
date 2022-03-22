@@ -22,8 +22,10 @@
       <td>{{ product.price | currency: 'EUR' }}</td>
       <td>{{ product.availableQuantity }}</td>
       <td>{{ product.quantityNeeded }}</td>
-      <td [style.background]="getBackground(product.missingQuantity, product.daysUntilNextNeed)">{{ product.missingQuantity }}</td> 
+      <td [style.background]="getBackground(product.missingQuantity, product.daysUntilNextNeed)">{{ product.missingQuantity }}</td>
     </tr>
   </tbody>
 </table>
 <button (click)="sortByUrgency()" class="btn-primary">Order by missing stock urgency</button>
+<a routerLink="/product/create" class="btn btn-success">Add Product</a>
+

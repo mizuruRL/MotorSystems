@@ -48,8 +48,7 @@ namespace MotorSystemsApp.Controllers
                 TimeSpan diff = p.neededP.EarliestNeed - DateTime.Now;                
                 p.product.DaysUntilNextNeed = diff.Days; 
                 p.product.QuantityNeeded = p.neededP.QuantityNeeded;
-                p.product.MissingQuantity = p.product.AvailableQuantity > p.product.QuantityNeeded ? 0 : p.product.QuantityNeeded - p.product.AvailableQuantity;
-                
+                p.product.MissingQuantity = p.product.AvailableQuantity > p.product.QuantityNeeded ? 0 : p.product.QuantityNeeded - p.product.AvailableQuantity;                
             }
 
             return products;
@@ -105,6 +104,7 @@ namespace MotorSystemsApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            System.Diagnostics.Debug.WriteLine("POSTING");
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
