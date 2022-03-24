@@ -16,7 +16,6 @@ export class ProductCreateComponent implements OnInit {
   }
 
   createProduct(productForm: NgForm) {
-    console.log(productForm);
     this.service.createProduct(productForm.value).subscribe(res => {
       this.router.navigateByUrl("products");
     });

@@ -1,0 +1,21 @@
+<h1 *ngIf="product">{{product.name}}</h1>
+
+<p *ngIf="!product || !productMissing"><em>Loading...</em></p>
+
+<div class='col-md-5'>
+  <h5>Missing stock</h5>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productMissing">
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th>Needed for Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let needed of productNeeded">
+        <td>{{ needed.quantityNeeded }}</td>
+        <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

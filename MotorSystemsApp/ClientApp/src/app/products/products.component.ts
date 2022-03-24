@@ -2,7 +2,7 @@ import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProductsService } from '../services/products.service';
 import { Observable, of } from 'rxjs';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -12,20 +12,25 @@ import { Observable, of } from 'rxjs';
 
 export class ProductsComponent{
   public products: Product[] = [];
-  private selectedProduct: Product | undefined;
+  //private selectedProduct: Product | undefined;
 
-  constructor(private service: ProductsService) {    
-  }
+  constructor(private service: ProductsService, private router: Router) {}
 
   ngOnInit() {
     this.getProducts();
   }
 
   getProducts(): void {
-    this.service.getProducts().subscribe((products: Product[]) => this.products = products);
+    this.service.getProducts().subscribe(products => this.products = products);
   }
 
-  sortByUrgency(): void{    
+  getProductPage(id: number) {
+    this.service.getProduct(id).subscribe(res => {
+      this.router.navigateByUrl("products/" + id);
+    });
+  }
+
+  sortByUrgency(): void {
     this.products.sort((a, b) => {
       if (a.missingQuantity > 0 && b.missingQuantity <= 0) {
         return -1;
@@ -45,9 +50,9 @@ export class ProductsComponent{
     });
   }
 
-  onSelectProduct(product: Product): void {
-    this.selectedProduct = product;
-  }
+  //onSelectProduct(product: Product): void {
+  //  this.selectedProduct = product;
+  //}
 
   getBackground(missingQuantity: number, daysNextNeed: number): string {
     if (missingQuantity > 0)
