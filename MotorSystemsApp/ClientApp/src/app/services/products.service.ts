@@ -27,4 +27,7 @@ export class ProductsService {
     return this.http.post<Product>(this.baseUrl + 'api/products', product);
   }
 
+  updateProductQuantity(id: number, product: Product) {
+    return this.http.put<Product>(this.baseUrl + 'api/products/' + id, product);
+  }
 }

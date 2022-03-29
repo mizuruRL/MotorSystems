@@ -17,7 +17,7 @@ namespace MotorSystemsApp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -409,6 +409,46 @@ namespace MotorSystemsApp.Data.Migrations
                     b.ToTable("Client");
                 });
 
+            modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("QuantityOrdered")
+                        .HasColumnType("real");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductId = 1,
+                            QuantityOrdered = 5f,
+                            State = "Pending"
+                        });
+                });
+
             modelBuilder.Entity("MotorSystemsApp.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -526,14 +566,14 @@ namespace MotorSystemsApp.Data.Migrations
                         new
                         {
                             Id = 2,
-                            NeededForDate = new DateTime(2022, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 38
                         },
                         new
                         {
                             Id = 3,
-                            NeededForDate = new DateTime(2022, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 3,
                             QuantityNeeded = 4
                         });

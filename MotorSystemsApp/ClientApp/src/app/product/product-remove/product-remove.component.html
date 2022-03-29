@@ -1,0 +1,30 @@
+<h1 *ngIf="product">{{product.name}}</h1>
+
+<!--<form #removeProductForm="ngForm" (ngSubmit)="removeProduct(removeProductForm)">-->
+<form [formGroup] ="removeProductForm" (ngSubmit)="removeProduct()">
+  <div class="form-group">
+    <label for="removeFrom">Remove from: </label>
+    <select [(ngModel)]="selected" required formControlName="removeFrom" id="removeFrom" class="form-select">
+      <option value="Available Stock">Available Stock</option>
+      <option value="Stock Needed">Stock Needed</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="quantity">Quantity: </label>
+    <input required ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+    <div *ngIf="quantity?.invalid && (quantity?.dirty || quantity?.touched)"
+         class="alert alert-danger">
+      <div *ngIf="quantity?.errors?.['required']">
+        Quantity is required.
+      </div>
+      <div *ngIf="quantity?.errors?.['invalidQuantity']">
+        Quantity to remove must be the same or less than quantity available.
+      </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn-primary btn" [disabled]="!removeProductForm.valid">Submit</button>
+      <a routerLink="/products" class="btn btn-secondary">Back</a>
+    </div>
+</form>
+

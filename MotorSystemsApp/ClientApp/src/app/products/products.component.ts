@@ -7,12 +7,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  //styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.css']
 })
 
 export class ProductsComponent{
   public products: Product[] = [];
-  //private selectedProduct: Product | undefined;
 
   constructor(private service: ProductsService, private router: Router) {}
 
@@ -49,10 +48,6 @@ export class ProductsComponent{
       }
     });
   }
-
-  //onSelectProduct(product: Product): void {
-  //  this.selectedProduct = product;
-  //}
 
   getBackground(missingQuantity: number, daysNextNeed: number): string {
     if (missingQuantity > 0)

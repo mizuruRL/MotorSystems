@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -16,6 +16,10 @@ import { ProductsComponent } from './products/products.component';
 import { ProductsService } from './services/products.service';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { ProductDetailsComponent } from './product/product-details/product-details.component';
+import { OrdersComponent } from './orders/orders.component';
+import { OrdersService } from './services/orders.service';
+import { ProductAddComponent } from './product/product-add/product-add.component';
+import { ProductRemoveComponent } from './product/product-remove/product-remove.component';
 
 @NgModule({
   declarations: [
@@ -26,25 +30,31 @@ import { ProductDetailsComponent } from './product/product-details/product-detai
     FetchDataComponent,
     ProductsComponent,
     ProductCreateComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    OrdersComponent,
+    ProductAddComponent,
+    ProductRemoveComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ApiAuthorizationModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'product/create', component: ProductCreateComponent },
       { path: 'products/:id', component: ProductDetailsComponent },
+      { path: 'products/add/:id', component: ProductAddComponent },
+      { path: 'products/remove/:id', component: ProductRemoveComponent },
       //{ path: 'counter', component: CounterComponent },
       //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService
+    ProductsService, OrdersService
   ],
   bootstrap: [AppComponent]
 })

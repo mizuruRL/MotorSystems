@@ -1,6 +1,7 @@
 ﻿using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Options;
 using MotorSystemsApp.Models;
 
@@ -16,11 +17,17 @@ namespace MotorSystemsApp.Data
 
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductNeeded> ProductNeeded { get; set; }
+        public DbSet<Order> Order { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
+            modelBuilder
+            .Entity<Order>()
+            .Property(o => o.State)
+            .HasConversion(new EnumToStringConverter<OrderState>());
+
             modelBuilder.Entity<Product>().HasData
                 (
                     new Product
@@ -71,17 +78,31 @@ namespace MotorSystemsApp.Data
                     {
                         Id = 2,
                         ProductId = 1,
-                        NeededForDate = new DateTime(2022, 3, 29),
+                        NeededForDate = new DateTime(2022, 5, 29),
                         QuantityNeeded=38
                     },
                     new ProductNeeded
                     {
                         Id = 3,
                         ProductId = 3,
-                        NeededForDate = new DateTime(2022, 3, 24),
+                        NeededForDate = new DateTime(2022, 4, 24),
                         QuantityNeeded = 4
                     }
                 );
+
+            modelBuilder.Entity<Order>().HasData
+                (
+                    new Order
+                    {
+                        Id = 1,
+                        ProductId = 1,
+                        OrderDate = new DateTime(2022, 3, 20),
+                        OrderDelivery = new DateTime(2022, 4, 2),
+                        State = OrderState.Pending,
+                        QuantityOrdered=5,
+                    }
+                );
         }
+
     }
 }

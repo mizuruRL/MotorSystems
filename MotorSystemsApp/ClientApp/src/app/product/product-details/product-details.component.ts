@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../products/products.component';
+import { Order } from '../../orders/orders.component';
 import { ProductsService } from '../../services/products.service';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-product-details',
@@ -12,22 +14,36 @@ export class ProductDetailsComponent implements OnInit {
   public product!: Product;
   public productNeeded!: ProductNeeded[];
   public productMissing: ProductNeeded[] | undefined;
+  public orders!: Order[];
   id: number = 0;
 
-  constructor(private route: ActivatedRoute, private service: ProductsService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private prodService: ProductsService, private orderService: OrdersService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.getProduct();
+    this.getProductOrders(this.id);
     this.getProductNeeded();
   }
 
+  getProductOrders(prodId: number) {
+    this.orderService.getOrdersByProduct(prodId).subscribe(res => this.orders = res);
+  }
+
+  getProductAddView() {
+    this.router.navigateByUrl("products/add/" + this.id);
+  }
+
+  getProductRemoveView() {
+    this.router.navigateByUrl("products/remove/" + this.id);
+  }
+
   getProduct() {
-    this.service.getProduct(this.id).subscribe((product: Product) => this.product = product);
+    this.prodService.getProduct(this.id).subscribe((product: Product) => this.product = product);
   }
 
   getProductNeeded() {
-    this.service.getProductNeeded(this.id).subscribe(res => {
+    this.prodService.getProductNeeded(this.id).subscribe(res => {
       this.productNeeded = res;
       this.getProductMissing();
     });

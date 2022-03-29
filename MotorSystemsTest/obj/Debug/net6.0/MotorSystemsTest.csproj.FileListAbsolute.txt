@@ -61,7 +61,6 @@ C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Micr
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Sqlite.dll
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
@@ -385,3 +384,4 @@ C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\obj\Debug\net6.0\Moto
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\obj\Debug\net6.0\ref\MotorSystemsTest.dll
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\obj\Debug\net6.0\MotorSystemsTest.pdb
 C:\Users\tiago\Source\Repos\MotorSystems2\MotorSystemsTest\obj\Debug\net6.0\MotorSystemsTest.genruntimeconfig.cache
+C:\Users\tiago\source\repos\MotorSystems2\MotorSystemsTest\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
