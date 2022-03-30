@@ -10,7 +10,6 @@ import { Product } from '../products/products.component';
 })
 export class OrdersComponent implements OnInit {
   public orders: Order[] | undefined;
-  public product!: Product;
 
   constructor(private service: OrdersService, private prodService: ProductsService) { }
 
