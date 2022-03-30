@@ -4,6 +4,7 @@ import { Product } from '../../products/products.component';
 import { Order } from '../../orders/orders.component';
 import { ProductsService } from '../../services/products.service';
 import { OrdersService } from '../../services/orders.service';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-details',
@@ -15,7 +16,8 @@ export class ProductDetailsComponent implements OnInit {
   public productNeeded!: ProductNeeded[];
   public productMissing: ProductNeeded[] | undefined;
   public orders!: Order[];
-  id: number = 0;
+  public id: number = 0;
+  public activeForm!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private prodService: ProductsService, private orderService: OrdersService) { }
 
@@ -26,25 +28,69 @@ export class ProductDetailsComponent implements OnInit {
     this.getProductNeeded();
   }
 
+  addProductQtdForm = new FormGroup({
+    quantity: new FormControl('', Validators.required),
+  })
+
+  removeProductQtdForm = new FormGroup({
+    quantity: new FormControl('', Validators.required),
+  })
+
+  addProductNeededForm = new FormGroup({
+    quantity: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
+  })
+
+  get quantity() {
+    return this.removeProductQtdForm.get('quantity');
+  }
+
+  //addProductNeeded(): void {
+  //  let quantity: number = this.addProductNeededForm.controls.quantity.value;
+  //  let date: Date = this.addProductNeededForm.controls.date.value;
+
+  //  this.product.quantityNeeded += quantity
+
+  //  this.prodService.updateProductNeeded(this.id, this.productNeeded).subscribe(res => {
+  //    this.activeForm = "";
+  //  });
+  //}
+
+  addProductAvailable(): void {
+    let quantity: number = this.addProductQtdForm.controls.quantity.value;
+
+    this.product.availableQuantity += quantity
+
+    this.prodService.updateProductQuantity(this.id, this.product).subscribe(res => {
+      this.activeForm = "";
+    });
+  }
+
+  removeProductAvailable(): void {
+    let quantity: number = this.removeProductQtdForm.controls.quantity.value;
+
+    this.product.availableQuantity -= quantity;
+
+    this.prodService.updateProductQuantity(this.id, this.product).subscribe(res => {
+      this.activeForm = "";
+    });
+  }
+
   getProductOrders(prodId: number) {
     this.orderService.getOrdersByProduct(prodId).subscribe(res => this.orders = res);
   }
 
-  getProductAddView() {
-    this.router.navigateByUrl("products/add/" + this.id);
-  }
-
-  getProductRemoveView() {
-    this.router.navigateByUrl("products/remove/" + this.id);
-  }
-
   getProduct() {
-    this.prodService.getProduct(this.id).subscribe((product: Product) => this.product = product);
+    this.prodService.getProduct(this.id).subscribe((product: Product) => {
+      this.product = product
+      this.removeProductQtdForm.controls["quantity"].addValidators(availableProductValidator(this.product.availableQuantity));
+    });
   }
 
   getProductNeeded() {
     this.prodService.getProductNeeded(this.id).subscribe(res => {
       this.productNeeded = res;
+      this.sortByUrgency();
       this.getProductMissing();
     });
   }
@@ -62,11 +108,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductMissing() {
-    console.log(this.product);
-    let current = this.product.availableQuantity;
-    this.sortByUrgency();
     console.log(this.productNeeded);
-
+    let current = this.product.availableQuantity;
     for (let i = 0; i < this.productNeeded.length; i++) {
       current -= this.productNeeded[i].quantityNeeded;
       if (current < 0) {
@@ -74,9 +117,14 @@ export class ProductDetailsComponent implements OnInit {
         this.productMissing[0].quantityNeeded = - current;
       }
     }
+    console.log(this.productNeeded);
+  }
+}
 
-    console.log(this.productMissing);
-    
+export function availableProductValidator(availableQtd: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    let result = availableQtd - control.value;
+    return result < 0 ? { invalidQuantity: true } : null;
   }
 }
 

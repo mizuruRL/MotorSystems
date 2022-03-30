@@ -34,13 +34,12 @@ namespace MotorSystemsApp.Controllers
         public async Task<ActionResult<IEnumerable<ProductNeeded>>> GetProductNeeded(int id)
         {
             var productNeeded = await _context.ProductNeeded.Where(p => p.ProductId == id).ToListAsync();
-            //var productNeeded = await _context.ProductNeeded.FindAsync(id);
 
             if (productNeeded == null)
             {
                 return NotFound();
             }
-
+            productNeeded.ForEach(needed => System.Diagnostics.Debug.WriteLine(needed.QuantityNeeded));
             return productNeeded;
         }
 
