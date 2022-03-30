@@ -19,7 +19,11 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders() {
-    this.service.getOrders().subscribe((orders: Order[]) => this.orders = orders);
+    this.service.getOrders().subscribe((orders: Order[]) => {
+      this.orders = orders;      
+      this.orders.forEach(order => 
+        this.prodService.getProduct(order.productId).subscribe(res => order.productName=res.name))
+    });
   }
 
   getOrdersByProduct(prodId: number) {
@@ -34,6 +38,7 @@ export class OrdersComponent implements OnInit {
 
 export interface Order {
   id: number;
+  productName: string;
   orderDate: Date;
   orderDelivery: Date;
   state: string;

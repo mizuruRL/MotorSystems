@@ -9,6 +9,7 @@ namespace MotorSystemsApp.Models
         public DateTime OrderDate { get; set; }
         public DateTime OrderDelivery { get; set; }
         public int ProductId { get; set; }
+        public string? ProductName { get; set; }
         public float QuantityOrdered { get; set; }
         public OrderState State { get; set; }
         
