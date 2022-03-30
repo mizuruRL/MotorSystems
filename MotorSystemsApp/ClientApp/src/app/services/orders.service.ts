@@ -11,6 +11,10 @@ export class OrdersService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
+  getOrders(): Observable<Order[]> {
+    return this.http.get<Order[]>(this.baseUrl + 'api/orders')
+  }
+
   getOrdersByProduct(id: number): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + 'api/orders/' + id);
   }
