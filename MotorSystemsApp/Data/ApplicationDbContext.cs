@@ -37,7 +37,7 @@ namespace MotorSystemsApp.Data
                         Description = "Desc1",
                         Brand = "Brand1",
                         Price = 30,
-                        //QuantityNeeded = 50,
+                        QuantityNeeded = 0,
                         AvailableQuantity = 30,
                         Category = "Category1"
                     },
@@ -48,7 +48,7 @@ namespace MotorSystemsApp.Data
                         Description = "Desc2",
                         Brand = "Brand2",
                         Price = 10,
-                        //QuantityNeeded = 25,
+                        QuantityNeeded = 0,
                         AvailableQuantity = 30,
                         Category="Category2"
                     },
@@ -59,8 +59,8 @@ namespace MotorSystemsApp.Data
                         Description = "Desc3",
                         Brand = "Brand3",
                         Price = 13,
-                        //QuantityNeeded = 25,
-                        AvailableQuantity = 2,
+                        QuantityNeeded = 0,
+                        AvailableQuantity = 5,
                         Category = "Category3"
                     }
                 );
@@ -87,6 +87,13 @@ namespace MotorSystemsApp.Data
                         ProductId = 3,
                         NeededForDate = new DateTime(2022, 4, 24),
                         QuantityNeeded = 4
+                    },
+                    new ProductNeeded
+                    {
+                        Id = 4,
+                        ProductId = 3,
+                        NeededForDate = new DateTime(2022, 5, 24),
+                        QuantityNeeded = 10
                     }
                 );
 

@@ -14,7 +14,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 export class ProductDetailsComponent implements OnInit {
   public product!: Product;
   public productNeeded!: ProductNeeded[];
-  public productMissing: ProductNeeded[] | undefined;
+  public productMissing: ProductMissing[] | undefined;
   public orders!: Order[];
   public id: number = 0;
   public activeForm!: string;
@@ -45,16 +45,50 @@ export class ProductDetailsComponent implements OnInit {
     return this.removeProductQtdForm.get('quantity');
   }
 
-  //addProductNeeded(): void {
-  //  let quantity: number = this.addProductNeededForm.controls.quantity.value;
-  //  let date: Date = this.addProductNeededForm.controls.date.value;
+  addProductNeeded(): void {
+    let quantity: number = this.addProductNeededForm.controls.quantity.value;
+    let date: Date = this.addProductNeededForm.controls.date.value;
+    let existent: ProductNeeded | undefined = this.productNeeded.find(e => new Date(date).setHours(0, 0, 0, 0) == (new Date(e.neededForDate)).setHours(0, 0, 0, 0))
+    
+    if (existent && existent.id) {
+      existent.quantityNeeded += quantity;
+      this.prodService.updateProductNeeded(existent.id, existent).subscribe(res => {
+        this.activeForm = "";
+      });
+    }
+    else {
+      let p: ProductNeeded = {
+        id: undefined, productId:this.id, quantityNeeded:quantity, neededForDate:date
+      }
+      this.prodService.addProductNeeded(p).subscribe(res => {
+        this.activeForm = "";
+      });
+    }
 
-  //  this.product.quantityNeeded += quantity
+    this.product.quantityNeeded += quantity;    
+  }
 
-  //  this.prodService.updateProductNeeded(this.id, this.productNeeded).subscribe(res => {
-  //    this.activeForm = "";
-  //  });
-  //}
+  removeProductNeeded(): void {
+    let quantity: number = this.addProductNeededForm.controls.quantity.value;
+    let date: Date = this.addProductNeededForm.controls.date.value;
+    let existent: ProductNeeded | undefined = this.productNeeded.find(e => new Date(date).setHours(0, 0, 0, 0) == (new Date(e.neededForDate)).setHours(0, 0, 0, 0))
+    //console.log(existent);
+    if (existent && existent.id) {
+      existent.quantityNeeded -= quantity;
+      if (existent.quantityNeeded <= 0) {
+        console.log("WE'RE IN");
+        console.log(existent.id);
+        this.prodService.deleteProductNeeded(existent.id).subscribe(res => {
+          this.activeForm = "";
+        });
+      }
+      else {
+        this.prodService.updateProductNeeded(existent.id, existent).subscribe(res => {
+          this.activeForm = "";
+        })
+      }
+    }
+  }
 
   addProductAvailable(): void {
     let quantity: number = this.addProductQtdForm.controls.quantity.value;
@@ -89,6 +123,7 @@ export class ProductDetailsComponent implements OnInit {
 
   getProductNeeded() {
     this.prodService.getProductNeeded(this.id).subscribe(res => {
+      console.log("Product Needed: ", res);
       this.productNeeded = res;
       this.sortByUrgency();
       this.getProductMissing();
@@ -108,16 +143,15 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductMissing() {
-    console.log(this.productNeeded);
-    let current = this.product.availableQuantity;
+    let current: number = this.product.availableQuantity;
     for (let i = 0; i < this.productNeeded.length; i++) {
       current -= this.productNeeded[i].quantityNeeded;
       if (current < 0) {
-        this.productMissing = this.productNeeded.slice(i);
+        this.productMissing = this.productNeeded.slice(i).map(object => ({ ...object }))
         this.productMissing[0].quantityNeeded = - current;
+        break;
       }
     }
-    console.log(this.productNeeded);
   }
 }
 
@@ -129,8 +163,13 @@ export function availableProductValidator(availableQtd: number): ValidatorFn {
 }
 
 export interface ProductNeeded{
-  id: number;
+  id: number | undefined;
   productId: number;
+  quantityNeeded: number;
+  neededForDate: Date;
+}
+
+export interface ProductMissing {
   quantityNeeded: number;
   neededForDate: Date;
 }

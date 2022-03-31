@@ -59,12 +59,12 @@
   <div class="row" *ngIf="product">
     <div class='col-md-3'>
       <p>Available in stock: {{product.availableQuantity}}</p>
-      <button (click)="activeForm = 'AddToAvailable'" class="btn-primary btn">Add</button>
+      <button (click)="activeForm = 'AddToAvailable'" class="btn-success btn">Add</button>
       <button (click)="activeForm = 'RemoveFromAvailable'" class="btn-secondary btn">Remove</button>
     </div>
     <div class='col-md-3'>
       <p>Stock needed: {{product.quantityNeeded}}</p>
-      <button (click)="activeForm = 'AddToNeeded'" class="btn-primary btn">Add</button>
+      <button (click)="activeForm = 'AddToNeeded'" class="btn-success btn">Add</button>
       <button (click)="activeForm = 'RemoveFromNeeded'" class="btn-secondary btn">Remove</button>
     </div>
   </div>
@@ -91,6 +91,30 @@
         </div>
         <div class="form-group">
           <button type="submit" class="btn-secondary btn" [disabled]="!removeProductQtdForm.valid">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <form [formGroup]="addProductNeededForm" (ngSubmit)="addProductNeeded()" *ngIf="activeForm=='AddToNeeded'">
+        <div class="form-group">
+          <label for="quantity">Quantity: </label>
+          <input ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+          <label for="date">Needed for: </label>
+          <input ngModel formControlName="date" id="date" type="date" class="form-control" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-success btn" [disabled]="!addProductNeededForm.valid">Submit</button>
+        </div>
+      </form>
+      <form [formGroup]="addProductNeededForm" (ngSubmit)="removeProductNeeded()" *ngIf="activeForm=='RemoveFromNeeded'">
+        <div class="form-group">
+          <label for="quantity">Quantity: </label>
+          <input ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+          <label for="date">Needed for: </label>
+          <input ngModel formControlName="date" id="date" type="date" class="form-control" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-success btn" [disabled]="!addProductNeededForm.valid">Submit</button>
         </div>
       </form>
     </div>

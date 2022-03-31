@@ -32,6 +32,14 @@ export class ProductsService {
   }
 
   updateProductNeeded(id: number, product: ProductNeeded) {
-    return this.http.put<Product>(this.baseUrl + 'api/productsNeeded/' + id, product);
+    return this.http.put<ProductNeeded>(this.baseUrl + 'api/productsNeeded/' + id, product);
+  }
+
+  addProductNeeded(product: ProductNeeded) {
+    return this.http.post<ProductNeeded>(this.baseUrl + 'api/productsNeeded/', product);
+  }
+
+  deleteProductNeeded(id: number) {
+    return this.http.delete<ProductNeeded>(this.baseUrl + 'api/productsNeeded/' + id);
   }
 }
