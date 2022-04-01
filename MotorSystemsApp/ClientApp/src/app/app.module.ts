@@ -48,6 +48,7 @@ import { ProductRemoveComponent } from './product/product-remove/product-remove.
       { path: 'products/:id', component: ProductDetailsComponent },
       { path: 'products/add/:id', component: ProductAddComponent },
       { path: 'products/remove/:id', component: ProductRemoveComponent },
+      { path: 'orders', component: OrdersComponent },
       //{ path: 'counter', component: CounterComponent },
       //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ])
