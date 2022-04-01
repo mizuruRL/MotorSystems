@@ -75,8 +75,10 @@ export interface Product {
   category: string;
   brand: string;
   price: number;
+  description: string;
   quantityNeeded: number;
   availableQuantity: number;
   missingQuantity: number;
   daysUntilNextNeed: number;
+  imgUrl: number;
 }

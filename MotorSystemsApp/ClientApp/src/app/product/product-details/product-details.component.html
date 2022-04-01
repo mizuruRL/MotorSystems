@@ -2,69 +2,26 @@
 
 <p *ngIf="!product || !productMissing"><em>Loading...</em></p>
 
-<div class='row'>
+<div class="row" *ngIf="product">
   <div class='col-md-4'>
-    <h5>Stock Needed</h5>
-    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productNeeded">
-      <thead>
-        <tr>
-          <th>Quantity</th>
-          <th>Needed for Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let needed of productNeeded">
-          <td>{{ needed.quantityNeeded }}</td>
-          <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    <div class='col-md-4'>
-      <h5>Missing stock</h5>
-      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productMissing">
-        <thead>
-          <tr>
-            <th>Quantity</th>
-            <th>Needed for Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let needed of productMissing">
-            <td>{{ needed.quantityNeeded }}</td>
-            <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class='col-md-4'>
-      <h5>Current orders</h5>
-      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orders">
-        <thead>
-          <tr>
-            <th>Quantity</th>
-            <th>Expected Delivery</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let order of orders">
-            <td>{{ order.quantityOrdered }}</td>
-            <td>{{ order.orderDelivery | date: 'dd/MM/yyyy' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <img src={{product.imgUrl}} class="img-fluid"/>
   </div>
-  <div class="row" *ngIf="product">
+  <div class='col-md-6 mx-3 mt-5'>
+    <p><span class="fw-bold">Category: </span>{{product.category}}</p>
+    <p><span class="fw-bold">Branc: </span>{{product.brand}}</p>
+    <p><span class="fw-bold">Price: </span>{{product.price}}</p>
+    <p><span class="fw-bold">Description: </span>{{product.description}}</p>
+  </div>  
+ </div>
+  <div class="row d-flex justify-content-center my-5">
     <div class='col-md-3'>
       <p>Available in stock: {{product.availableQuantity}}</p>
-      <button (click)="activeForm = 'AddToAvailable'" class="btn-success btn">Add</button>
+      <button (click)="activeForm = 'AddToAvailable'" class="btn-success btn mx-1">Add</button>
       <button (click)="activeForm = 'RemoveFromAvailable'" class="btn-secondary btn">Remove</button>
     </div>
     <div class='col-md-3'>
       <p>Stock needed: {{product.quantityNeeded}}</p>
-      <button (click)="activeForm = 'AddToNeeded'" class="btn-success btn">Add</button>
+      <button (click)="activeForm = 'AddToNeeded'" class="btn-success btn mx-1">Add</button>
       <button (click)="activeForm = 'RemoveFromNeeded'" class="btn-secondary btn">Remove</button>
     </div>
   </div>
@@ -119,3 +76,60 @@
       </form>
     </div>
   </div>
+
+
+<div class='row'>
+  <div class='col-md-4'>
+    <h5>Stock Needed</h5>
+    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productNeeded">
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Needed for Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let needed of productNeeded">
+          <td>{{ needed.quantityNeeded }}</td>
+          <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class='col-md-4'>
+      <h5>Missing stock</h5>
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productMissing">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Needed for Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let needed of productMissing">
+            <td>{{ needed.quantityNeeded }}</td>
+            <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class='col-md-4'>
+      <h5>Current orders</h5>
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orders">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Expected Delivery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.quantityOrdered }}</td>
+            <td>{{ order.orderDelivery | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

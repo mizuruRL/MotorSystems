@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorSystemsApp.Data;
 
@@ -11,9 +12,10 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220401004206_product-img-url")]
+    partial class productimgurl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -503,7 +505,7 @@ namespace MotorSystemsApp.Data.Migrations
                             Brand = "Brand1",
                             Category = "Category1",
                             DaysUntilNextNeed = 0,
-                            Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
+                            Description = "Desc1",
                             ImgUrl = "/assets/images/castrol-oil.jpg",
                             MissingQuantity = 0f,
                             Name = "Prod1",

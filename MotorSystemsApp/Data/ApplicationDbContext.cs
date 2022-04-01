@@ -34,12 +34,13 @@ namespace MotorSystemsApp.Data
                     {
                         Id = 1,
                         Name = "Prod1",
-                        Description = "Desc1",
+                        Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
                         Brand = "Brand1",
                         Price = 30,
                         QuantityNeeded = 0,
                         AvailableQuantity = 30,
-                        Category = "Category1"
+                        Category = "Category1",
+                        ImgUrl = "/assets/images/castrol-oil.jpg"
                     },
                     new Product
                     {
@@ -50,7 +51,8 @@ namespace MotorSystemsApp.Data
                         Price = 10,
                         QuantityNeeded = 0,
                         AvailableQuantity = 30,
-                        Category="Category2"
+                        Category="Category2",
+                        ImgUrl = "/assets/images/castrol-oil.jpg"
                     },
                     new Product
                     {
@@ -61,7 +63,8 @@ namespace MotorSystemsApp.Data
                         Price = 13,
                         QuantityNeeded = 0,
                         AvailableQuantity = 5,
-                        Category = "Category3"
+                        Category = "Category3",
+                        ImgUrl = "/assets/images/castrol-oil.jpg"
                     }
                 );
 

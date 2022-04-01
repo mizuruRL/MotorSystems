@@ -72,12 +72,9 @@ export class ProductDetailsComponent implements OnInit {
     let quantity: number = this.addProductNeededForm.controls.quantity.value;
     let date: Date = this.addProductNeededForm.controls.date.value;
     let existent: ProductNeeded | undefined = this.productNeeded.find(e => new Date(date).setHours(0, 0, 0, 0) == (new Date(e.neededForDate)).setHours(0, 0, 0, 0))
-    //console.log(existent);
     if (existent && existent.id) {
       existent.quantityNeeded -= quantity;
       if (existent.quantityNeeded <= 0) {
-        console.log("WE'RE IN");
-        console.log(existent.id);
         this.prodService.deleteProductNeeded(existent.id).subscribe(res => {
           this.activeForm = "";
         });
