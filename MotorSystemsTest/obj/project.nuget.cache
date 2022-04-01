@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0kaz8NRWAv9+YgW3wnBSQarLsuT0PZsIGZg+Iu1Nkx51+K7IvUUDRB/ix+xfzK8cF0a+QuarH9CfRrLrFTNsmQ==",
+  "dgSpecHash": "U/bFHZMSoX9mKp37GnfLMsHLItW54eH6V7u4l8UcNbWDnAOMG8CqzYOLVkRiCCU4q2CDLEht2B/dmemQx1y17g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsTest\\MotorSystemsTest.csproj",
+  "projectFilePath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tiago\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\tiago\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",

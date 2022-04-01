@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsTest\\MotorSystemsTest.csproj": {}
+    "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\MotorSystemsApp.csproj": {
+    "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\MotorSystemsApp.csproj",
+        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj",
         "projectName": "MotorSystemsApp",
-        "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\MotorSystemsApp.csproj",
+        "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj",
         "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\obj\\",
+        "outputPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -113,14 +113,14 @@
         }
       }
     },
-    "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsTest\\MotorSystemsTest.csproj": {
+    "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsTest\\MotorSystemsTest.csproj",
+        "projectUniqueName": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj",
         "projectName": "MotorSystemsTest",
-        "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsTest\\MotorSystemsTest.csproj",
+        "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\MotorSystemsTest.csproj",
         "packagesPath": "C:\\Users\\tiago\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsTest\\obj\\",
+        "outputPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tiago\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -137,8 +137,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\MotorSystemsApp.csproj": {
-                "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\MotorSystemsApp.csproj"
+              "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj": {
+                "projectPath": "C:\\Users\\tiago\\source\\repos\\MotorSystems\\MotorSystemsApp\\MotorSystemsApp.csproj"
               }
             }
           }
