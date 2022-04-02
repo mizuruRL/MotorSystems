@@ -18,25 +18,37 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders() {
-    this.service.getOrders().subscribe((orders: Order[]) => {
-      this.orders = orders;      
-      this.orders.forEach(order =>
-        order.productIds.forEach(productId => {
-          console.log(productId);
-          this.prodService.getProduct(productId).subscribe(res => order.productNames.push(res.name))
-        })
-        )
-      });
+    this.service.getOrders().subscribe(orders => {
+      this.orders = orders;
+    })
+    //this.service.getOrders().subscribe((orders: OrderRaw[]) => {
+    //  this.orders = [];
+    //  this.orders.push(orders[0]);
+    //  for (let i = 0; i < orders.length; i++) {
+    //    if (this.orders) {
+    //      let existent: number = this.orders.findIndex(order => order.id == orders[i].id);
+    //      if (existent > -1) {
+    //        this.orders ?
+    //      }
+    //    }
+        
+    //  }
+    //  orders.forEach(order =>
+    //    order.productIds.forEach(productId => {
+    //      console.log(productId);
+    //      this.prodService.getProduct(productId).subscribe(res => order.productNames.push(res.name))
+    //    })
+    //    )
+    //  });
   }
 
-  getOrdersByProduct(prodId: number) {
-    this.service.getOrdersByProduct(prodId).subscribe(res => this.orders = res);
-  }
 
-
+  //getOrdersByProduct(prodId: number) {
+  //  this.service.getOrdersByProduct(prodId).subscribe(res => this.orders = res);
+  //}
 }
 
-export interface Order {
+export interface OrderFinal {
   id: number;
   productNames: [string];
   orderDate: Date;
@@ -44,4 +56,21 @@ export interface Order {
   state: string;
   productIds: [number];
   quantityOrdered: number;
+}
+
+export interface Order {
+  id: number;
+  orderDate: Date;
+  orderDelivery: Date;
+  state: string;
+  orderItems: [OrderItem]
+}
+
+export interface OrderItem {
+  orderId: number;
+  productId: number;
+  order: Order;
+  product: Product;
+  quantity: number;
+  price: number
 }

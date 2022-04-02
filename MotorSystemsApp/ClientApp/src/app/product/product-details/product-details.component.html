@@ -13,7 +13,7 @@
     <p><span class="fw-bold">Description: </span>{{product.description}}</p>
   </div>  
  </div>
-  <div class="row d-flex justify-content-center my-5">
+  <div class="row d-flex justify-content-center my-5" *ngIf="product">
     <div class='col-md-3'>
       <p>Available in stock: {{product.availableQuantity}}</p>
       <button (click)="activeForm = 'AddToAvailable'" class="btn-success btn mx-1">Add</button>
@@ -116,7 +116,7 @@
 
     <div class='col-md-4'>
       <h5>Current orders</h5>
-      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orders">
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orderItems">
         <thead>
           <tr>
             <th>Quantity</th>
@@ -124,9 +124,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let order of orders">
-            <td>{{ order.quantityOrdered }}</td>
-            <td>{{ order.orderDelivery | date: 'dd/MM/yyyy' }}</td>
+          <tr *ngFor="let item of orderItems">
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.order.orderDelivery | date: 'dd/MM/yyyy' }}</td>
           </tr>
         </tbody>
       </table>

@@ -1,4 +1,4 @@
-import { Order } from '../orders/orders.component';
+import { Order, OrderItem } from '../orders/orders.component';
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -15,8 +15,12 @@ export class OrdersService {
     return this.http.get<Order[]>(this.baseUrl + 'api/orders')
   }
 
-  getOrdersByProduct(id: number): Observable<Order[]> {
-    return this.http.get<Order[]>(this.baseUrl + 'api/orders/' + id);
+  getOrdersByProduct(id: number): Observable<OrderItem[]> {
+    return this.http.get<OrderItem[]>(this.baseUrl + 'api/orderItems/' + id);
+  }
+
+  getOrderById(id: number): Observable<Order> {
+    return this.http.get<Order>(this.baseUrl + 'api/orders/' + id);
   }
 
 

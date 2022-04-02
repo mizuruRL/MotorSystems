@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../products/products.component';
-import { Order } from '../../orders/orders.component';
+import { Order, OrderItem } from '../../orders/orders.component';
 import { ProductsService } from '../../services/products.service';
 import { OrdersService } from '../../services/orders.service';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
@@ -15,7 +15,7 @@ export class ProductDetailsComponent implements OnInit {
   public product!: Product;
   public productNeeded!: ProductNeeded[];
   public productMissing: ProductMissing[] | undefined;
-  public orders!: Order[];
+  public orderItems!: OrderItem[];
   public id: number = 0;
   public activeForm!: string;
 
@@ -25,7 +25,7 @@ export class ProductDetailsComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.getProduct();
     this.getProductOrders(this.id);
-    this.getProductNeeded();
+    this.getProductNeeded();    
   }
 
   addProductQtdForm = new FormGroup({
@@ -107,13 +107,22 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductOrders(prodId: number) {
-    this.orderService.getOrdersByProduct(prodId).subscribe(res => this.orders = res);
+    this.orderService.getOrdersByProduct(prodId).subscribe(res => {
+      this.orderItems = res;
+      this.orderItems.forEach(item => {
+        this.orderService.getOrderById(item.orderId).subscribe(order => {
+          item.order = order;
+        })
+      })
+      console.log("ORDERS: ", this.orderItems);
+    });
   }
 
   getProduct() {
     this.prodService.getProduct(this.id).subscribe((product: Product) => {
       this.product = product
       this.removeProductQtdForm.controls["quantity"].addValidators(availableProductValidator(this.product.availableQuantity));
+      console.log(this.product);
     });
   }
 

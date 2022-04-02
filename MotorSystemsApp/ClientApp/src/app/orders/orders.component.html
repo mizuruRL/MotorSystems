@@ -16,11 +16,11 @@
   <tbody>
     <tr *ngFor="let order of orders" class="item">
       <td>{{order.id}}</td>
-      <td *ngFor="let product of order.productNames"><p>{{product}}</p></td>
+      <!--<td *ngFor="let product of order.productNames"><p>{{product}}</p></td>-->
       <td>{{order.orderDate}}</td>
       <td>{{order.orderDelivery}}</td>
       <td>{{order.state}}</td>
-      <td>{{order.quantityOrdered}}</td>
+      <!--<td>{{order.quantityOrdered}}</td>-->
     </tr>
   </tbody>
 </table>

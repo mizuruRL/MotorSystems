@@ -9,17 +9,17 @@ using MotorSystemsApp.Data;
 
 #nullable disable
 
-namespace MotorSystemsApp.Data.Migrations
+namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220320202001_test-urgency-sort")]
-    partial class testurgencysort
+    [Migration("20220402083803_orderItem")]
+    partial class orderItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -411,6 +411,50 @@ namespace MotorSystemsApp.Data.Migrations
                     b.ToTable("Client");
                 });
 
+            modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("OrderDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItem");
+                });
+
             modelBuilder.Entity("MotorSystemsApp.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -437,6 +481,9 @@ namespace MotorSystemsApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImgUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("MissingQuantity")
                         .HasColumnType("real");
 
@@ -453,47 +500,6 @@ namespace MotorSystemsApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AvailableQuantity = 30f,
-                            Brand = "Brand1",
-                            Category = "Category1",
-                            DaysUntilNextNeed = 0,
-                            Description = "Desc1",
-                            MissingQuantity = 0f,
-                            Name = "Prod1",
-                            Price = 30f,
-                            QuantityNeeded = 0f
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AvailableQuantity = 30f,
-                            Brand = "Brand2",
-                            Category = "Category2",
-                            DaysUntilNextNeed = 0,
-                            Description = "Desc2",
-                            MissingQuantity = 0f,
-                            Name = "Prod2",
-                            Price = 10f,
-                            QuantityNeeded = 0f
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AvailableQuantity = 23f,
-                            Brand = "Brand3",
-                            Category = "Category3",
-                            DaysUntilNextNeed = 0,
-                            Description = "Desc3",
-                            MissingQuantity = 0f,
-                            Name = "Prod3",
-                            Price = 13f,
-                            QuantityNeeded = 0f
-                        });
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.ProductNeeded", b =>
@@ -516,29 +522,6 @@ namespace MotorSystemsApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductNeeded");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ProductId = 1,
-                            QuantityNeeded = 10
-                        },
-                        new
-                        {
-                            Id = 2,
-                            NeededForDate = new DateTime(2022, 3, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ProductId = 1,
-                            QuantityNeeded = 38
-                        },
-                        new
-                        {
-                            Id = 3,
-                            NeededForDate = new DateTime(2022, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ProductId = 3,
-                            QuantityNeeded = 4
-                        });
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
@@ -629,6 +612,35 @@ namespace MotorSystemsApp.Data.Migrations
                     b.Navigation("Client");
 
                     b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.OrderItem", b =>
+                {
+                    b.HasOne("MotorSystemsApp.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MotorSystemsApp.Models.Product", "Product")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Product", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

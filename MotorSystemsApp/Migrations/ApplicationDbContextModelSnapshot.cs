@@ -8,7 +8,7 @@ using MotorSystemsApp.Data;
 
 #nullable disable
 
-namespace MotorSystemsApp.Data.Migrations
+namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -412,10 +412,10 @@ namespace MotorSystemsApp.Data.Migrations
             modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -423,14 +423,11 @@ namespace MotorSystemsApp.Data.Migrations
                     b.Property<DateTime>("OrderDelivery")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("QuantityOrdered")
-                        .HasColumnType("real");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id", "ProductId");
+                    b.HasKey("Id");
 
                     b.ToTable("Order");
 
@@ -438,20 +435,46 @@ namespace MotorSystemsApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ProductId = 1,
                             OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuantityOrdered = 5f,
                             State = "Pending"
+                        });
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.OrderItem", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Quantity")
+                        .HasColumnType("real");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItem");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            ProductId = 1,
+                            Price = 5f,
+                            Quantity = 3f
                         },
                         new
                         {
-                            Id = 1,
+                            OrderId = 1,
                             ProductId = 2,
-                            OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            QuantityOrdered = 5f,
-                            State = "Pending"
+                            Price = 7f,
+                            Quantity = 4f
                         });
                 });
 
@@ -686,6 +709,35 @@ namespace MotorSystemsApp.Data.Migrations
                     b.Navigation("Client");
 
                     b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.OrderItem", b =>
+                {
+                    b.HasOne("MotorSystemsApp.Models.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MotorSystemsApp.Models.Product", "Product")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
+                {
+                    b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Product", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

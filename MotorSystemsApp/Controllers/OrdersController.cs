@@ -30,18 +30,32 @@ namespace MotorSystemsApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrder(int productId)
+        public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var orders = await _context.Order.Where(o => o.ProductId == productId).ToListAsync();
+            //var orders = await _context.Order.Where(o => o.ProductId == productId).ToListAsync();
             //var productNeeded = await _context.ProductNeeded.FindAsync(id);
+            var order = await _context.Order.FindAsync(id);
 
-            if (orders == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return orders;
+            return order;
         }
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Order>> GetOrderByProduct(int id)
+        //{
+        //    var orders = await _context.Order.Where(o => o.OrderItems. == productId).ToListAsync();
+            
+        //    if (orders == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return orders;
+        //}
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
