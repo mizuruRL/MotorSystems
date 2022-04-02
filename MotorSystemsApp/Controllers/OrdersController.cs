@@ -30,9 +30,9 @@ namespace MotorSystemsApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrder(int id)
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrder(int productId)
         {
-            var orders = await _context.Order.Where(o => o.ProductId == id).ToListAsync();
+            var orders = await _context.Order.Where(o => o.ProductId == productId).ToListAsync();
             //var productNeeded = await _context.ProductNeeded.FindAsync(id);
 
             if (orders == null)

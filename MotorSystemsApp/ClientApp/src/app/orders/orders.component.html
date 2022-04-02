@@ -6,20 +6,20 @@
   <thead>
     <tr>
       <th>Order Nº</th>
+      <th>Product Ordered</th>
       <th>Order Date</th>
       <th>Order Delivery</th>
       <th>Order State</th>
-      <th>Product Ordered</th>
       <th>Quantity Ordered</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let order of orders" class="item">
       <td>{{order.id}}</td>
+      <td *ngFor="let product of order.productNames"><p>{{product}}</p></td>
       <td>{{order.orderDate}}</td>
       <td>{{order.orderDelivery}}</td>
       <td>{{order.state}}</td>
-      <td>{{order.productName}}</td>
       <td>{{order.quantityOrdered}}</td>
     </tr>
   </tbody>

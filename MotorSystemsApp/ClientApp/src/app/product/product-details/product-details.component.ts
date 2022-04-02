@@ -35,16 +35,15 @@ export class ProductDetailsComponent implements OnInit {
   removeProductQtdForm = new FormGroup({
     quantity: new FormControl('', Validators.required),
   })
+  get quantity() {
+    return this.removeProductQtdForm.get('quantity');
+  }
 
   addProductNeededForm = new FormGroup({
     quantity: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
   })
-
-  get quantity() {
-    return this.removeProductQtdForm.get('quantity');
-  }
-
+  
   addProductNeeded(): void {
     let quantity: number = this.addProductNeededForm.controls.quantity.value;
     let date: Date = this.addProductNeededForm.controls.date.value;

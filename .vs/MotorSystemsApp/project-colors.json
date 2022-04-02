@@ -15,7 +15,12 @@
       "ProjectGuid": "23f9388a-f197-41f5-bfce-7e45bef6315d",
       "DisplayName": "MotorSystemsTest",
       "ColorIndex": 1
+    },
+    "86df14a4-5448-4bfa-bb65-388cdb109504": {
+      "ProjectGuid": "86df14a4-5448-4bfa-bb65-388cdb109504",
+      "DisplayName": "MotorSystemsApp",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }

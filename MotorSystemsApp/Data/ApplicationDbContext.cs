@@ -28,6 +28,8 @@ namespace MotorSystemsApp.Data
             .Property(o => o.State)
             .HasConversion(new EnumToStringConverter<OrderState>());
 
+            modelBuilder.Entity<Order>().HasKey(o => new { o.Id, o.ProductId });
+
             modelBuilder.Entity<Product>().HasData
                 (
                     new Product
@@ -37,7 +39,7 @@ namespace MotorSystemsApp.Data
                         Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
                         Brand = "Brand1",
                         Price = 30,
-                        QuantityNeeded = 0,
+                        //QuantityNeeded = 0,
                         AvailableQuantity = 30,
                         Category = "Category1",
                         ImgUrl = "/assets/images/castrol-oil.jpg"
@@ -49,7 +51,7 @@ namespace MotorSystemsApp.Data
                         Description = "Desc2",
                         Brand = "Brand2",
                         Price = 10,
-                        QuantityNeeded = 0,
+                        //QuantityNeeded = 0,
                         AvailableQuantity = 30,
                         Category="Category2",
                         ImgUrl = "/assets/images/castrol-oil.jpg"
@@ -61,7 +63,7 @@ namespace MotorSystemsApp.Data
                         Description = "Desc3",
                         Brand = "Brand3",
                         Price = 13,
-                        QuantityNeeded = 0,
+                        //QuantityNeeded = 0,
                         AvailableQuantity = 5,
                         Category = "Category3",
                         ImgUrl = "/assets/images/castrol-oil.jpg"
@@ -110,6 +112,15 @@ namespace MotorSystemsApp.Data
                         OrderDelivery = new DateTime(2022, 4, 2),
                         State = OrderState.Pending,
                         QuantityOrdered=5,
+                    },
+                    new Order
+                    {
+                        Id = 1,
+                        ProductId = 2,
+                        OrderDate = new DateTime(2022, 3, 20),
+                        OrderDelivery = new DateTime(2022, 4, 2),
+                        State = OrderState.Pending,
+                        QuantityOrdered = 5,
                     }
                 );
         }
