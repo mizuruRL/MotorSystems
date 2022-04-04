@@ -16,6 +16,7 @@ namespace MotorSystemsApp.Controllers
     public class OrderItemsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private OrdersController _ordersController;
 
         public OrderItemsController(ApplicationDbContext context)
         {
@@ -29,11 +30,24 @@ namespace MotorSystemsApp.Controllers
             return await _context.OrderItem.ToListAsync();
         }
 
-        // GET: api/OrderItems/5
-        [HttpGet("{id}")]
+        [HttpGet("itemsByProduct/{id}")]
         public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItemsByProduct(int id)
         {
             var orderItems = await _context.OrderItem.Where(oi => oi.ProductId == id).ToListAsync();
+
+            if (orderItems == null)
+            {
+                return NotFound();
+            }
+
+            return orderItems;
+        }
+
+        [HttpGet("itemsByOrder/{id}")]
+        public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItemsByOrder(int id)
+        {
+            var orderItems = await _context.OrderItem.Where(oi => oi.OrderId == id).ToListAsync();
+            //orderItems.ForEach(async item => item.Order = await (Order)_ordersController.GetOrder(item.OrderId));
 
             if (orderItems == null)
             {

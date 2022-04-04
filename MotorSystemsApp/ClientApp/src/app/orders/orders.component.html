@@ -7,20 +7,28 @@
     <tr>
       <th>Order Nº</th>
       <th>Product Ordered</th>
+      <th>Quantity Ordered</th>
       <th>Order Date</th>
       <th>Order Delivery</th>
       <th>Order State</th>
-      <th>Quantity Ordered</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let order of orders" class="item">
       <td>{{order.id}}</td>
-      <!--<td *ngFor="let product of order.productNames"><p>{{product}}</p></td>-->
-      <td>{{order.orderDate}}</td>
-      <td>{{order.orderDelivery}}</td>
+      <td>
+        <ng-container *ngFor="let item of order.orderItems">
+          <p>{{item.product.name}}</p>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngFor="let item of order.orderItems">
+          <p>{{item.quantity}}</p>
+        </ng-container>
+      </td>
+      <td>{{order.orderDate | date: 'dd/MM/yyyy'}}</td>
+      <td>{{order.orderDelivery | date: 'dd/MM/yyyy'}}</td>
       <td>{{order.state}}</td>
-      <!--<td>{{order.quantityOrdered}}</td>-->
     </tr>
   </tbody>
 </table>

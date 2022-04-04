@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MotorSystemsApp.Models
 {
@@ -15,7 +16,11 @@ namespace MotorSystemsApp.Models
         public ICollection<OrderItem>? OrderItems { get; set; }
         public float QuantityNeeded { get; set; }
         public float AvailableQuantity { get; set; }
+
+       
         public float MissingQuantity { get; set; }
+
+        
         public int DaysUntilNextNeed { get; set; }
         
     }

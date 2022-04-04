@@ -11,15 +11,24 @@ import { Product } from '../products/products.component';
 export class OrdersComponent implements OnInit {
   public orders: Order[] | undefined;
 
-  constructor(private service: OrdersService, private prodService: ProductsService) { }
+  constructor(private ordersService: OrdersService, private prodService: ProductsService) { }
 
   ngOnInit(): void {
     this.getOrders();
   }
 
   getOrders() {
-    this.service.getOrders().subscribe(orders => {
+    this.ordersService.getOrders().subscribe(orders => {
       this.orders = orders;
+      this.orders.forEach(order => {
+        this.ordersService.getOrderItemsByOrder(order.id).subscribe(items => {
+          order.orderItems = items;
+          order.orderItems.forEach(item => this.prodService.getProduct(item.productId).subscribe(
+            product => { item.product = product; console.log(this.orders) })
+          )
+          
+        })
+      })
     })
     //this.service.getOrders().subscribe((orders: OrderRaw[]) => {
     //  this.orders = [];
@@ -63,7 +72,7 @@ export interface Order {
   orderDate: Date;
   orderDelivery: Date;
   state: string;
-  orderItems: [OrderItem]
+  orderItems: OrderItem[]
 }
 
 export interface OrderItem {
