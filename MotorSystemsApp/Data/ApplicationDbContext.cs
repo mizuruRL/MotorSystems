@@ -41,46 +41,6 @@ namespace MotorSystemsApp.Data
                         .WithMany(p => p.OrderItems)
                         .HasForeignKey(oi => oi.ProductId);
 
-            //modelBuilder.Entity<Product>()
-            //.Property<List<Order>>("Orders");
-
-            ////modelBuilder.Entity<Order>().HasKey(o => new { o.Id, o.ProductId });
-            //modelBuilder.Entity<Order>()
-            //    .HasMany(o => o.Products).WithMany(p => p.Orders);
-
-
-
-            //// Use the shadow property as a foreign key
-            //modelBuilder.Entity<Post>()
-            //    .HasOne(p => p.Blog)
-            //    .WithMany(b => b.Posts)
-            //.HasForeignKey("BlogForeignKey");
-            //Product prod1 = new Product()
-            //{
-            //    Id = 1,
-            //    Name = "Prod1",
-            //    Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
-            //    Brand = "Brand1",
-            //    Price = 30,
-            //    //QuantityNeeded = 0,
-            //    AvailableQuantity = 30,
-            //    Category = "Category1",
-            //    ImgUrl = "/assets/images/castrol-oil.jpg"
-            //};
-
-            //Product prod2 = new Product
-            //{
-            //    Id = 2,
-            //    Name = "Prod2",
-            //    Description = "Desc2",
-            //    Brand = "Brand2",
-            //    Price = 10,
-            //    //QuantityNeeded = 0,
-            //    AvailableQuantity = 30,
-            //    Category = "Category2",
-            //    ImgUrl = "/assets/images/castrol-oil.jpg"
-            //};
-
             modelBuilder.Entity<Product>().HasData
                 (
                     new Product()

@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotorSystemsApp.Data;
 using MotorSystemsApp.Models;
+using Newtonsoft.Json;
 
 namespace MotorSystemsApp.Controllers
 {
@@ -25,8 +27,32 @@ namespace MotorSystemsApp.Controllers
         // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrder()
-        {
-            return await _context.Order.ToListAsync();
+        {            
+            var orders = await _context.Order.ToListAsync();
+
+            if (orders != null)
+            {
+                foreach (Order order in orders)
+                {
+                    order.OrderItems = await _context.OrderItem.Where(oi => oi.OrderId == order.Id).ToListAsync();
+                    if (order.OrderItems != null)
+                    {
+                        foreach (OrderItem item in order.OrderItems)
+                        {
+                            item.Product = await _context.Product.FindAsync(item.ProductId);
+                        }
+                    }
+                }
+            }
+            //System.Diagnostics.Debug.WriteLine("AAAAAHAHAHAHHAHA--------");
+            //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(orders[0]))
+            //{
+            //    string name = descriptor.Name;
+            //    object value = descriptor.GetValue(orders[0]);
+            //    System.Diagnostics.Debug.WriteLine("{0}={1}", name, value);
+            //}
+
+            return orders;
         }
 
         [HttpGet("{id}")]

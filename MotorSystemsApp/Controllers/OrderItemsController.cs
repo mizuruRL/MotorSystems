@@ -16,7 +16,6 @@ namespace MotorSystemsApp.Controllers
     public class OrderItemsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private OrdersController _ordersController;
 
         public OrderItemsController(ApplicationDbContext context)
         {
@@ -34,7 +33,7 @@ namespace MotorSystemsApp.Controllers
         public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItemsByProduct(int id)
         {
             var orderItems = await _context.OrderItem.Where(oi => oi.ProductId == id).ToListAsync();
-
+            
             if (orderItems == null)
             {
                 return NotFound();
@@ -47,8 +46,7 @@ namespace MotorSystemsApp.Controllers
         public async Task<ActionResult<IEnumerable<OrderItem>>> GetOrderItemsByOrder(int id)
         {
             var orderItems = await _context.OrderItem.Where(oi => oi.OrderId == id).ToListAsync();
-            //orderItems.ForEach(async item => item.Order = await (Order)_ordersController.GetOrder(item.OrderId));
-
+            
             if (orderItems == null)
             {
                 return NotFound();
@@ -56,19 +54,6 @@ namespace MotorSystemsApp.Controllers
 
             return orderItems;
         }
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ICollection<Order>>> GetOrderItem(int id)
-        //{
-        //    var orderItem = await _context.OrderItem.FindAsync(id);
-
-        //    if (orderItem == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return orderItem;
-        //}
 
         // PUT: api/OrderItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

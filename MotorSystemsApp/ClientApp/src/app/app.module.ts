@@ -20,6 +20,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrdersService } from './services/orders.service';
 import { ProductAddComponent } from './product/product-add/product-add.component';
 import { ProductRemoveComponent } from './product/product-remove/product-remove.component';
+import { OrderDetailsComponent } from './order/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProductRemoveComponent } from './product/product-remove/product-remove.
     ProductDetailsComponent,
     OrdersComponent,
     ProductAddComponent,
-    ProductRemoveComponent
+    ProductRemoveComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,8 +51,7 @@ import { ProductRemoveComponent } from './product/product-remove/product-remove.
       { path: 'products/add/:id', component: ProductAddComponent },
       { path: 'products/remove/:id', component: ProductRemoveComponent },
       { path: 'orders', component: OrdersComponent },
-      //{ path: 'counter', component: CounterComponent },
-      //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'orders/:id', component: OrderDetailsComponent },
     ])
   ],
   providers: [

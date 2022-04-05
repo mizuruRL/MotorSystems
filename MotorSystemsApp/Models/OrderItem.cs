@@ -6,7 +6,7 @@ namespace MotorSystemsApp.Models
     {
         public int OrderId { get; set; }
 
-        
+        [System.Text.Json.Serialization.JsonIgnore]
         public Order? Order { get; set; }
 
         public int ProductId { get; set; }

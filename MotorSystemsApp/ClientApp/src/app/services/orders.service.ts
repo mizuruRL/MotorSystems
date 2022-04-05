@@ -2,7 +2,6 @@ import { Order, OrderItem } from '../orders/orders.component';
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Product } from '../products/products.component';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class OrdersService {
     return this.http.get<OrderItem[]>(this.baseUrl + 'api/orderItems/itemsByProduct/' + id);
   }
 
-  getOrderById(id: number): Observable<Order> {
+  getOrder(id: number): Observable<Order> {
     return this.http.get<Order>(this.baseUrl + 'api/orders/' + id);
   }
 

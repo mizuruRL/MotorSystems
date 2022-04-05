@@ -110,7 +110,7 @@ export class ProductDetailsComponent implements OnInit {
     this.orderService.getOrderItemsByProduct(prodId).subscribe(res => {
       this.orderItems = res;
       this.orderItems.forEach(item => {
-        this.orderService.getOrderById(item.orderId).subscribe(order => {
+        this.orderService.getOrder(item.orderId).subscribe(order => {
           item.order = order;
         })
       })

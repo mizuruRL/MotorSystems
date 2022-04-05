@@ -9,12 +9,12 @@
       <th>Product Ordered</th>
       <th>Quantity Ordered</th>
       <th>Order Date</th>
-      <th>Order Delivery</th>
+      <th>Expected Delivery</th>
       <th>Order State</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders" class="item">
+    <tr *ngFor="let order of orders" class="item" (click)="getOrderDetails(order.id)">
       <td>{{order.id}}</td>
       <td>
         <ng-container *ngFor="let item of order.orderItems">
@@ -32,5 +32,7 @@
     </tr>
   </tbody>
 </table>
+
+<!--<app-order-details [orders]="ord"></app-order-details>-->
 
 <a routerLink="/order/create" class="btn btn-success">Place Order</a>
