@@ -1,8 +1,0 @@
-{
-"SpaProxyServer": {
-"ServerUrl": "https://localhost:44476",
-"LaunchCommand": "npm start",
-"WorkingDirectory": "C:\\Users\\tiago\\source\\repos\\MotorSystems2\\MotorSystemsApp\\ClientApp\\",
-"MaxTimeoutInSeconds": "120"
-}
-}
