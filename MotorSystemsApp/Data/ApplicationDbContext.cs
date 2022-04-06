@@ -115,14 +115,18 @@ namespace MotorSystemsApp.Data
                     new Order
                     {
                         Id = 1,
-                        //Products = new List<Product> { prod1, prod2 },
-                        //ProductId= 1,
                         OrderDate = new DateTime(2022, 3, 20),
                         OrderDelivery = new DateTime(2022, 4, 2),
                         State = OrderState.Pending,
                         OrderItems = new List<OrderItem>()
-
-                        //QuantityOrdered=5,
+                    },
+                    new Order
+                    {
+                        Id = 2,
+                        OrderDate = new DateTime(2022, 4, 5),
+                        OrderDelivery = new DateTime(2022, 4, 15),
+                        State = OrderState.Pending,
+                        OrderItems = new List<OrderItem>()
                     }
                 );
             modelBuilder.Entity<OrderItem>().HasData
@@ -140,6 +144,20 @@ namespace MotorSystemsApp.Data
                         ProductId = 2,
                         Quantity = 4,
                         Price = 7,
+                    },
+                    new OrderItem
+                    {
+                        OrderId = 2,
+                        ProductId = 2,
+                        Quantity = 7,
+                        Price = 45,
+                    },
+                    new OrderItem
+                    {
+                        OrderId = 2,
+                        ProductId = 3,
+                        Quantity = 12,
+                        Price = 55,
                     }
             );
         }

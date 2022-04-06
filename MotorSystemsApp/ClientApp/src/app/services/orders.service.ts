@@ -27,5 +27,9 @@ export class OrdersService {
     return this.http.get<OrderItem[]>(this.baseUrl + 'api/orderItems/itemsByOrder/' + orderId);
   }
 
+  deleteOrder(orderId: number) {
+    return this.http.delete<Order>(this.baseUrl + 'api/orders/' + orderId);
+  }
+
 
 }

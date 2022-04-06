@@ -44,13 +44,6 @@ namespace MotorSystemsApp.Controllers
                     }
                 }
             }
-            //System.Diagnostics.Debug.WriteLine("AAAAAHAHAHAHHAHA--------");
-            //foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(orders[0]))
-            //{
-            //    string name = descriptor.Name;
-            //    object value = descriptor.GetValue(orders[0]);
-            //    System.Diagnostics.Debug.WriteLine("{0}={1}", name, value);
-            //}
 
             return orders;
         }
@@ -62,6 +55,17 @@ namespace MotorSystemsApp.Controllers
             //var productNeeded = await _context.ProductNeeded.FindAsync(id);
             var order = await _context.Order.FindAsync(id);
 
+            if (order != null) order.OrderItems = await _context.OrderItem.Where(oi => oi.OrderId == order.Id).ToListAsync();
+            
+            if (order.OrderItems != null)
+            {
+                foreach (OrderItem item in order.OrderItems)
+                {
+                    item.Product = await _context.Product.FindAsync(item.ProductId);
+                }
+            }
+
+
             if (order == null)
             {
                 return NotFound();
@@ -70,18 +74,6 @@ namespace MotorSystemsApp.Controllers
             return order;
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Order>> GetOrderByProduct(int id)
-        //{
-        //    var orders = await _context.Order.Where(o => o.OrderItems. == productId).ToListAsync();
-            
-        //    if (orders == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return orders;
-        //}
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

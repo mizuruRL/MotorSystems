@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -21,6 +23,7 @@ import { OrdersService } from './services/orders.service';
 import { ProductAddComponent } from './product/product-add/product-add.component';
 import { ProductRemoveComponent } from './product/product-remove/product-remove.component';
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { OrderDetailsComponent } from './order/order-details/order-details.compo
     OrdersComponent,
     ProductAddComponent,
     ProductRemoveComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    DialogComponent,    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,6 +47,8 @@ import { OrderDetailsComponent } from './order/order-details/order-details.compo
     FormsModule,
     ApiAuthorizationModule,
     ReactiveFormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
@@ -52,11 +58,13 @@ import { OrderDetailsComponent } from './order/order-details/order-details.compo
       { path: 'products/remove/:id', component: ProductRemoveComponent },
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
-    ])
+
+    ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService, OrdersService
+    ProductsService, OrdersService,
+    /*{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }*/
   ],
   bootstrap: [AppComponent]
 })

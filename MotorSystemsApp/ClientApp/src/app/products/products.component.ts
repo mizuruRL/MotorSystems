@@ -24,9 +24,7 @@ export class ProductsComponent{
   }
 
   getProductPage(id: number) {
-    //this.service.getProduct(id).subscribe(res => {
-      this.router.navigateByUrl("products/" + id);
-    //});
+    this.router.navigateByUrl("products/" + id);
   }
 
   sortByUrgency(): void {

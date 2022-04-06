@@ -1,7 +1,27 @@
-<!--<div class='col-md-6 mx-3 mt-5'>
-  <p><span class="fw-bold">Category: </span>{{product.category}}</p>
-  <p><span class="fw-bold">Branc: </span>{{product.brand}}</p>
-  <p><span class="fw-bold">Price: </span>{{product.price}}</p>
-  <p><span class="fw-bold">Description: </span>{{product.description}}</p>
-</div>-->
-<h1>BLA</h1>
+<div class="row" *ngIf="order">
+  <div class='col-md-6 mt-5'>
+    <label for="products" class="mb-3 fw-bold">Products ordered</label>
+    <table name="products" class='table table-striped col-md-6' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order.orderItems">
+          <td>{{item.product.name}}</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='col-md-6 mt-5'>
+    <p><span class="fw-bold">Order Number: </span>{{order.id}}</p>
+    <p><span class="fw-bold">Order Date: </span>{{order.orderDate}}</p>
+    <p><span class="fw-bold">Expected Delivery: </span>{{order.orderDelivery}}</p>
+    <p><span class="fw-bold">State: </span>{{order.state}}</p>
+  </div>
+</div>
+<button class="btn btn-success" (click)="openDialog()">Register as Delivered</button>
+
