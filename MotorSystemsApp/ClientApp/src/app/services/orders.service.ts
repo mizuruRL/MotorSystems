@@ -31,5 +31,11 @@ export class OrdersService {
     return this.http.delete<Order>(this.baseUrl + 'api/orders/' + orderId);
   }
 
+  createOrder(order: Order): Observable<Order> {
+    return this.http.post<Order>(this.baseUrl + 'api/orders', order);
+  }
 
+  createOrderItem(order: OrderItem): Observable<OrderItem> {
+    return this.http.post<OrderItem>(this.baseUrl + 'api/orderItems', order);
+  }
 }

@@ -23,6 +23,7 @@ import { OrdersService } from './services/orders.service';
 import { ProductAddComponent } from './product/product-add/product-add.component';
 import { ProductRemoveComponent } from './product/product-remove/product-remove.component';
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
+import { OrderCreateComponent } from './order/order-create/order-create.component';
 import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { DialogComponent } from './dialog/dialog.component';
     ProductAddComponent,
     ProductRemoveComponent,
     OrderDetailsComponent,
+    OrderCreateComponent,
     DialogComponent,    
   ],
   imports: [
@@ -58,7 +60,7 @@ import { DialogComponent } from './dialog/dialog.component';
       { path: 'products/remove/:id', component: ProductRemoveComponent },
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
-
+      { path: 'order/create', component: OrderCreateComponent },
     ]),
   ],
   providers: [
