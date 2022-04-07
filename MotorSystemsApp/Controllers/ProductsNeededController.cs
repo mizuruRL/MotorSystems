@@ -39,7 +39,7 @@ namespace MotorSystemsApp.Controllers
             {
                 return NotFound();
             }
-            productNeeded.ForEach(needed => System.Diagnostics.Debug.WriteLine(needed.QuantityNeeded));
+
             return productNeeded;
         }
 

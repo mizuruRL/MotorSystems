@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220405053431_bla")]
-    partial class bla
+    [Migration("20220407041514_reset")]
+    partial class reset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -440,6 +440,13 @@ namespace MotorSystemsApp.Migrations
                             OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             State = "Pending"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            OrderDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderDelivery = new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            State = "Pending"
                         });
                 });
 
@@ -477,6 +484,20 @@ namespace MotorSystemsApp.Migrations
                             ProductId = 2,
                             Price = 7f,
                             Quantity = 4f
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            ProductId = 2,
+                            Price = 45f,
+                            Quantity = 7f
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            ProductId = 3,
+                            Price = 55f,
+                            Quantity = 12f
                         });
                 });
 

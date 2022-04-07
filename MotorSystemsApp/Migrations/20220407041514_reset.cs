@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MotorSystemsApp.Migrations
 {
-    public partial class orderItem : Migration
+    public partial class reset : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -186,8 +186,8 @@ namespace MotorSystemsApp.Migrations
                 {
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Quantity = table.Column<float>(type: "real", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -333,6 +333,47 @@ namespace MotorSystemsApp.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Order",
+                columns: new[] { "Id", "OrderDate", "OrderDelivery", "State" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" },
+                    { 2, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "Id", "AvailableQuantity", "Brand", "Category", "DaysUntilNextNeed", "Description", "ImgUrl", "MissingQuantity", "Name", "Price", "QuantityNeeded" },
+                values: new object[,]
+                {
+                    { 1, 30f, "Brand1", "Category1", 0, "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.", "/assets/images/castrol-oil.jpg", 0f, "Prod1", 30f, 0f },
+                    { 2, 30f, "Brand2", "Category2", 0, "Desc2", "/assets/images/castrol-oil.jpg", 0f, "Prod2", 10f, 0f },
+                    { 3, 5f, "Brand3", "Category3", 0, "Desc3", "/assets/images/castrol-oil.jpg", 0f, "Prod3", 13f, 0f }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductNeeded",
+                columns: new[] { "Id", "NeededForDate", "ProductId", "QuantityNeeded" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10 },
+                    { 2, new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 38 },
+                    { 3, new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4 },
+                    { 4, new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderItem",
+                columns: new[] { "OrderId", "ProductId", "Price", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 1, 5f, 3f },
+                    { 1, 2, 7f, 4f },
+                    { 2, 2, 45f, 7f },
+                    { 2, 3, 55f, 12f }
                 });
 
             migrationBuilder.CreateIndex(

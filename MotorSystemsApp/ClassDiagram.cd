@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MotorSystemsApp.Models.Order">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAABAAAAIA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorSystemsApp.Models.OrderItem">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAECAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\OrderItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorSystemsApp.Models.Product">
+    <Position X="0.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAASAAAAAQkgAAAAAAAAAAQAAAgAAAAEAAAAAAABCAQ=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotorSystemsApp.Models.ProductNeeded">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\ProductNeeded.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="MotorSystemsApp.Models.OrderState">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAICAAAAA=</HashCode>
+      <FileName>Models\OrderState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

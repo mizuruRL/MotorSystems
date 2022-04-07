@@ -78,8 +78,8 @@
   </div>
 <div class='row'>
   <div class='col-md-4'>
-    <h5>Stock Needed</h5>
-    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productNeeded">
+    <label id="neededTable">Stock Needed</label>
+    <table class='table table-striped' aria-labelledby="neededTable" *ngIf="product && productNeeded">
       <thead>
         <tr>
           <th>Quantity</th>
@@ -95,8 +95,8 @@
     </table>
     </div>
     <div class='col-md-4'>
-      <h5>Missing stock</h5>
-      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="product && productMissing">
+      <label id="misssingTable">Stock Missing</label>
+      <table class='table table-striped' aria-labelledby="misssingTable" *ngIf="product && productMissing">
         <thead>
           <tr>
             <th>Quantity</th>
@@ -113,8 +113,8 @@
     </div>
 
     <div class='col-md-4'>
-      <h5>Current orders</h5>
-      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orderItems">
+      <label id="ordersTable">Pending orders</label>
+      <table class='table table-striped' aria-labelledby="ordersTable" *ngIf="orderItems">
         <thead>
           <tr>
             <th>Quantity</th>

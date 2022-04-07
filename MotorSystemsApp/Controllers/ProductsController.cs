@@ -46,8 +46,9 @@ namespace MotorSystemsApp.Controllers
             foreach(var p in final)
             {
                 TimeSpan diff = p.neededP.EarliestNeed - DateTime.Now;                
-                p.product.DaysUntilNextNeed = diff.Days; 
+                p.product.DaysUntilNextNeed = diff.Days;
                 p.product.QuantityNeeded = p.neededP.QuantityNeeded;
+                //System.Diagnostics.Debug.WriteLine("NEEDED: " + p.product.QuantityNeeded);
                 p.product.MissingQuantity = p.product.AvailableQuantity > p.product.QuantityNeeded ? 0 : p.product.QuantityNeeded - p.product.AvailableQuantity;                
             }
 
@@ -58,7 +59,10 @@ namespace MotorSystemsApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            Product product = await _context.Product.FindAsync(id);
+            var needed = await _context.ProductNeeded.Where(n => n.ProductId == id).ToListAsync();
+
+            product.QuantityNeeded = needed.Sum(n => n.QuantityNeeded);
 
             if (product == null)
             {
