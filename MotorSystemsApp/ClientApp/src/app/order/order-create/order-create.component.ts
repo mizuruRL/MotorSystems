@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Order } from '../../orders/orders.component';
+import { Order, OrderItem } from '../../orders/orders.component';
 import { Product } from '../../products/products.component';
 import { OrdersService } from '../../services/orders.service';
 import { ProductsService } from '../../services/products.service';
@@ -14,9 +14,9 @@ import { ProductsService } from '../../services/products.service';
 export class OrderCreateComponent implements OnInit {
 
   public cart: CartItem[] = [];
-  public order: Order | undefined;
+  private order: Order | undefined;
   public products: Product[] | undefined;
-  public product: Product | undefined;
+  private product: Product | undefined;
 
   constructor(private service: OrdersService, private prodService: ProductsService, private router: Router) { }
 
@@ -25,9 +25,34 @@ export class OrderCreateComponent implements OnInit {
   }
 
   createOrder() {
-    /*TODO: order dates should be created by default when pushed to the DB and not on user input, so: orderDate should be
-     Date.now, and orderDelivery should be orderDate + 3 days.
-    */
+    let orderDate = new Date();
+    let orderDelivery = new Date();
+    orderDelivery.setDate(orderDate.getDate() + 3);
+    this.order = {
+      id: undefined,
+      orderDate: orderDate,
+      orderDelivery: orderDelivery,
+      state: "Pending",
+      orderItems: undefined
+    };
+    this.service.createOrder(this.order).subscribe(res => {
+      for (let cartItem of this.cart) {
+        this.service.createOrderItem({
+          orderId: res.id!,
+          order: this.order!,
+          price: cartItem.price,
+          productId: cartItem.productId,
+          product: undefined,
+          quantity: cartItem.quantity
+        }).subscribe();
+      }
+      this.router.navigateByUrl("orders/" + res.id);
+    });
+
+  }
+
+  makeOrderItems(orderId: number) {
+    
   }
 
   addToOrder(orderForm: NgForm) {
@@ -46,7 +71,6 @@ export class OrderCreateComponent implements OnInit {
         this.cart.push(cartItem);
       }
     });
-    
   }
 
   populateProducts() {
@@ -66,7 +90,7 @@ export class OrderCreateComponent implements OnInit {
 
 }
 
-export interface CartItem {
+interface CartItem {
   productId: number;
   product: Product;
   quantity: number;

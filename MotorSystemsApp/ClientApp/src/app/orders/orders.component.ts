@@ -44,18 +44,18 @@ export class OrdersComponent implements OnInit {
 }
 
 export interface Order {
-  id: number;
+  id: number | undefined;
   orderDate: Date;
   orderDelivery: Date;
   state: string;
-  orderItems: OrderItem[]
+  orderItems: OrderItem[] | undefined
 }
 
 export interface OrderItem {
   orderId: number;
   productId: number;
   order: Order;
-  product: Product;
+  product: Product | undefined;
   quantity: number;
   price: number
 }

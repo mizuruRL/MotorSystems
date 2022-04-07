@@ -14,11 +14,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders" class="item" (click)="getOrderDetails(order.id)">
+    <tr *ngFor="let order of orders" class="item" (click)="getOrderDetails(order.id!)">
       <td>{{order.id}}</td>
       <td>
         <ng-container *ngFor="let item of order.orderItems">
-          <p>{{item.product.name}}</p>
+          <p>{{item.product!.name}}</p>
         </ng-container>
       </td>
       <td>
