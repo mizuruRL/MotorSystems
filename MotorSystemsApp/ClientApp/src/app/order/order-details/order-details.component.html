@@ -1,30 +1,27 @@
-<div *ngIf="order">
-  <h1 class="justify-content-center">Order from {{order.provider}}</h1>
-  <div class="row">
-    <div class='col-md-6 mt-5'>
-      <label for="products" class="mb-3 fw-bold">Products ordered</label>
-      <table name="products" class='table table-striped col-md-6' aria-labelledby="tableLabel">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of order.orderItems">
-            <td>{{item.product.name}}</td>
-            <td>{{item.quantity}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class='col-md-6 mt-5'>
-      <p><span class="fw-bold">Order Number: </span>{{order.id}}</p>
-      <p><span class="fw-bold">Order Date: </span>{{order.orderDate}}</p>
-      <p><span class="fw-bold">Expected Delivery: </span>{{order.orderDelivery}}</p>
-      <p><span class="fw-bold">State: </span>{{order.state}}</p>
-    </div>
+<div class="row" *ngIf="order">
+  <div class='col-md-6 mt-5'>
+    <label for="products" class="mb-3 fw-bold">Products ordered</label>
+    <table name="products" class='table table-striped col-md-6' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order.orderItems">
+          <td>{{item.product.name}}</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <button class="btn btn-success" (click)="openDialog()">Register as Delivered</button>
+  <div class='col-md-6 mt-5'>
+    <p><span class="fw-bold">Order Number: </span>{{order.id}}</p>
+    <p><span class="fw-bold">Order Date: </span>{{order.orderDate}}</p>
+    <p><span class="fw-bold">Expected Delivery: </span>{{order.orderDelivery}}</p>
+    <p><span class="fw-bold">State: </span>{{order.state}}</p>
+  </div>
 </div>
+<button class="btn btn-success" (click)="openDialog()">Register as Delivered</button>
 

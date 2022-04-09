@@ -423,10 +423,6 @@ namespace MotorSystemsApp.Migrations
                     b.Property<DateTime>("OrderDelivery")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Provider")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -441,7 +437,6 @@ namespace MotorSystemsApp.Migrations
                             Id = 1,
                             OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Provider = "Prov1",
                             State = "Pending"
                         },
                         new
@@ -449,7 +444,6 @@ namespace MotorSystemsApp.Migrations
                             Id = 2,
                             OrderDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Provider = "Prov2",
                             State = "Pending"
                         });
                 });

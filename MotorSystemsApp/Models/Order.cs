@@ -16,7 +16,5 @@ namespace MotorSystemsApp.Models
         public OrderState State { get; set; }
         public ICollection<OrderItem>? OrderItems { get; set; }
 
-        public string Provider { get; set; }
-
     }
 }
