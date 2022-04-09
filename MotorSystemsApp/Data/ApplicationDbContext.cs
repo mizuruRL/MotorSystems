@@ -118,7 +118,8 @@ namespace MotorSystemsApp.Data
                         OrderDate = new DateTime(2022, 3, 20),
                         OrderDelivery = new DateTime(2022, 4, 2),
                         State = OrderState.Pending,
-                        OrderItems = new List<OrderItem>()
+                        OrderItems = new List<OrderItem>(),
+                        Provider = "Prov1"
                     },
                     new Order
                     {
@@ -126,7 +127,8 @@ namespace MotorSystemsApp.Data
                         OrderDate = new DateTime(2022, 4, 5),
                         OrderDelivery = new DateTime(2022, 4, 15),
                         State = OrderState.Pending,
-                        OrderItems = new List<OrderItem>()
+                        OrderItems = new List<OrderItem>(),
+                        Provider = "Prov2"
                     }
                 );
             modelBuilder.Entity<OrderItem>().HasData
