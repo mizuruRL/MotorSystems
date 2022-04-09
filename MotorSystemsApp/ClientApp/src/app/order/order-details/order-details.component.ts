@@ -26,16 +26,16 @@ export class OrderDetailsComponent implements OnInit {
 
   registerAsDelivered(): void {
     if (this.order) {
-      let len = this.order.orderItems.length;
+      let len = this.order.orderItems!.length;
       for (let i = 0; i < len; i++) {
-        let item = this.order.orderItems[i];
-        item.product.availableQuantity += item.quantity;
+        let item = this.order.orderItems![i];
+        item.product!.availableQuantity += item.quantity;
 
-        this.prodService.updateProductQuantity(item.product.id, item.product).subscribe(
+        this.prodService.updateProductQuantity(item.product!.id, item.product!).subscribe(
           res => {
             if (i + 1 == len) {
               if (this.order) 
-              this.orderService.deleteOrder(this.order.id).subscribe();
+              this.orderService.deleteOrder(this.order.id!).subscribe();
               this.router.navigateByUrl('products');
             }
         });        

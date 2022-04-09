@@ -36,7 +36,7 @@
           </tr>
         </tbody>
       </table>
-      <button type="submit" [hidden]="totalPrice() == 0" class="btn-success btn">Order</button>
+      <button type="submit" (click)="createOrder()" [hidden]="totalPrice() == 0" class="btn-success btn">Order</button>
       <span style="float: right">Total: {{totalPrice()}}€</span>
     </div>
     </div>
