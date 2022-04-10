@@ -1,0 +1,4 @@
+.item:hover {
+  border-color: green;
+  cursor: pointer;
+}

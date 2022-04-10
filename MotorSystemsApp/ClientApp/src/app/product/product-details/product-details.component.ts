@@ -43,6 +43,14 @@ export class ProductDetailsComponent implements OnInit {
     quantity: new FormControl('', Validators.required),
     date: new FormControl('', Validators.required),
   })
+
+  removeProductNeededForm = new FormGroup({
+    quantity: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required),
+  })
+  get date() {
+    return this.removeProductNeededForm.get('date');
+  }
   
   addProductNeeded(): void {
     let quantity: number = this.addProductNeededForm.controls.quantity.value;
@@ -53,6 +61,7 @@ export class ProductDetailsComponent implements OnInit {
       existent.quantityNeeded += quantity;
       this.prodService.updateProductNeeded(existent.id, existent).subscribe(res => {
         this.activeForm = "";
+        window.location.reload();
       });
     }
     else {
@@ -61,26 +70,27 @@ export class ProductDetailsComponent implements OnInit {
       }
       this.prodService.addProductNeeded(p).subscribe(res => {
         this.activeForm = "";
+        window.location.reload();
       });
-    }
-
-    this.product.quantityNeeded += quantity;    
-  }
+    } 
+  } 
 
   removeProductNeeded(): void {
-    let quantity: number = this.addProductNeededForm.controls.quantity.value;
-    let date: Date = this.addProductNeededForm.controls.date.value;
+    let quantity: number = this.removeProductNeededForm.controls.quantity.value;
+    let date: Date = this.removeProductNeededForm.controls.date.value;
     let existent: ProductNeeded | undefined = this.productNeeded.find(e => new Date(date).setHours(0, 0, 0, 0) == (new Date(e.neededForDate)).setHours(0, 0, 0, 0))
     if (existent && existent.id) {
       existent.quantityNeeded -= quantity;
       if (existent.quantityNeeded <= 0) {
         this.prodService.deleteProductNeeded(existent.id).subscribe(res => {
           this.activeForm = "";
+          window.location.reload();
         });
       }
       else {
         this.prodService.updateProductNeeded(existent.id, existent).subscribe(res => {
           this.activeForm = "";
+          window.location.reload();
         })
       }
     }
@@ -93,6 +103,7 @@ export class ProductDetailsComponent implements OnInit {
 
     this.prodService.updateProductQuantity(this.id, this.product).subscribe(res => {
       this.activeForm = "";
+      window.location.reload();
     });
   }
 
@@ -103,6 +114,7 @@ export class ProductDetailsComponent implements OnInit {
 
     this.prodService.updateProductQuantity(this.id, this.product).subscribe(res => {
       this.activeForm = "";
+      window.location.reload();
     });
   }
 
@@ -128,8 +140,10 @@ export class ProductDetailsComponent implements OnInit {
 
   getProductNeeded() {
     this.prodService.getProductNeeded(this.id).subscribe(res => {
-      console.log("Product Needed: ", res);
       this.productNeeded = res;
+      let dates: Date[] = [];
+      res.forEach(need => dates.push(need.neededForDate));
+      this.removeProductNeededForm.controls["date"].addValidators(removeNeededValidator(dates));
       this.sortByUrgency();
       this.getProductMissing();
     });
@@ -167,6 +181,13 @@ export function availableProductValidator(availableQtd: number): ValidatorFn {
   }
 }
 
+export function removeNeededValidator(dates: Date[]): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    let result = dates.find(d => compareDates(d, control.value));
+    return result ? null : { invalidDate: true };
+  }
+}
+
 export interface ProductNeeded{
   id: number | undefined;
   productId: number;
@@ -177,6 +198,10 @@ export interface ProductNeeded{
 export interface ProductMissing {
   quantityNeeded: number;
   neededForDate: Date;
+}
+
+export function compareDates(d1: Date, d2: Date): boolean {
+  return new Date(d1).setHours(0, 0, 0, 0) == new Date(d2).setHours(0, 0, 0, 0);
 }
 
 

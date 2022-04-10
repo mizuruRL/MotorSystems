@@ -25,6 +25,7 @@ import { ProductRemoveComponent } from './product/product-remove/product-remove.
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
 import { OrderCreateComponent } from './order/order-create/order-create.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { WorkerMenuComponent } from './worker/worker-menu/worker-menu.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DialogComponent } from './dialog/dialog.component';
     ProductRemoveComponent,
     OrderDetailsComponent,
     OrderCreateComponent,
-    DialogComponent,    
+    DialogComponent,
+    WorkerMenuComponent,    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -61,6 +63,7 @@ import { DialogComponent } from './dialog/dialog.component';
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'order/create', component: OrderCreateComponent },
+      { path: 'worker', component: WorkerMenuComponent },
     ]),
   ],
   providers: [
