@@ -35,8 +35,9 @@ export class OrderCreateComponent implements OnInit {
       state: "Pending",
       orderItems: undefined
     };
+    
     this.service.createOrder(this.order).subscribe(res => {
-      for (let cartItem of this.cart) {
+      this.cart.forEach((cartItem, idx, array) => {        
         this.service.createOrderItem({
           orderId: res.id!,
           order: this.order!,
@@ -44,11 +45,12 @@ export class OrderCreateComponent implements OnInit {
           productId: cartItem.productId,
           product: undefined,
           quantity: cartItem.quantity
-        }).subscribe();
-      }
-      this.router.navigateByUrl("orders/" + res.id);
+        }).subscribe(res => {
+          if (idx === array.length - 1) { this.router.navigateByUrl("orders") }
+        });
+        }
+      );      
     });
-
   }
 
   makeOrderItems(orderId: number) {

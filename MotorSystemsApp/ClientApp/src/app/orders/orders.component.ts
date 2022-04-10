@@ -48,7 +48,7 @@ export interface Order {
   orderDate: Date;
   orderDelivery: Date;
   state: string;
-  orderItems: OrderItem[]
+  orderItems: OrderItem[] | undefined
 }
 
 export interface OrderItem {
