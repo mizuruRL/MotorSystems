@@ -24,8 +24,10 @@ import { ProductAddComponent } from './product/product-add/product-add.component
 import { ProductRemoveComponent } from './product/product-remove/product-remove.component';
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
 import { OrderCreateComponent } from './order/order-create/order-create.component';
-import { DialogComponent } from './dialog/dialog.component';
 import { WorkerMenuComponent } from './worker/worker-menu/worker-menu.component';
+import { OrderEditComponent } from './order/order-edit/order-edit.component';
+import { OrderDeliveredDialogComponent } from './order/order-delivered-dialog/order-delivered-dialog.component';
+import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/order-cancelled-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +44,10 @@ import { WorkerMenuComponent } from './worker/worker-menu/worker-menu.component'
     ProductRemoveComponent,
     OrderDetailsComponent,
     OrderCreateComponent,
-    DialogComponent,
-    WorkerMenuComponent,    
+    WorkerMenuComponent,
+    OrderEditComponent,
+    OrderDeliveredDialogComponent,
+    OrderCancelledDialogComponent,    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,13 +67,13 @@ import { WorkerMenuComponent } from './worker/worker-menu/worker-menu.component'
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'order/create', component: OrderCreateComponent },
+      { path: 'order/edit', component: OrderEditComponent },
       { path: 'worker', component: WorkerMenuComponent },
     ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     ProductsService, OrdersService,
-    /*{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }*/
   ],
   bootstrap: [AppComponent]
 })

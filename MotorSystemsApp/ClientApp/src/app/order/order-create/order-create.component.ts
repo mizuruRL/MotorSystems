@@ -33,6 +33,7 @@ export class OrderCreateComponent implements OnInit {
       orderDate: orderDate,
       orderDelivery: orderDelivery,
       state: "Pending",
+      provider: "bla",
       orderItems: undefined
     };
     

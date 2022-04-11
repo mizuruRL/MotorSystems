@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220407041514_reset")]
-    partial class reset
+    [Migration("20220411144754_nullable-delivery-date")]
+    partial class nullabledeliverydate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -422,8 +422,12 @@ namespace MotorSystemsApp.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("OrderDelivery")
+                    b.Property<DateTime?>("OrderDelivery")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Provider")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -439,6 +443,7 @@ namespace MotorSystemsApp.Migrations
                             Id = 1,
                             OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Provider = "Castrol",
                             State = "Pending"
                         },
                         new
@@ -446,6 +451,7 @@ namespace MotorSystemsApp.Migrations
                             Id = 2,
                             OrderDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Provider = "Prov2",
                             State = "Pending"
                         });
                 });

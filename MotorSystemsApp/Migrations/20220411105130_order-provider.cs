@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MotorSystemsApp.Migrations
 {
-    public partial class reset : Migration
+    public partial class orderprovider : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,6 +80,7 @@ namespace MotorSystemsApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderDelivery = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Provider = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -337,11 +338,11 @@ namespace MotorSystemsApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Order",
-                columns: new[] { "Id", "OrderDate", "OrderDelivery", "State" },
+                columns: new[] { "Id", "OrderDate", "OrderDelivery", "Provider", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" },
-                    { 2, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pending" }
+                    { 1, new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Castrol", "Pending" },
+                    { 2, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Prov2", "Pending" }
                 });
 
             migrationBuilder.InsertData(

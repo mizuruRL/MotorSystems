@@ -2,6 +2,6 @@
 {
     public enum OrderState
     {
-        Delivered, Pending, PartiallyDelivered
+        Delivered, Pending, Cancelled
     }
 }

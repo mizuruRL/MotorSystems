@@ -1,27 +1,57 @@
-<div class="row" *ngIf="order">
-  <div class='col-md-6 mt-5'>
-    <label for="products" class="mb-3 fw-bold">Products ordered</label>
-    <table name="products" class='table table-striped col-md-6' aria-labelledby="tableLabel">
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of order.orderItems">
-          <td *ngIf="item.product">{{item.product.name}}</td>
-          <td>{{item.quantity}}</td>
-        </tr>
-      </tbody>
-    </table>
+<div *ngIf="order && order.state">
+  <div class="row">
+    <h1 class="d-flex justify-content-center">Order from {{order.provider}}</h1>
   </div>
-  <div class='col-md-6 mt-5'>
-    <p><span class="fw-bold">Order Number: </span>{{order.id}}</p>
-    <p><span class="fw-bold">Order Date: </span>{{order.orderDate}}</p>
-    <p><span class="fw-bold">Expected Delivery: </span>{{order.orderDelivery}}</p>
-    <p><span class="fw-bold">State: </span>{{order.state}}</p>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class='col-md-2 mt-5'>
+      <table name="products" class='table table-borderless' aria-labelledby="tableLabel">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of order.orderItems">
+            <td *ngIf="item.product">{{item.product.name}}</td>
+            <td>{{item.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class='col-md-2'></div>
+    <div class='col-md-5 mt-5'>
+      <p><span class="fw-bold">Order Number: </span>{{order.id}}</p>
+      <p><span class="fw-bold">Order Date: </span>{{order.orderDate | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="order.state">
+        <span class="fw-bold">
+          <ng-container *ngIf="order.state == 'Pending'">
+            Expected Delivery:
+          </ng-container>
+          <ng-container *ngIf="order.state == 'Delivered'">
+            Delivered in:
+          </ng-container>
+        </span>
+        <ng-container *ngIf="edit">
+          <input ngModel name="editDelivery" id="editDelivery" type="date" class="form-control" />
+        </ng-container>
+        <ng-container *ngIf="!edit">
+          {{order.orderDelivery | date: 'dd/MM/yyyy'}}
+        </ng-container>        
+        <button (click)="edit=true" class="btn btn-sm ms-2" style="color: RGB(127, 26, 26); border-color: RGB(127, 26, 26) ">Edit</button>
+
+      </p>
+      <p>
+        <span class="fw-bold">State: </span>
+        {{order.state}}        
+      </p>
+    </div>
+  </div>
+  <div *ngIf="order.state=='Pending'" class="d-flex justify-content-center mt-4">
+    <button class="btn btn-success me-2" (click)="openDialog()">Register as Delivered</button>
+    <button class="btn me-2" (click)="cancelOrder()" style="color:white; background-color: RGB(127, 26, 26)">Cancel Order</button>
+    <a href="orders" class="btn btn-outline-secondary">Back</a>
+
   </div>
 </div>
-<button class="btn btn-success" (click)="openDialog()">Register as Delivered</button>
-

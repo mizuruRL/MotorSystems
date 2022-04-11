@@ -31,9 +31,28 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\order-delivered-dialog\**" />
+    <Compile Remove="ClientApp\src\app\order\order-edit\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\order-delivered-dialog\**" />
+    <Content Remove="ClientApp\src\app\order\order-edit\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\order-delivered-dialog\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\order\order-edit\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\order-delivered-dialog\**" />
+    <None Remove="ClientApp\src\app\order\order-edit\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\order-delivered-dialog\dialog.component.css" />
+    <None Remove="ClientApp\src\app\order-delivered-dialog\dialog.component.html" />
+    <None Remove="ClientApp\src\app\order-delivered-dialog\dialog.component.spec.ts" />
+    <None Remove="ClientApp\src\app\order-delivered-dialog\dialog.component.ts" />
+    <None Remove="ClientApp\src\app\order\order-edit\order-edit.component.css" />
+    <None Remove="ClientApp\src\app\order\order-edit\order-edit.component.html" />
+    <None Remove="ClientApp\src\app\order\order-edit\order-edit.component.spec.ts" />
+    <None Remove="ClientApp\src\app\order\order-edit\order-edit.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

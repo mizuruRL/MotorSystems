@@ -10,7 +10,9 @@ namespace MotorSystemsApp.Models
         [Key]
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime OrderDelivery { get; set; }
+
+        public DateTime? OrderDelivery { get; set; }
+        public string Provider { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public OrderState State { get; set; }

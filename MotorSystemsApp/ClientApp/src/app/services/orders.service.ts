@@ -38,4 +38,9 @@ export class OrdersService {
   createOrderItem(order: OrderItem): Observable<OrderItem> {
     return this.http.post<OrderItem>(this.baseUrl + 'api/orderItems', order);
   }
+
+  updateOrder(id:number, order: Order): Observable<Order> {
+    return this.http.put<Order>(this.baseUrl + 'api/orders/' + id, order);
+  }
+
 }

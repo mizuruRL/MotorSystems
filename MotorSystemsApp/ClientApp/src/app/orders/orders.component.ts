@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  public orders: Order[] | undefined;
+  public toShow: Order[] = [];
+  public open: Order[] = [];
+  public closed: Order[] = [];
+  public showHistory: boolean = false;
 
   constructor(private ordersService: OrdersService, private prodService: ProductsService, private router: Router) { }
 
@@ -18,24 +21,23 @@ export class OrdersComponent implements OnInit {
     this.getOrders();
   }
 
-  ord: string = "ordesaas"
-
   getOrders() {
     this.ordersService.getOrders().subscribe(orders => {
-      this.orders = orders;
-    });
-    //this.ordersService.getOrders().subscribe(orders => {
-    //  this.orders = orders;
-    //  this.orders.forEach(order => {
-    //    this.ordersService.getOrderItemsByOrder(order.id).subscribe(items => {
-    //      order.orderItems = items;
-    //      order.orderItems.forEach(item => this.prodService.getProduct(item.productId).subscribe(
-    //        product => item.product = product)
-    //      )          
-    //    })
-    //  })
-    //})
-    
+      orders.forEach(order => {
+        if (order.state == "Pending" || order.state == "Delayed") {
+          this.open.push(order);
+        }
+        else {
+          this.closed.push(order);
+        }
+      })
+      this.toShow = this.open;
+    });    
+  }
+
+  switchToShow(): void {
+    this.showHistory = !this.showHistory;    
+    this.toShow = this.showHistory ? this.closed : this.open;
   }
 
   getOrderDetails(id: number) {
@@ -46,8 +48,9 @@ export class OrdersComponent implements OnInit {
 export interface Order {
   id: number | undefined;
   orderDate: Date;
-  orderDelivery: Date;
+  orderDelivery: Date | undefined;
   state: string;
+  provider: string;
   orderItems: OrderItem[] | undefined
 }
 
