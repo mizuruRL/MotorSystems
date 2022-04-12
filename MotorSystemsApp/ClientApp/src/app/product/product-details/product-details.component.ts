@@ -183,7 +183,7 @@ export function availableProductValidator(availableQtd: number): ValidatorFn {
 
 export function removeNeededValidator(dates: Date[]): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    let result = dates.find(d => compareDates(d, control.value));
+    let result = dates.find(d => compareDates(d, control.value)==0);
     return result ? null : { invalidDate: true };
   }
 }
@@ -200,8 +200,11 @@ export interface ProductMissing {
   neededForDate: Date;
 }
 
-export function compareDates(d1: Date, d2: Date): boolean {
-  return new Date(d1).setHours(0, 0, 0, 0) == new Date(d2).setHours(0, 0, 0, 0);
+export function compareDates(d1: Date, d2: Date): number {
+  
+  return new Date(d1).setHours(0, 0, 0, 0) == new Date(d2).setHours(0, 0, 0, 0) ? 0 : 
+    new Date(d1).setHours(0, 0, 0, 0) > new Date(d2).setHours(0, 0, 0, 0) ? 1 : -1;
+  
 }
 
 

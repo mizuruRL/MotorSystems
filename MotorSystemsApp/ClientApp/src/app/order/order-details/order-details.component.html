@@ -26,21 +26,27 @@
       <p><span class="fw-bold">Order Date: </span>{{order.orderDate | date: 'dd/MM/yyyy'}}</p>
       <p *ngIf="order.state">
         <span class="fw-bold">
-          <ng-container *ngIf="order.state == 'Pending'">
+          <ng-container *ngIf="order.state == 'Pending' || order.state=='Delayed'">
             Expected Delivery:
           </ng-container>
-          <ng-container *ngIf="order.state == 'Delivered'">
+          <ng-container *ngIf="order.state == 'Delivered' || 'Cancelled'">
             Delivered in:
           </ng-container>
         </span>
-        <ng-container *ngIf="edit">
-          <input ngModel name="editDelivery" id="editDelivery" type="date" class="form-control" />
+        <ng-container *ngIf="order.state == 'Pending' || order.state=='Delayed'">
+          <ng-container *ngIf="edit">
+            <input [formControl]="inputDate" type="date" class="form-control" />
+            <button (click)="newDeliveryDate()" class="btn btn-sm btn-success mt-1 me-1">Submit</button>
+            <button (click)="edit=false" class="btn btn-sm btn-outline-secondary mt-1">Cancel</button>
+          </ng-container>
+          <ng-container *ngIf="!edit">
+            {{order.orderDelivery | date: 'dd/MM/yyyy'}}
+            <button (click)="edit=true" class="btn btn-sm ms-2" style="color: RGB(127, 26, 26); border-color: RGB(127, 26, 26) ">Edit</button>
+          </ng-container>
         </ng-container>
-        <ng-container *ngIf="!edit">
+        <ng-container *ngIf="order.state == 'Delivered' || order.state=='Cancelled'">
           {{order.orderDelivery | date: 'dd/MM/yyyy'}}
-        </ng-container>        
-        <button (click)="edit=true" class="btn btn-sm ms-2" style="color: RGB(127, 26, 26); border-color: RGB(127, 26, 26) ">Edit</button>
-
+        </ng-container>
       </p>
       <p>
         <span class="fw-bold">State: </span>
@@ -48,10 +54,9 @@
       </p>
     </div>
   </div>
-  <div *ngIf="order.state=='Pending'" class="d-flex justify-content-center mt-4">
+  <div *ngIf="order.state=='Pending' || order.state=='Delayed'" class="d-flex justify-content-center mt-4">
     <button class="btn btn-success me-2" (click)="openDialog()">Register as Delivered</button>
     <button class="btn me-2" (click)="cancelOrder()" style="color:white; background-color: RGB(127, 26, 26)">Cancel Order</button>
     <a href="orders" class="btn btn-outline-secondary">Back</a>
-
   </div>
 </div>

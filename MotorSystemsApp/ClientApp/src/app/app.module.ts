@@ -25,7 +25,6 @@ import { ProductRemoveComponent } from './product/product-remove/product-remove.
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
 import { OrderCreateComponent } from './order/order-create/order-create.component';
 import { WorkerMenuComponent } from './worker/worker-menu/worker-menu.component';
-import { OrderEditComponent } from './order/order-edit/order-edit.component';
 import { OrderDeliveredDialogComponent } from './order/order-delivered-dialog/order-delivered-dialog.component';
 import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/order-cancelled-dialog.component';
 
@@ -45,7 +44,6 @@ import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/or
     OrderDetailsComponent,
     OrderCreateComponent,
     WorkerMenuComponent,
-    OrderEditComponent,
     OrderDeliveredDialogComponent,
     OrderCancelledDialogComponent,    
   ],
@@ -67,7 +65,6 @@ import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/or
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'order/create', component: OrderCreateComponent },
-      { path: 'order/edit', component: OrderEditComponent },
       { path: 'worker', component: WorkerMenuComponent },
     ]),
   ],
