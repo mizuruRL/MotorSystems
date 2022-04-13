@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Order, OrderItem } from '../../orders/orders.component';
+import { compareDates } from '../../product/product-details/product-details.component';
 import { Product } from '../../products/products.component';
 import { OrdersService } from '../../services/orders.service';
 import { ProductsService } from '../../services/products.service';
@@ -24,16 +25,21 @@ export class OrderCreateComponent implements OnInit {
     this.populateProducts();
   }
 
+  orderCreateForm = new FormGroup({
+    provider: new FormControl('', Validators.required),
+    orderDelivery: new FormControl('', [Validators.required, orderDeliveryValidator()]),
+  })
+  get orderDelivery() {
+    return this.orderCreateForm.get('orderDelivery');
+  }
+
   createOrder() {
-    let orderDate = new Date();
-    let orderDelivery = new Date();
-    orderDelivery.setDate(orderDate.getDate() + 3);
     this.order = {
       id: undefined,
-      orderDate: orderDate,
-      orderDelivery: orderDelivery,
+      orderDate: new Date(),
+      orderDelivery: this.orderCreateForm.controls.orderDelivery.value,
       state: "Pending",
-      provider: "bla",
+      provider: this.orderCreateForm.controls.provider.value,
       orderItems: undefined
     };
     
@@ -52,10 +58,6 @@ export class OrderCreateComponent implements OnInit {
         }
       );      
     });
-  }
-
-  makeOrderItems(orderId: number) {
-    
   }
 
   addToOrder(orderForm: NgForm) {
@@ -91,6 +93,12 @@ export class OrderCreateComponent implements OnInit {
     return total;
   }
 
+}
+
+function orderDeliveryValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    return compareDates(new Date(), control.value) > 0 ? { invalidDate: true } : null;
+  }
 }
 
 interface CartItem {
