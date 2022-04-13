@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from '../../orders/orders.component';
@@ -27,7 +27,8 @@ export class OrderDetailsComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.orderService.getOrder(this.id).subscribe(order => {
       this.order = order;
-      this.inputDate.setValue(new Date(this.order.orderDelivery!).toISOString().slice(0, 10));      
+      this.inputDate.setValue(new Date(this.order.orderDelivery!).toISOString().slice(0, 10));
+      this.inputDate.addValidators(newDeliveryValidator(order.orderDate))
     });
   }
 
@@ -105,5 +106,11 @@ export class OrderDetailsComponent implements OnInit {
         this.router.navigateByUrl('products');
       }
     })
+  }
+}
+
+function newDeliveryValidator(orderDate: Date): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    return compareDates(orderDate, control.value) > 0 ? { invalidDate: true } : null;
   }
 }

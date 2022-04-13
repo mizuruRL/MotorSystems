@@ -36,7 +36,12 @@
         <ng-container *ngIf="order.state == 'Pending' || order.state=='Delayed'">
           <ng-container *ngIf="edit">
             <input [formControl]="inputDate" type="date" class="form-control" />
-            <button (click)="newDeliveryDate()" class="btn btn-sm btn-success mt-1 me-1">Submit</button>
+            <div *ngIf="inputDate?.invalid && (inputDate?.touched || inputDate?.dirty)" class="alert alert-danger">
+              <div *ngIf="inputDate?.errors?.['invalidDate']">
+                Expected delivery date can't be before order date
+              </div>
+            </div>
+            <button (click)="newDeliveryDate()" [disabled]="!inputDate.valid" class="btn btn-sm btn-success mt-1 me-1">Submit</button>
             <button (click)="edit=false" class="btn btn-sm btn-outline-secondary mt-1">Cancel</button>
           </ng-container>
           <ng-container *ngIf="!edit">
