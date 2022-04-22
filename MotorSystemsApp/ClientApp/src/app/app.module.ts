@@ -27,6 +27,10 @@ import { OrderCreateComponent } from './order/order-create/order-create.componen
 import { WorkerMenuComponent } from './worker/worker-menu/worker-menu.component';
 import { OrderDeliveredDialogComponent } from './order/order-delivered-dialog/order-delivered-dialog.component';
 import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/order-cancelled-dialog.component';
+import { ServicesClientComponent } from './services-client/services-client.component';
+import { ServicesService } from './services/services.service';
+import { ServiceRequestComponent } from './service-request/service-request.component';
+import { VehiclesService } from './services/vehicles.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/or
     OrderCreateComponent,
     WorkerMenuComponent,
     OrderDeliveredDialogComponent,
-    OrderCancelledDialogComponent,    
+    OrderCancelledDialogComponent,
+    ServicesClientComponent,
+    ServiceRequestComponent,    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -66,11 +72,13 @@ import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/or
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'order/create', component: OrderCreateComponent },
       { path: 'worker', component: WorkerMenuComponent },
+      { path: 'services-client', component: ServicesClientComponent, canActivate:[AuthorizeGuard] },
+      { path: 'service-request', component: ServiceRequestComponent },
     ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService, OrdersService,
+    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService
   ],
   bootstrap: [AppComponent]
 })

@@ -28,20 +28,18 @@ export class OrderDetailsComponent implements OnInit {
     this.orderService.getOrder(this.id).subscribe(order => {
       this.order = order;
       this.inputDate.setValue(new Date(this.order.orderDelivery!).toISOString().slice(0, 10));
-      this.inputDate.addValidators(newDeliveryValidator(order.orderDate))
+      this.inputDate.addValidators(newDeliveryValidator(order.orderDate));
     });
   }
 
   newDeliveryDate() {
     let compare: number = compareDates(this.inputDate.value!, this.order?.orderDelivery!)
-    console.log(compare);
     if (compare == 0) { this.edit = false; return }
     else {
       if (compare == 1) {
         this.order!.state = "Delayed";        
       }
       this.order!.orderDelivery = this.inputDate.value;
-      //this.order!.orderItems = undefined;
       console.log(this.order!);
       this.orderService.updateOrder(this.id, this.order!).subscribe(res => this.edit = false);
     }

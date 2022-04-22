@@ -1,0 +1,26 @@
+<h1 id="tableLabel">Your Services</h1>
+
+<p *ngIf="!services"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="services">
+  <thead>
+    <tr>
+      <!--<th>Id</th>-->
+      <th>Assigned Worker</th>
+      <th>Client</th>
+      <th>State</th>
+      <th>Vehicle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let service of services" class="item">
+      <!--<td>{{ service.id }}</td>-->
+      <td>{{ service.assignedWorker }}</td>
+      <td>{{ service.client }}</td>
+      <td>{{ service.state }}</td>
+      <td>{{ service.vehiclePlate }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="service-request" class="btn btn-success">Request Service</a>

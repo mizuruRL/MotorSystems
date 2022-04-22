@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorSystemsApp.Data;
 
@@ -11,9 +12,10 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220421193555_r")]
+    partial class r
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -634,6 +636,7 @@ namespace MotorSystemsApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AssignedWorker")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Client")
@@ -646,19 +649,23 @@ namespace MotorSystemsApp.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<string>("VehiclePlate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
 
                     b.ToTable("Service");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Vehicle", b =>
                 {
-                    b.Property<string>("Plate")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("VehicleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleId"), 1L, 1);
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -672,20 +679,25 @@ namespace MotorSystemsApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Plate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("Plate");
+                    b.HasKey("VehicleId");
 
                     b.ToTable("Vehicle");
 
                     b.HasData(
                         new
                         {
-                            Plate = "A1-B7-30",
+                            VehicleId = 1,
                             Brand = "BMW",
                             Client = "tiago",
                             Model = "M3",
+                            Plate = "A1-B7-30",
                             Type = 0
                         });
                 });
@@ -777,6 +789,17 @@ namespace MotorSystemsApp.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Service", b =>
+                {
+                    b.HasOne("MotorSystemsApp.Models.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>

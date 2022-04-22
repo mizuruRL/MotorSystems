@@ -19,6 +19,10 @@ namespace MotorSystemsApp.Data
         public DbSet<ProductNeeded> ProductNeeded { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<Service> Service { get; set; }
+        public DbSet<Vehicle> Vehicle { get; set; }
+        
+        public DbSet<Worker> Worker { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,6 +44,11 @@ namespace MotorSystemsApp.Data
                         .HasOne(oi => oi.Product)
                         .WithMany(p => p.OrderItems)
                         .HasForeignKey(oi => oi.ProductId);
+
+            //modelBuilder.Entity<Service>()
+            //    .HasOne(s => s.Vehicle)
+            //    .WithMany(v => v.Services)
+            //    .HasForeignKey(oi => oi.ProductId);
 
             modelBuilder.Entity<Product>().HasData
                 (
@@ -161,7 +170,31 @@ namespace MotorSystemsApp.Data
                         Quantity = 12,
                         Price = 55,
                     }
+                );
+            modelBuilder.Entity<Vehicle>().HasData
+            (
+                new Vehicle
+                {
+                    Plate = "A1-B7-30",
+                    Type = VehicleType.Car,
+                    Brand = "BMW",
+                    Model="M3",
+                    Client = "tiago"
+                }
             );
+            //modelBuilder.Entity<Service>().HasData
+            //(
+            //    new Service
+            //    {
+            //        Id = 1,
+            //        AssignedWorker = "whatever",
+            //        Client = "tiago",
+            //        State = State.In_Queue,
+            //        Type = ServiceType.Revision,
+            //        //Plate = "A1-B7-30"
+            //        Vehicle = v
+            //    }
+            //); 
         }
 
     }

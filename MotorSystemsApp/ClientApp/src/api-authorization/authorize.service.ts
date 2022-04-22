@@ -75,6 +75,7 @@ export class AuthorizeService {
     try {
       user = await this.userManager!.signinSilent(this.createArguments());
       this.userSubject.next(user.profile);
+     // console.log(user);
       return this.success(state);
     } catch (silentError) {
       // User might not be authenticated, fallback to popup authentication
@@ -105,6 +106,7 @@ export class AuthorizeService {
         }
       }
     }
+    
   }
 
   public async completeSignIn(url: string): Promise<IAuthenticationResult> {

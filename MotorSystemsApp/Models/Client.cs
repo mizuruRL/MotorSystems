@@ -6,5 +6,8 @@ namespace MotorSystemsApp.Models
     {
         [Key]
         public int Id { get; set; }
+        //public ApplicationUser Id { get; set; }
+
+        //public ICollection<Vehicle> Vehicles { get; set; }
     }
 }

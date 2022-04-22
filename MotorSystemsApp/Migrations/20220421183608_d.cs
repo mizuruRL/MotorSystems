@@ -4,7 +4,7 @@
 
 namespace MotorSystemsApp.Migrations
 {
-    public partial class adddelayedstate : Migration
+    public partial class d : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

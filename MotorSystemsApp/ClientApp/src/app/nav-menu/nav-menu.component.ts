@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthorizeService } from '../../api-authorization/authorize.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  showWorkerOptions: boolean=false
+
+  constructor(private service: AuthorizeService) { }
+
+  ngOnInit() {
+    this.service.getUser().subscribe(res => {
+      if (res) this.showWorkerOptions = true
+    });
+  }
 
   collapse() {
     this.isExpanded = false;
@@ -14,5 +24,5 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-  }
+  }  
 }

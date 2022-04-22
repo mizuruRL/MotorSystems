@@ -12,14 +12,14 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220411144754_nullable-delivery-date")]
-    partial class nullabledeliverydate
+    [Migration("20220421183608_d")]
+    partial class d
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -321,9 +321,6 @@ namespace MotorSystemsApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -374,16 +371,11 @@ namespace MotorSystemsApp.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("WorkerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Zip")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -393,22 +385,7 @@ namespace MotorSystemsApp.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("WorkerId");
-
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("MotorSystemsApp.Models.Client", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
@@ -650,13 +627,82 @@ namespace MotorSystemsApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
+            modelBuilder.Entity("MotorSystemsApp.Models.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AssignedWorker")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("State")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Service");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssignedWorker = "whatever",
+                            Client = "tiago",
+                            State = 0,
+                            Type = 1
+                        });
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Vehicle", b =>
+                {
+                    b.Property<string>("Plate")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Plate");
+
+                    b.ToTable("Vehicle");
+
+                    b.HasData(
+                        new
+                        {
+                            Plate = "A1-B7-30",
+                            Brand = "BMW",
+                            Client = "tiago",
+                            Model = "M3",
+                            Type = 0
+                        });
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ContractEndDate")
                         .HasColumnType("datetime2");
@@ -667,7 +713,7 @@ namespace MotorSystemsApp.Migrations
                     b.Property<double?>("Salary")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("Username");
 
                     b.ToTable("Worker");
                 });
@@ -721,23 +767,6 @@ namespace MotorSystemsApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MotorSystemsApp.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("MotorSystemsApp.Models.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MotorSystemsApp.Models.Worker", "Worker")
-                        .WithMany()
-                        .HasForeignKey("WorkerId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.OrderItem", b =>

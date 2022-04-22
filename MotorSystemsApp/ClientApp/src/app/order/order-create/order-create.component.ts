@@ -92,7 +92,6 @@ export class OrderCreateComponent implements OnInit {
     }
     return total;
   }
-
 }
 
 function orderDeliveryValidator(): ValidatorFn {

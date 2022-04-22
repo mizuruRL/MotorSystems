@@ -9,11 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using MotorSystemsApp.Data;
 using MotorSystemsApp.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MotorSystemsApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "worker")]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
