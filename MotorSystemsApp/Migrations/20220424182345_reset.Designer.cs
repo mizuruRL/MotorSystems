@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220421183608_d")]
-    partial class d
+    [Migration("20220424182345_reset")]
+    partial class reset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -406,9 +406,8 @@ namespace MotorSystemsApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("State")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -421,7 +420,7 @@ namespace MotorSystemsApp.Migrations
                             OrderDate = new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Provider = "Castrol",
-                            State = "Pending"
+                            State = 1
                         },
                         new
                         {
@@ -429,7 +428,7 @@ namespace MotorSystemsApp.Migrations
                             OrderDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderDelivery = new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Provider = "Prov2",
-                            State = "Pending"
+                            State = 1
                         });
                 });
 
@@ -503,9 +502,6 @@ namespace MotorSystemsApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DaysUntilNextNeed")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -513,17 +509,11 @@ namespace MotorSystemsApp.Migrations
                     b.Property<string>("ImgUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("MissingQuantity")
-                        .HasColumnType("real");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<float>("QuantityNeeded")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
@@ -537,13 +527,10 @@ namespace MotorSystemsApp.Migrations
                             AvailableQuantity = 30f,
                             Brand = "Brand1",
                             Category = "Category1",
-                            DaysUntilNextNeed = 0,
                             Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
                             ImgUrl = "/assets/images/castrol-oil.jpg",
-                            MissingQuantity = 0f,
                             Name = "Prod1",
-                            Price = 30f,
-                            QuantityNeeded = 0f
+                            Price = 30f
                         },
                         new
                         {
@@ -551,13 +538,10 @@ namespace MotorSystemsApp.Migrations
                             AvailableQuantity = 30f,
                             Brand = "Brand2",
                             Category = "Category2",
-                            DaysUntilNextNeed = 0,
                             Description = "Desc2",
                             ImgUrl = "/assets/images/castrol-oil.jpg",
-                            MissingQuantity = 0f,
                             Name = "Prod2",
-                            Price = 10f,
-                            QuantityNeeded = 0f
+                            Price = 10f
                         },
                         new
                         {
@@ -565,13 +549,10 @@ namespace MotorSystemsApp.Migrations
                             AvailableQuantity = 5f,
                             Brand = "Brand3",
                             Category = "Category3",
-                            DaysUntilNextNeed = 0,
                             Description = "Desc3",
                             ImgUrl = "/assets/images/castrol-oil.jpg",
-                            MissingQuantity = 0f,
                             Name = "Prod3",
-                            Price = 13f,
-                            QuantityNeeded = 0f
+                            Price = 13f
                         });
                 });
 
@@ -636,12 +617,17 @@ namespace MotorSystemsApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AssignedWorker")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Client")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
@@ -649,19 +635,35 @@ namespace MotorSystemsApp.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<string>("VehiclePlate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Service");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AssignedWorker = "whatever",
-                            Client = "tiago",
-                            State = 0,
-                            Type = 1
-                        });
+            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItem", b =>
+                {
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("ProductQuantity")
+                        .HasColumnType("real");
+
+                    b.HasKey("ServiceId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ServiceItem");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Vehicle", b =>
@@ -701,8 +703,11 @@ namespace MotorSystemsApp.Migrations
 
             modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
                 {
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("ContractEndDate")
                         .HasColumnType("datetime2");
@@ -713,7 +718,11 @@ namespace MotorSystemsApp.Migrations
                     b.Property<double?>("Salary")
                         .HasColumnType("float");
 
-                    b.HasKey("Username");
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Worker");
                 });
@@ -788,6 +797,25 @@ namespace MotorSystemsApp.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItem", b =>
+                {
+                    b.HasOne("MotorSystemsApp.Models.Product", "Product")
+                        .WithMany("ServiceItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MotorSystemsApp.Models.Service", "Service")
+                        .WithMany("ServiceItems")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Service");
+                });
+
             modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
                 {
                     b.Navigation("OrderItems");
@@ -796,6 +824,13 @@ namespace MotorSystemsApp.Migrations
             modelBuilder.Entity("MotorSystemsApp.Models.Product", b =>
                 {
                     b.Navigation("OrderItems");
+
+                    b.Navigation("ServiceItems");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.Service", b =>
+                {
+                    b.Navigation("ServiceItems");
                 });
 #pragma warning restore 612, 618
         }

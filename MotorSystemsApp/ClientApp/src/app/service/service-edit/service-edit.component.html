@@ -1,3 +1,12 @@
+<!--export interface Service{
+  id: number | undefined;
+  assignedWorker: string | undefined;
+  client: string;
+  state: string;
+  type: string;
+  vehiclePlate: string;
+  requestDate: Date;
+}
 <h3>Request Service</h3>
 
 <form [formGroup]="requestServiceForm" (ngSubmit)="requestService()">
@@ -29,8 +38,8 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="serviceType">Service Type:</label>
-    <select formControlName="serviceType" name="serviceType" id="serviceType" class="form-control">
+    <label for="type">Service Type:</label>
+    <select formControlName="type" name="type" id="type" class="form-control">
       <option value="revision">Revision</option>
       <option value="oil_change">Oil Change</option>
       <option value="part_replacement">Part Replacement</option>
@@ -43,3 +52,4 @@
     <a routerLink="orders-client" class="btn btn-secondary">Back</a>
   </div>
 </form>
+<p *ngIf="service">{{service.assignedWorker}}</p>-->

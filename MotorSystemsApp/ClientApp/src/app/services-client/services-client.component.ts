@@ -15,6 +15,7 @@ export class ServicesClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe(user => {
+      console.log(user!.name);
       this.service.getServicesByUsername(user!.name!).subscribe(services => {
         this.services = services;
       });

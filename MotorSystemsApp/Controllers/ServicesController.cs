@@ -29,25 +29,31 @@ namespace MotorSystemsApp.Controllers
             return await _context.Service.ToListAsync();
         }
 
-        // GET: api/Services/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Service>> GetService(int id)
-        //{
-        //    var service = await _context.Service.FindAsync(id);
+        // GET: api/Services/5        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Service>> GetService(int id)
+        {
+            var service = await _context.Service.FindAsync(id);
 
-        //    if (service == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (service == null)
+            {
+                return NotFound();
+            }
 
-        //    return service;
-        //}
-
-        [HttpGet("{username}")]
+            return service;
+        }
+        
+       [HttpGet("servicesByUsername/{username}")]
         public async Task<ActionResult<List<Service>>> GetServicesByUsername(string username)
         {
+            System.Diagnostics.Debug.WriteLine("USERNAME: ", username);
             var services = await _context.Service.Where(s => s.AssignedWorker==username || s.Client == username).ToListAsync();
             
+            if (services == null)
+            {
+                return NotFound();
+            }
+
             return services;
         }
 

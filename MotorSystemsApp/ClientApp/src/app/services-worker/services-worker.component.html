@@ -1,0 +1,34 @@
+<h1 id="tableLabel">Open Services</h1>
+
+<p *ngIf="!openServices"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="openServices">
+  <thead>
+    <tr>
+      <th>Service Type</th>
+      <th>Assigned Worker</th>
+      <th>Client</th>
+      <th>State</th>
+      <th>Vehicle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let service of openServices" style="cursor:pointer" (click)="goServiceDetails(service.id!)">
+      <td>{{ service.type }}</td>
+      <ng-container *ngIf="service.assignedWorker; else elseblock">
+        <td>{{service.assignedWorker}}</td>
+      </ng-container>
+      <ng-template #elseblock>
+        <td>
+          <p>No worker assigned yet</p>
+          <button class="btn btn-success" (click)="acceptService($event, service)">Accept</button>
+        </td>
+      </ng-template>        
+      <td>{{ service.client }}</td>
+      <td>{{ service.state }}</td>
+      <td>{{ service.vehiclePlate }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!--<a href="service-request" class="btn btn-success">Request Service</a>-->

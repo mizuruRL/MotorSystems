@@ -29,6 +29,7 @@ export class OrderDetailsComponent implements OnInit {
       this.order = order;
       this.inputDate.setValue(new Date(this.order.orderDelivery!).toISOString().slice(0, 10));
       this.inputDate.addValidators(newDeliveryValidator(order.orderDate));
+      console.log(this.order)
     });
   }
 

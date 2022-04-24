@@ -29,8 +29,15 @@ import { OrderDeliveredDialogComponent } from './order/order-delivered-dialog/or
 import { OrderCancelledDialogComponent } from './order/order-cancelled-dialog/order-cancelled-dialog.component';
 import { ServicesClientComponent } from './services-client/services-client.component';
 import { ServicesService } from './services/services.service';
-import { ServiceRequestComponent } from './service-request/service-request.component';
+import { ServiceRequestComponent } from './service/service-request/service-request.component';
 import { VehiclesService } from './services/vehicles.service';
+import { ServicesWorkerComponent } from './services-worker/services-worker.component';
+import { ServiceEditComponent } from './service/service-edit/service-edit.component';
+import { WorkerService } from './services/worker.service';
+import { WorkerGuard } from './worker/worker.guard';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { ServiceDetailsComponent } from './service/service-details/service-details.component';
+import { ServiceItemAddComponent } from './service/service-item-add/service-item-add.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +58,12 @@ import { VehiclesService } from './services/vehicles.service';
     OrderDeliveredDialogComponent,
     OrderCancelledDialogComponent,
     ServicesClientComponent,
-    ServiceRequestComponent,    
+    ServiceRequestComponent,
+    ServicesWorkerComponent,
+    ServiceEditComponent,
+    NotAuthorizedComponent,
+    ServiceDetailsComponent,
+    ServiceItemAddComponent,    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -71,14 +83,18 @@ import { VehiclesService } from './services/vehicles.service';
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'order/create', component: OrderCreateComponent },
-      { path: 'worker', component: WorkerMenuComponent },
-      { path: 'services-client', component: ServicesClientComponent, canActivate:[AuthorizeGuard] },
+      { path: 'worker', component: WorkerMenuComponent, canActivate: [AuthorizeGuard, /*WorkerGuard*/] },
+      { path: 'services-client', component: ServicesClientComponent, canActivate: [AuthorizeGuard] },
+      { path: 'services-worker', component: ServicesWorkerComponent, canActivate: [AuthorizeGuard] },
       { path: 'service-request', component: ServiceRequestComponent },
+      { path: 'service-edit/:id', component: ServiceEditComponent },
+      { path: 'service-details/:id', component: ServiceDetailsComponent },
+      { path: 'not-authorized', component: NotAuthorizedComponent },      
     ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService
+    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService, WorkerGuard
   ],
   bootstrap: [AppComponent]
 })

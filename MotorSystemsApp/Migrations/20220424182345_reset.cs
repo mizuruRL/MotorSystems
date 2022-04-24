@@ -100,7 +100,7 @@ namespace MotorSystemsApp.Migrations
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     OrderDelivery = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Provider = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    State = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,10 +139,7 @@ namespace MotorSystemsApp.Migrations
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuantityNeeded = table.Column<float>(type: "real", nullable: false),
-                    AvailableQuantity = table.Column<float>(type: "real", nullable: false),
-                    MissingQuantity = table.Column<float>(type: "real", nullable: false),
-                    DaysUntilNextNeed = table.Column<int>(type: "int", nullable: false)
+                    AvailableQuantity = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,10 +167,13 @@ namespace MotorSystemsApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AssignedWorker = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AssignedWorker = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Client = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    VehiclePlate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -199,14 +199,16 @@ namespace MotorSystemsApp.Migrations
                 name: "Worker",
                 columns: table => new
                 {
-                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContractEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Salary = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Worker", x => x.Username);
+                    table.PrimaryKey("PK_Worker", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -341,23 +343,49 @@ namespace MotorSystemsApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ServiceItem",
+                columns: table => new
+                {
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    ProductQuantity = table.Column<float>(type: "real", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceItem", x => new { x.ServiceId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_ServiceItem_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ServiceItem_Service_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Service",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Order",
                 columns: new[] { "Id", "OrderDate", "OrderDelivery", "Provider", "State" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Castrol", "Pending" },
-                    { 2, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Prov2", "Pending" }
+                    { 1, new DateTime(2022, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Castrol", 1 },
+                    { 2, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Prov2", 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "Id", "AvailableQuantity", "Brand", "Category", "DaysUntilNextNeed", "Description", "ImgUrl", "MissingQuantity", "Name", "Price", "QuantityNeeded" },
+                columns: new[] { "Id", "AvailableQuantity", "Brand", "Category", "Description", "ImgUrl", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 30f, "Brand1", "Category1", 0, "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.", "/assets/images/castrol-oil.jpg", 0f, "Prod1", 30f, 0f },
-                    { 2, 30f, "Brand2", "Category2", 0, "Desc2", "/assets/images/castrol-oil.jpg", 0f, "Prod2", 10f, 0f },
-                    { 3, 5f, "Brand3", "Category3", 0, "Desc3", "/assets/images/castrol-oil.jpg", 0f, "Prod3", 13f, 0f }
+                    { 1, 30f, "Brand1", "Category1", "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.", "/assets/images/castrol-oil.jpg", "Prod1", 30f },
+                    { 2, 30f, "Brand2", "Category2", "Desc2", "/assets/images/castrol-oil.jpg", "Prod2", 10f },
+                    { 3, 5f, "Brand3", "Category3", "Desc3", "/assets/images/castrol-oil.jpg", "Prod3", 13f }
                 });
 
             migrationBuilder.InsertData(
@@ -370,11 +398,6 @@ namespace MotorSystemsApp.Migrations
                     { 3, new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4 },
                     { 4, new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 10 }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Service",
-                columns: new[] { "Id", "AssignedWorker", "Client", "State", "Type" },
-                values: new object[] { 1, "whatever", "tiago", 0, 1 });
 
             migrationBuilder.InsertData(
                 table: "Vehicle",
@@ -471,6 +494,11 @@ namespace MotorSystemsApp.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceItem_ProductId",
+                table: "ServiceItem",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -506,7 +534,7 @@ namespace MotorSystemsApp.Migrations
                 name: "ProductNeeded");
 
             migrationBuilder.DropTable(
-                name: "Service");
+                name: "ServiceItem");
 
             migrationBuilder.DropTable(
                 name: "Vehicle");
@@ -525,6 +553,9 @@ namespace MotorSystemsApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Service");
         }
     }
 }

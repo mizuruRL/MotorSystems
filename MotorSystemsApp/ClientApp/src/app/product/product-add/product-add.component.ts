@@ -28,7 +28,6 @@ export class ProductAddComponent implements OnInit {
 
   addProduct(form: NgForm): void {
     let toUpdate: string = form.value.addTo;
-    console.log(toUpdate);
     let quantity: number = form.value.quantity;
 
     if (toUpdate === 'availableQuantity') { this.product.availableQuantity += quantity }

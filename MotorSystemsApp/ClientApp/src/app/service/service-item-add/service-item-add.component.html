@@ -1,0 +1,22 @@
+<h3>Add Service Item</h3>
+
+<form #serviceItemForm="ngForm" (ngSubmit)="addItem(serviceItemForm)">
+  <div class="form-group">
+    <label for="description">Description: </label>
+    <input ngModel name="description" id="description" type="text" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="product">Product Used:</label>
+    <select required ngModel name="product" id="product" class="form-control">
+      <option *ngFor="let prod of products" [ngValue]="prod.id">{{prod.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="productQuantity">Quantity:</label>
+    <input ngModel name="productQuantity" id="productQuantity" type="number" class="form-control" />
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn-success btn" [disabled]="!serviceItemForm.valid">Create</button>
+    <a routerLink="services-worker" class="btn btn-outline-secondary">Back</a>
+  </div>
+</form>

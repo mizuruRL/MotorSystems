@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthorizeService } from '../../api-authorization/authorize.service';
-import { Service, ServicesService } from '../services/services.service';
-import { Vehicle, VehiclesService } from '../services/vehicles.service';
+import { AuthorizeService } from '../../../api-authorization/authorize.service';
+import { Service, ServicesService } from '../../services/services.service';
+import { Vehicle, VehiclesService } from '../../services/vehicles.service';
 
 @Component({
   selector: 'app-service-request',
@@ -31,7 +31,7 @@ export class ServiceRequestComponent implements OnInit {
 
   requestServiceForm = new FormGroup({
     vehiclePlate: new FormControl('', Validators.required),
-    serviceType: new FormControl('', Validators.required)
+    type: new FormControl('', Validators.required)
   });
   get vehiclePlate() {
     return this.requestServiceForm.get('vehiclePlate');
@@ -54,12 +54,15 @@ export class ServiceRequestComponent implements OnInit {
     }
 
     this.vService.getVehicle(vehiclePlate).subscribe(v => {
-      let s: Service={
-        serviceType: this.requestServiceForm.controls["serviceType"].value,
+      let s: Service = {
+        id: undefined,
+        type: this.requestServiceForm.controls["type"].value,
         state: "In_Queue",
         client: this.user!,
         vehiclePlate: vehiclePlate,
-        assignedWorker: undefined
+        requestDate: new Date(),
+        assignedWorker: undefined,
+        serviceItems: undefined
       } 
       console.log(s);
       this.service.addServiceRequest(s).subscribe(res => {
