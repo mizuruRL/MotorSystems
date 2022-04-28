@@ -27,7 +27,7 @@ export class ServicesWorkerComponent implements OnInit {
   }
 
   goServiceDetails(id: number): void{
-    this.router.navigateByUrl("service-details/"+id);
+    this.router.navigateByUrl("services/"+id);
   }
 
   acceptService(event: any, service: Service): void {

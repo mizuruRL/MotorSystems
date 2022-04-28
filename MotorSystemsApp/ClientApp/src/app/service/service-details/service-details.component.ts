@@ -16,8 +16,8 @@ export class ServiceDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.sService.getService(this.id!).subscribe(res => {
+      console.log(res);
       this.service = res;
     });
   }
-
 }

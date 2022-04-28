@@ -22,7 +22,8 @@ namespace MotorSystemsApp.Data
         public DbSet<Service> Service { get; set; }
         public DbSet<Vehicle> Vehicle { get; set; }        
         public DbSet<Worker> Worker { get; set; }
-        public DbSet<Vehicle> ServiceItem { get; set; }
+        public DbSet<ServiceItem> ServiceItem { get; set; }
+        public DbSet<ServiceItemItem> ServiceItemItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,17 +46,17 @@ namespace MotorSystemsApp.Data
                         .WithMany(p => p.OrderItems)
                         .HasForeignKey(oi => oi.ProductId);
 
-            modelBuilder.Entity<ServiceItem>().HasKey(si => new { si.ServiceId, si.ProductId });
+            //modelBuilder.Entity<ServiceItem>().HasKey(si => new { si.ServiceId, si.ProductId });
 
-            modelBuilder.Entity<ServiceItem>()
-                        .HasOne(si => si.Service)
-                        .WithMany(s => s.ServiceItems)
-                        .HasForeignKey(si => si.ServiceId);
+            //modelBuilder.Entity<ServiceItem>()
+            //            .HasOne(si => si.Service)
+            //            .WithMany(s => s.ServiceItems)
+            //            .HasForeignKey(si => si.ServiceId);
 
-            modelBuilder.Entity<ServiceItem>()
-                        .HasOne(si => si.Product)
-                        .WithMany(p => p.ServiceItems)
-                        .HasForeignKey(si => si.ProductId);
+            //modelBuilder.Entity<ServiceItemProduct>()
+            //            .HasOne(si => si.ServiceItemId)
+            //            .WithMany(p => p.ServiceItems)
+            //            .HasForeignKey(si => si.ProductId);
 
             modelBuilder.Entity<Product>().HasData
                 (

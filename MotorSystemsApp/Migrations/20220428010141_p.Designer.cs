@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220424182345_reset")]
-    partial class reset
+    [Migration("20220428010141_p")]
+    partial class p
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -646,24 +646,56 @@ namespace MotorSystemsApp.Migrations
 
             modelBuilder.Entity("MotorSystemsApp.Models.ServiceItem", b =>
                 {
-                    b.Property<int>("ServiceId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("ProductQuantity")
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.HasKey("ServiceId", "ProductId");
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
+                    b.HasIndex("ServiceId");
+
                     b.ToTable("ServiceItem");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItemItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Quantity")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ServiceItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ServiceItemItem");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Vehicle", b =>
@@ -799,11 +831,9 @@ namespace MotorSystemsApp.Migrations
 
             modelBuilder.Entity("MotorSystemsApp.Models.ServiceItem", b =>
                 {
-                    b.HasOne("MotorSystemsApp.Models.Product", "Product")
+                    b.HasOne("MotorSystemsApp.Models.Product", null)
                         .WithMany("ServiceItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
 
                     b.HasOne("MotorSystemsApp.Models.Service", "Service")
                         .WithMany("ServiceItems")
@@ -811,9 +841,18 @@ namespace MotorSystemsApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
-
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItemItem", b =>
+                {
+                    b.HasOne("MotorSystemsApp.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>

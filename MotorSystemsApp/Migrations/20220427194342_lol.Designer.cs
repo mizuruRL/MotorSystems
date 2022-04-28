@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorSystemsApp.Data;
 
@@ -11,9 +12,10 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220427194342_lol")]
+    partial class lol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -672,7 +674,7 @@ namespace MotorSystemsApp.Migrations
                     b.ToTable("ServiceItem");
                 });
 
-            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItemItem", b =>
+            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItemProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -693,7 +695,7 @@ namespace MotorSystemsApp.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ServiceItemItem");
+                    b.ToTable("ServiceItemProduct");
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Vehicle", b =>
@@ -842,7 +844,7 @@ namespace MotorSystemsApp.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItemItem", b =>
+            modelBuilder.Entity("MotorSystemsApp.Models.ServiceItemProduct", b =>
                 {
                     b.HasOne("MotorSystemsApp.Models.Product", "Product")
                         .WithMany()

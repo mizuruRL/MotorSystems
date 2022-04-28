@@ -1,23 +1,47 @@
 <div class="row" *ngIf="service">
-  <div class="col-md-3"></div>
-  <div class='col-md-2 mt-5'>
-    <table name="Service Items" class='table table-borderless' aria-labelledby="tableLabel">
+  <div class="row">
+    <h1 class="d-flex justify-content-center">Service #{{service.id}} Details</h1>
+  </div>
+  <div class="col-md-2"></div>
+  <div class='col-md-4 mt-5'>
+    <label name="tableLabel">Service Items</label>
+    <table name="Service Items" class='table table-striped' aria-labelledby="tableLabel">
       <thead>
         <tr>
           <th>Description</th>
-          <th>Product</th>
+          <th>Products Used</th>
           <th>Quantity</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of service.serviceItems">
           <td>{{item.description}}</td>
-          <td *ngIf="item.product">{{item.product.name}}</td>
-          <td>{{item.productQuantity}}</td>
-        </tr>
+          
+          <td>
+            <ng-container *ngFor="let i of item.items">
+              <p>{{i.product!.name!}}</p>
+            </ng-container>
+          </td>         
+          
+          <td>
+            <ng-container *ngFor="let i of item.items">
+              <p>{{i.quantity}}</p>
+            </ng-container>
+          </td>
+          
+</tr>
       </tbody>
     </table>
-    <a href="service-item-add" class="btn btn-success">Add item</a>
+    <a href="service-item-add/{{service.id}}" class="btn btn-success">Add item</a>
   </div>
-  <div class='col-md-2'></div>
+  <div class='col-md-1'></div>
+  <div class='col-md-5 mt-5'>
+    <p><span class="fw-bold">Assigned Worker: </span>{{service.assignedWorker}}</p>
+    <p><span class="fw-bold">Client: </span>{{service.client}}</p>
+    <p><span class="fw-bold">State: </span>{{service.state}}</p>
+    <p><span class="fw-bold">Service Type: </span>{{service.type}}</p>
+    <p><span class="fw-bold">Vehicle Plate: </span>{{service.vehiclePlate}}</p>
+    <p><span class="fw-bold">Request Date: </span>{{service.requestDate | date: 'dd/MM/yyyy'}}</p>
+  </div>
 </div>
+

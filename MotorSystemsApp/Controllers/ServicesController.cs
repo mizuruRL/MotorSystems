@@ -33,6 +33,8 @@ namespace MotorSystemsApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(int id)
         {
+            System.Diagnostics.Debug.WriteLine("000000000000000000000000000000000000000");
+
             var service = await _context.Service.FindAsync(id);
 
             if (service == null)
@@ -40,13 +42,30 @@ namespace MotorSystemsApp.Controllers
                 return NotFound();
             }
 
+            System.Diagnostics.Debug.WriteLine("111111111111111111111111111111111111111111");
+
+            service.ServiceItems = await _context.ServiceItem.Where(si => si.ServiceId == service.Id).ToListAsync();
+
+            System.Diagnostics.Debug.WriteLine("222222222222222222222222222222222222222222");
+
+            if (service.ServiceItems.Any())
+            {
+                foreach (ServiceItem item in service.ServiceItems)
+                {
+                    item.Items = await _context.ServiceItemItem.Where(sip => sip.ServiceItemId == item.Id).ToListAsync();
+                    item.Items.ForEach(item => item.Product = _context.Product.Find(item.ProductId));
+                }
+            }
+
+            System.Diagnostics.Debug.WriteLine("33333333333333333333333333333333333333333333333");
+
             return service;
         }
         
        [HttpGet("servicesByUsername/{username}")]
         public async Task<ActionResult<List<Service>>> GetServicesByUsername(string username)
         {
-            System.Diagnostics.Debug.WriteLine("USERNAME: ", username);
+            
             var services = await _context.Service.Where(s => s.AssignedWorker==username || s.Client == username).ToListAsync();
             
             if (services == null)
