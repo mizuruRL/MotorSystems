@@ -52,7 +52,7 @@ export class OrderDetailsComponent implements OnInit {
       for (let i = 0; i < len; i++) {
         let item = this.order.orderItems[i];
         item.product!.availableQuantity += item.quantity;
-        this.prodService.updateProductQuantity(item.product!.id, item.product!).subscribe(
+        this.prodService.updateProduct(item.product!.id, item.product!).subscribe(
           res => {
             if (i + 1 == len) {
               if (this.order) {

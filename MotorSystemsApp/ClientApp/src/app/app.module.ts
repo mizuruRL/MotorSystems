@@ -38,6 +38,7 @@ import { WorkerGuard } from './worker/worker.guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { ServiceDetailsComponent } from './service/service-details/service-details.component';
 import { ServiceItemAddComponent } from './service/service-item-add/service-item-add.component';
+import { ServiceConcludedDialogComponent } from './service/service-concluded-dialog/service-concluded-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ServiceItemAddComponent } from './service/service-item-add/service-item
     ServiceEditComponent,
     NotAuthorizedComponent,
     ServiceDetailsComponent,
-    ServiceItemAddComponent,    
+    ServiceItemAddComponent,
+    ServiceConcludedDialogComponent,    
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -101,7 +101,7 @@ export class ProductDetailsComponent implements OnInit {
 
     this.product.availableQuantity += quantity
 
-    this.prodService.updateProductQuantity(this.id, this.product).subscribe(res => {
+    this.prodService.updateProduct(this.id, this.product).subscribe(res => {
       this.activeForm = "";
       window.location.reload();
     });
@@ -112,7 +112,7 @@ export class ProductDetailsComponent implements OnInit {
 
     this.product.availableQuantity -= quantity;
 
-    this.prodService.updateProductQuantity(this.id, this.product).subscribe(res => {
+    this.prodService.updateProduct(this.id, this.product).subscribe(res => {
       this.activeForm = "";
       window.location.reload();
     });

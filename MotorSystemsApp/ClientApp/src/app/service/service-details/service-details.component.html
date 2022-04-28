@@ -16,20 +16,17 @@
       <tbody>
         <tr *ngFor="let item of service.serviceItems">
           <td>{{item.description}}</td>
-          
           <td>
             <ng-container *ngFor="let i of item.items">
               <p>{{i.product!.name!}}</p>
             </ng-container>
-          </td>         
-          
+          </td>
           <td>
             <ng-container *ngFor="let i of item.items">
               <p>{{i.quantity}}</p>
             </ng-container>
           </td>
-          
-</tr>
+        </tr>
       </tbody>
     </table>
     <a href="service-item-add/{{service.id}}" class="btn btn-success">Add item</a>
@@ -43,5 +40,15 @@
     <p><span class="fw-bold">Vehicle Plate: </span>{{service.vehiclePlate}}</p>
     <p><span class="fw-bold">Request Date: </span>{{service.requestDate | date: 'dd/MM/yyyy'}}</p>
   </div>
+  <div>
+    <ng-container *ngIf="service.state=='Processing'" class="d-flex justify-content-center mt-4">
+      <button class="btn btn-success me-2" (click)="openServiceFinishedDialog()">Conclude</button>
+    </ng-container>
+    <ng-container *ngIf="service.state=='In_Queue' || service.state=='Processing'">
+      <button class="btn me-2" (click)="cancelService()" style="color:white; background-color: RGB(127, 26, 26)">Cancel Service</button>
+    </ng-container>
+    <a href="services-worker" class="btn btn-outline-secondary">Back</a>
+  </div>
 </div>
+
 
