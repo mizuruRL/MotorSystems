@@ -190,19 +190,6 @@ namespace MotorSystemsApp.Data
                     Client = "tiago"
                 }
             );
-            //modelBuilder.Entity<Service>().HasData
-            //(
-            //    new Service
-            //    {
-            //        Id = 1,
-            //        AssignedWorker = "whatever",
-            //        Client = "tiago",
-            //        State = State.In_Queue,
-            //        Type = ServiceType.Revision,
-            //        //Plate = "A1-B7-30"
-            //        Vehicle = v
-            //    }
-            //); 
         }
 
     }

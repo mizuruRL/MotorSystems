@@ -3,8 +3,9 @@
 <!--<p *ngIf="!product || !productMissing"><em>Loading...</em></p>-->
 
 <div class="row" *ngIf="product">
+  <div class='col-md-1'></div>
   <div class='col-md-4'>
-    <img src={{product.imgUrl}} class="img-fluid"/>
+    <img src={{product.imgUrl}} class="img-fluid" />
   </div>
   <div class='col-md-6 mx-3 mt-5'>
     <p><span class="fw-bold">Name: </span>{{product.name}}</p>
@@ -12,8 +13,8 @@
     <p><span class="fw-bold">Branc: </span>{{product.brand}}</p>
     <p><span class="fw-bold">Price: </span>{{product.price}}</p>
     <p><span class="fw-bold">Description: </span>{{product.description}}</p>
-  </div>  
- </div>
+  </div>
+  </div>
   <div class="row d-flex justify-content-center my-5" *ngIf="product">
     <div class='col-md-3'>
       <p>Available in stock: {{product.availableQuantity}}</p>
@@ -82,23 +83,23 @@
       </form>
     </div>
   </div>
-<div class='row'>
-  <div class='col-md-4'>
-    <label id="neededTable">Stock Needed</label>
-    <table class='table table-striped' aria-labelledby="neededTable" *ngIf="product && productNeeded">
-      <thead>
-        <tr>
-          <th>Quantity</th>
-          <th>Needed for Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let needed of productNeeded">
-          <td>{{ needed.quantityNeeded }}</td>
-          <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class='row'>
+    <div class='col-md-4'>
+      <label id="neededTable">Stock Needed</label>
+      <table class='table table-striped' aria-labelledby="neededTable" *ngIf="product && productNeeded">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Needed for Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let needed of productNeeded">
+            <td>{{ needed.quantityNeeded }}</td>
+            <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class='col-md-4'>
       <label id="misssingTable">Stock Missing</label>
@@ -135,4 +136,4 @@
       </table>
     </div>
   </div>
-  
+

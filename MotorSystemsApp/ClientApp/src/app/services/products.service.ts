@@ -42,4 +42,8 @@ export class ProductsService {
   deleteProductNeeded(id: number) {
     return this.http.delete<ProductNeeded>(this.baseUrl + 'api/productsNeeded/' + id);
   }
+
+  uploadProductImage(img: FormData) {
+    return this.http.post<FormData>(this.baseUrl + 'api/images/', img);
+  }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MotorSystemsApp.Migrations
 {
-    public partial class m : Migration
+    public partial class b : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,7 +138,7 @@ namespace MotorSystemsApp.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AvailableQuantity = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -344,6 +344,27 @@ namespace MotorSystemsApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ServiceItemItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ServiceItemId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceItemItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServiceItemItem_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ServiceItem",
                 columns: table => new
                 {
@@ -366,33 +387,6 @@ namespace MotorSystemsApp.Migrations
                         name: "FK_ServiceItem_Service_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Service",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ServiceItemProduct",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceItemId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<float>(type: "real", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ServiceItemProduct", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ServiceItemProduct_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Product",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ServiceItemProduct_ServiceItem_ServiceItemId",
-                        column: x => x.ServiceItemId,
-                        principalTable: "ServiceItem",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -534,14 +528,9 @@ namespace MotorSystemsApp.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceItemProduct_ProductId",
-                table: "ServiceItemProduct",
+                name: "IX_ServiceItemItem_ProductId",
+                table: "ServiceItemItem",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceItemProduct_ServiceItemId",
-                table: "ServiceItemProduct",
-                column: "ServiceItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -577,7 +566,10 @@ namespace MotorSystemsApp.Migrations
                 name: "ProductNeeded");
 
             migrationBuilder.DropTable(
-                name: "ServiceItemProduct");
+                name: "ServiceItem");
+
+            migrationBuilder.DropTable(
+                name: "ServiceItemItem");
 
             migrationBuilder.DropTable(
                 name: "Vehicle");
@@ -595,13 +587,10 @@ namespace MotorSystemsApp.Migrations
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "ServiceItem");
+                name: "Service");
 
             migrationBuilder.DropTable(
                 name: "Product");
-
-            migrationBuilder.DropTable(
-                name: "Service");
         }
     }
 }

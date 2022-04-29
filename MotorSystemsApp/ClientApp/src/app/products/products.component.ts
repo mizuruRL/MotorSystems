@@ -78,5 +78,5 @@ export interface Product {
   availableQuantity: number;
   missingQuantity: number;
   daysUntilNextNeed: number;
-  imgUrl: number;
+  imgUrl: string;
 }
