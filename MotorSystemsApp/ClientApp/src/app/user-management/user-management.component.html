@@ -1,0 +1,26 @@
+<h1>Worker Management</h1>
+<button mat-flat-button type="submit" (click)="openDialog()" color="primary"><mat-icon>person_add</mat-icon> Add Worker</button>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Work Title</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Contract End</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let worker of workers">
+      <td>{{worker.username}}</td>
+      <td>{{worker.worktitle}}</td>
+      <td>{{worker.salary}}</td>
+      <td>{{worker.contractend}}</td>
+      <td>
+        <button mat-flat-button color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Add a new worker</h2>
+<mat-dialog-content class="mat-typography">
+  <label for="name">User:</label>
+  <form #workerForm="ngForm">
+    <div class="form-group mt-2">
+      <select required ngModel name="id" id="id" class="form-control">
+        <option *ngFor="let client of clients" [ngValue]="client.id">{{client.username + client.docid}}</option>
+      </select>
+    </div>
+    <div class="form-group mt-2">
+      <label for="worktitle">Work Title:</label>
+      <input required id="worktitle" type="text" class="form-control mb-3" />
+    </div>
+    <div class="form-group mt-2">
+      <label for="salary">Salary:</label>
+      <input required name="salary" id="salary" type="number" class="form-control" />
+    </div>
+    <div class="form-group mt-2">
+      <label for="contractend">Contract End: </label>
+      <input required id="contractend" type="date" class="form-control" />
+    </div>
+    <mat-dialog-actions align="end">
+      <button mat-flat-button mat-dialog-close>Cancel</button>
+      <button mat-flat-button type="submit" [disabled]="!workerForm.valid" (click)="addToWorker(workerForm)" color="primary"><mat-icon>arrow_upward</mat-icon> Promote</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
+

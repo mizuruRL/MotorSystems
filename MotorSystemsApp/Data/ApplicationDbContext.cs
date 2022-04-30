@@ -204,5 +204,7 @@ namespace MotorSystemsApp.Data
             //); 
         }
 
+        public DbSet<MotorSystemsApp.Models.Client> Client { get; set; }
+
     }
 }

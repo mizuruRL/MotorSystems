@@ -8,7 +8,7 @@ namespace MotorSystemsApp.Models
     {
         [Key]
         [ForeignKey("ApplicationUser")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Username { get; set; }
         public string? JobTitle { get; set; }
         public DateTime? ContractEndDate { get; set; }
