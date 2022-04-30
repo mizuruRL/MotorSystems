@@ -53,8 +53,6 @@ namespace MotorSystemsApp.Controllers
                     }
                     System.Diagnostics.Debug.WriteLine(dbPath);
                     return Ok(new { dbPath });
-                        //dbPath;
-
                 }
                 else
                 {

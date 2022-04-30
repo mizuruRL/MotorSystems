@@ -24,7 +24,7 @@ export class ServicesService {
   }
 
   updateService(s: Service): Observable<Service[]> {
-    return this.http.put<Service[]>(this.baseUrl + 'api/services/'+s.id, s);
+    return this.http.put<Service[]>(this.baseUrl + 'api/services/'+ s.id, s);
   }
 
   getService(id: number): Observable<Service> {
@@ -52,6 +52,7 @@ export interface Service{
   type: string;
   vehiclePlate: string;
   requestDate: Date;
+  price: number | undefined;
   serviceItems: ServiceItem[] | undefined;
 }
 

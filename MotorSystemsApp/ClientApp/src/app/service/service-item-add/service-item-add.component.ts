@@ -30,48 +30,27 @@ export class ServiceItemAddComponent implements OnInit {
   }
 
   addToService(form: NgForm) {
-    //serviceId: number;
-    //description: string;
-    //items: ServiceItemItem[];
-    //price: number;
     let item: ServiceItem = form.value;
     item.serviceId = this.id!;
-    console.log(item);
     this.servService.addServiceItem(item).subscribe(res => {
       let itemId = res.id;
-      console.log("IDDDD: ",itemId)
-      console.log("ItemItems: ", this.itemItems);
       this.itemItems.forEach(ii => {
         ii.serviceItemId = itemId;
         ii.product = undefined;
-        this.servService.addServiceItemItem(ii).subscribe(res => {
-          console.log(res);
+        this.servService.addServiceItemItem(ii).subscribe(res => {          
           this.router.navigateByUrl("services/" + this.id);
-        });
-        
+        });        
       })      
     });
   }
 
   addItem(form: NgForm) {
-    //id: number | undefined;
-    //serviceItemId: number;
-    //product: Product | undefined;
-    //productId: number | undefined;
-    //quantity: number;
     let item: ServiceItemItem = form.value;
     this.prodService.getProduct(item.productId!).subscribe(res => {
       item.productId = res.id;
       item.product = res;
-      this.itemItems.push(item);
-      console.log("Item: ", item);
+      this.itemItems.push(item);      
     });
-    //item.serviceItemId = this.id!;
-    
-    
-    //this.servService.addServiceItemProduct(item).subscribe(res => {
-    //  console.log(res);
-    //})
   }
 }
 

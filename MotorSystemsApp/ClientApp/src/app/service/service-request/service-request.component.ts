@@ -61,10 +61,10 @@ export class ServiceRequestComponent implements OnInit {
         client: this.user!,
         vehiclePlate: vehiclePlate,
         requestDate: new Date(),
+        price: 0,
         assignedWorker: undefined,
         serviceItems: undefined
       } 
-      console.log(s);
       this.service.addServiceRequest(s).subscribe(res => {
         this.showAddVehicleForm = false;
         this.router.navigateByUrl("services-client");

@@ -8,6 +8,8 @@ namespace MotorSystemsApp.Models
         public int Id { get; set; }
         public string? AssignedWorker { get; set; }
         public string Client { get; set; }
+
+        [NotMapped]
         public float Price { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]

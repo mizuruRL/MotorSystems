@@ -17,6 +17,10 @@ namespace MotorSystemsApp.Models
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public OrderState State { get; set; }
         public ICollection<OrderItem>? OrderItems { get; set; }
+    }
 
+    public enum OrderState
+    {
+        Delivered, Pending, Delayed, Cancelled
     }
 }
