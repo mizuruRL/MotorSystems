@@ -56,12 +56,38 @@ namespace MotorSystemsApp.Controllers
             return service;
         }
         
-       [HttpGet("servicesByUsername/{username}")]
+        [HttpGet("servicesByUsername/{username}")]
         public async Task<ActionResult<List<Service>>> GetServicesByUsername(string username)
         {
             
             var services = await _context.Service.Where(s => s.AssignedWorker==username || s.Client == username).ToListAsync();
             
+            if (services == null)
+            {
+                return NotFound();
+            }
+
+            return services;
+        }
+        [HttpGet("servicesByClient/{username}")]
+        public async Task<ActionResult<List<Service>>> GetServicesByClient(string username)
+        {
+
+            var services = await _context.Service.Where(s => s.Client == username).ToListAsync();
+
+            if (services == null)
+            {
+                return NotFound();
+            }
+
+            return services;
+        }
+        [HttpGet("servicesByWorker/{username}")]
+        public async Task<ActionResult<List<Service>>> GetServicesByWorker(string username)
+        {
+
+            var services = await _context.Service.Where(s => s.AssignedWorker == username).ToListAsync();
+
             if (services == null)
             {
                 return NotFound();

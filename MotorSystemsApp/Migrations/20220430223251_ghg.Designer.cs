@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorSystemsApp.Data;
 
@@ -11,9 +12,10 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220430223251_ghg")]
+    partial class ghg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -580,21 +582,21 @@ namespace MotorSystemsApp.Migrations
                         new
                         {
                             Id = 1,
-                            NeededForDate = new DateTime(2022, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 10
                         },
                         new
                         {
                             Id = 2,
-                            NeededForDate = new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 38
                         },
                         new
                         {
                             Id = 3,
-                            NeededForDate = new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 3,
                             QuantityNeeded = 4
                         },

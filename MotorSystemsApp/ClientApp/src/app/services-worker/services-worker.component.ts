@@ -23,12 +23,12 @@ export class ServicesWorkerComponent implements OnInit {
     this.sService.getServices().subscribe(res => {
       this.services = res;
       this.openServices = this.services.filter(s => s.state != "Finished" && s.state != "Cancelled");
-      this.userHistory = this.services.filter(s => s.state == "Finished" || s.state == "Cancelled");
-      this.toShow = this.openServices;      
-    });
-    this.userService.getUser().subscribe(res => {
-      this.user = res!.name
-    });
+      this.toShow = this.openServices;
+      this.userService.getUser().subscribe(res => {
+        this.user = res!.name
+        this.userHistory = this.services!.filter(s => (s.state == "Finished" || s.state == "Cancelled") && s.assignedWorker == this.user);
+      });            
+    });    
   }
 
   switchToShow(): void {

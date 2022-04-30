@@ -17,7 +17,6 @@ namespace MotorSystemsApp.Controllers
     public class OrderItemsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-
         public OrderItemsController(ApplicationDbContext context)
         {
             _context = context;

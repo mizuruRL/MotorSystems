@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotorSystemsApp.Data;
 
@@ -11,9 +12,10 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220430221018_gh")]
+    partial class gh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -535,22 +537,22 @@ namespace MotorSystemsApp.Migrations
                         {
                             Id = 2,
                             AvailableQuantity = 30f,
-                            Brand = "R³",
+                            Brand = "Brand2",
                             Category = "Rims",
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+                            Description = "Desc2",
                             ImgUrl = "/assets/images/rims.jpg",
-                            Name = "R³ Wheels R3H03",
+                            Name = "Prod2",
                             Price = 10f
                         },
                         new
                         {
                             Id = 3,
                             AvailableQuantity = 5f,
-                            Brand = "ABP",
-                            Category = "Bumpers",
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-                            ImgUrl = "/assets/images/Bumper.jpg",
-                            Name = "EK9 Front Bumper",
+                            Brand = "Brand3",
+                            Category = "Category3",
+                            Description = "Desc3",
+                            ImgUrl = "/assets/images/castrol-oil.jpg",
+                            Name = "Prod3",
                             Price = 13f
                         });
                 });
@@ -580,21 +582,21 @@ namespace MotorSystemsApp.Migrations
                         new
                         {
                             Id = 1,
-                            NeededForDate = new DateTime(2022, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 10
                         },
                         new
                         {
                             Id = 2,
-                            NeededForDate = new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 38
                         },
                         new
                         {
                             Id = 3,
-                            NeededForDate = new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 3,
                             QuantityNeeded = 4
                         },

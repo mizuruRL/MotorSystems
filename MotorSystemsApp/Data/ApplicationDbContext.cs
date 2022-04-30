@@ -29,11 +29,6 @@ namespace MotorSystemsApp.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder
-            //.Entity<Order>()
-            //.Property(o => o.State)
-            //.HasConversion(new EnumToStringConverter<OrderState>());
-
             modelBuilder.Entity<OrderItem>().HasKey(oi => new { oi.OrderId, oi.ProductId });
 
             modelBuilder.Entity<OrderItem>()
@@ -63,35 +58,35 @@ namespace MotorSystemsApp.Data
                     new Product()
                     {
                         Id = 1,
-                        Name = "Prod1",
+                        Name = "Castrol Oil",
                         Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
-                        Brand = "Brand1",
+                        Brand = "Castrol",
                         Price = 30,
                         AvailableQuantity = 30,
-                        Category = "Category1",
+                        Category = "Engine Oil",
                         ImgUrl = "/assets/images/castrol-oil.jpg"
                     },
                     new Product
                     {
                         Id = 2,
-                        Name = "Prod2",
-                        Description = "Desc2",
-                        Brand = "Brand2",
+                        Name = "R³ Wheels R3H03",
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+                        Brand = "R³",
                         Price = 10,
                         AvailableQuantity = 30,
-                        Category = "Category2",
-                        ImgUrl = "/assets/images/castrol-oil.jpg",
+                        Category = "Rims",
+                        ImgUrl = "/assets/images/rims.jpg",
                     },
                     new Product
                     {
                         Id = 3,
-                        Name = "Prod3",
-                        Description = "Desc3",
-                        Brand = "Brand3",
+                        Name = "EK9 Front Bumper",
+                        Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+                        Brand = "ABP",
                         Price = 13,
                         AvailableQuantity = 5,
-                        Category = "Category3",
-                        ImgUrl = "/assets/images/castrol-oil.jpg"
+                        Category = "Bumpers",
+                        ImgUrl = "/assets/images/Bumper.jpg"
                     }
                 );
 
@@ -101,21 +96,21 @@ namespace MotorSystemsApp.Data
                     {
                         Id = 1,
                         ProductId = 1,
-                        NeededForDate = new DateTime(2022, 3, 30),
+                        NeededForDate = new DateTime(2022, 5, 30),
                         QuantityNeeded = 10
                     },
                     new ProductNeeded
                     {
                         Id = 2,
                         ProductId = 1,
-                        NeededForDate = new DateTime(2022, 5, 29),
+                        NeededForDate = new DateTime(2022, 5, 24),
                         QuantityNeeded = 38
                     },
                     new ProductNeeded
                     {
                         Id = 3,
                         ProductId = 3,
-                        NeededForDate = new DateTime(2022, 4, 24),
+                        NeededForDate = new DateTime(2022, 5, 6),
                         QuantityNeeded = 4
                     },
                     new ProductNeeded
@@ -179,17 +174,7 @@ namespace MotorSystemsApp.Data
                         Price = 55,
                     }
                 );
-            modelBuilder.Entity<Vehicle>().HasData
-            (
-                new Vehicle
-                {
-                    Plate = "A1-B7-30",
-                    Type = VehicleType.Car,
-                    Brand = "BMW",
-                    Model="M3",
-                    Client = "tiago"
-                }
-            );
+
         }
 
     }

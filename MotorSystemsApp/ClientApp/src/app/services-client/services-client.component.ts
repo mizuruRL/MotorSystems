@@ -22,7 +22,7 @@ export class ServicesClientComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser().subscribe(user => {
       this.user = user!.name;
-      this.service.getServicesByUsername(this.user!).subscribe(services => {
+      this.service.getServicesByClient(this.user!).subscribe(services => {
         this.services = services;
         this.openServices = this.services.filter(s => s.state != "Finished" && s.state != "Cancelled");
         this.userHistory = this.services.filter(s => s.state == "Finished" || s.state == "Cancelled");

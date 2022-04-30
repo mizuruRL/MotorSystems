@@ -1,7 +1,6 @@
 <h2>Create New Product</h2>
 
 <form #productForm="ngForm" (ngSubmit)="createProduct(productForm)">
-  <!--(ngSubmit)="createProduct(productForm)"-->
   <div class="form-group">
     <label for="name">Name: </label>
     <input required ngModel name="name" id="name" type="text" class="form-control" />
@@ -20,23 +19,19 @@
   </div>
   <div class="form-group">
     <label for="description">Description: </label>
-    <input required ngModel name="description" id="description" type="text" class="form-control" />
+    <textarea required ngModel name="description" id="description" class="form-control"></textarea>
   </div>
   <div class="form-group">
     <label for="price">Price: </label>
     <input required ngModel name="price" id="price" type="number" class="form-control" />
   </div>
-  <!--<div class="form-group">
+  <div class="form-group mt-2">
     <label for="img">Image: </label>
-    <input type="file" #file name="img" id="img" accept="image/png, image/jpeg" (change)="uploadFile(file.files)" class='file-upload' required>
-  </div>-->
-  <div class="form-group">
-    <label for="img">Image: </label>
-    <input required type="file" #file name="img" id="img" accept="image/png, image/jpeg" (change)="onChange($event)" class='file-upload'>
+    <input required type="file" #file name="img" id="img" accept="image/png, image/jpeg" (change)="onChange($event)" class='form-control-file'>
   </div>
-  <div class="form-group">
-    <button type="submit" class="btn-primary btn" [disabled]="!productForm.valid">Create</button>
-    <a routerLink="/products" class="btn btn-primary">Back</a>
+  <div class="form-group mt-3">
+    <button type="submit" class="btn-success btn" [disabled]="!productForm.valid">Create</button>
+    <a routerLink="/products" class="btn btn-outline-secondary ms-1">Back</a>
   </div>
 </form>
 

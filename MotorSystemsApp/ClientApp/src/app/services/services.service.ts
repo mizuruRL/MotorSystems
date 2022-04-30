@@ -11,8 +11,12 @@ export class ServicesService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  getServicesByUsername(username: string): Observable<Service[]>{
-    return this.http.get<Service[]>(this.baseUrl + 'api/services/servicesByUsername/' + username);
+  
+  getServicesByClient(username: string): Observable<Service[]> {
+    return this.http.get<Service[]>(this.baseUrl + 'api/services/servicesByClient/' + username);
+  }
+  getServicesByWorker(username: string): Observable<Service[]> {
+    return this.http.get<Service[]>(this.baseUrl + 'api/services/servicesByWorker/' + username);
   }
 
   addServiceRequest(service: Service): Observable<Service> {

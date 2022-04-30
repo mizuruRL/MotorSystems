@@ -160,7 +160,7 @@ export class ProductDetailsComponent implements OnInit {
       return 0;
     });
   }
-
+  
   getProductMissing() {
     let current: number = this.product.availableQuantity;
     for (let i = 0; i < this.productNeeded.length; i++) {
@@ -202,9 +202,10 @@ export interface ProductMissing {
 
 export function compareDates(d1: Date, d2: Date): number {
   
-  return new Date(d1).setHours(0, 0, 0, 0) == new Date(d2).setHours(0, 0, 0, 0) ? 0 : 
-    new Date(d1).setHours(0, 0, 0, 0) > new Date(d2).setHours(0, 0, 0, 0) ? 1 : -1;
-  
+  //return new Date(d1).setHours(0, 0, 0, 0) == new Date(d2).setHours(0, 0, 0, 0) ? 0 : 
+  //  new Date(d1).setHours(0, 0, 0, 0) > new Date(d2).setHours(0, 0, 0, 0) ? 1 : -1;
+  return d1.setHours(0, 0, 0, 0) == d2.setHours(0, 0, 0, 0) ? 0 :
+    d1.setHours(0, 0, 0, 0) > d2.setHours(0, 0, 0, 0) ? 1 : -1;
 }
 
 
