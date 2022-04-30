@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../products/products.component';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { ProductsService } from '../../services/products.service';
-import { AbstractControl, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-remove',

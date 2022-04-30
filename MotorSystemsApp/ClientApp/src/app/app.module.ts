@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -34,10 +37,12 @@ import { VehiclesService } from './services/vehicles.service';
 import { ServicesWorkerComponent } from './services-worker/services-worker.component';
 import { ServiceEditComponent } from './service/service-edit/service-edit.component';
 import { WorkerService } from './services/worker.service';
+import { ClientService } from './services/client.service';
 import { WorkerGuard } from './worker/worker.guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { ServiceDetailsComponent } from './service/service-details/service-details.component';
 import { ServiceItemAddComponent } from './service/service-item-add/service-item-add.component';
+import { UserManagementComponent, UserManagementDialog } from './user-management/user-management.component';
 import { ServiceConcludedDialogComponent } from './service/service-concluded-dialog/service-concluded-dialog.component';
 
 @NgModule({
@@ -65,7 +70,9 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
     NotAuthorizedComponent,
     ServiceDetailsComponent,
     ServiceItemAddComponent,
-    ServiceConcludedDialogComponent,    
+    UserManagementComponent,
+    UserManagementDialog,
+    ServiceConcludedDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -74,6 +81,9 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
     ApiAuthorizationModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -90,6 +100,9 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
       { path: 'services-worker', component: ServicesWorkerComponent, canActivate: [AuthorizeGuard] },
       { path: 'service-request', component: ServiceRequestComponent },
       { path: 'service-edit/:id', component: ServiceEditComponent },
+      { path: 'service-details/:id', component: ServiceDetailsComponent },
+      { path: 'not-authorized', component: NotAuthorizedComponent },
+      { path: 'user-management', component: UserManagementComponent },
       { path: 'services/:id', component: ServiceDetailsComponent },
       { path: 'not-authorized', component: NotAuthorizedComponent },
       { path: 'service-item-add/:id', component: ServiceItemAddComponent },
@@ -97,7 +110,7 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService, WorkerGuard
+    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService, WorkerGuard, ClientService
   ],
   bootstrap: [AppComponent]
 })
