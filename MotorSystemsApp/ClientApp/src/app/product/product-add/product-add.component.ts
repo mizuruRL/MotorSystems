@@ -33,7 +33,7 @@ export class ProductAddComponent implements OnInit {
     if (toUpdate === 'availableQuantity') { this.product.availableQuantity += quantity }
     else { this.product.quantityNeeded += quantity}
     
-    this.service.updateProductQuantity(this.id, this.product).subscribe(res => {
+    this.service.updateProduct(this.id, this.product).subscribe(res => {
       this.router.navigateByUrl("products");
     });
   }

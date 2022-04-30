@@ -43,6 +43,7 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
 import { ServiceDetailsComponent } from './service/service-details/service-details.component';
 import { ServiceItemAddComponent } from './service/service-item-add/service-item-add.component';
 import { UserManagementComponent, UserManagementDialog } from './user-management/user-management.component';
+import { ServiceConcludedDialogComponent } from './service/service-concluded-dialog/service-concluded-dialog.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { UserManagementComponent, UserManagementDialog } from './user-management
     ServiceItemAddComponent,
     UserManagementComponent,
     UserManagementDialog,
+    ServiceConcludedDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -93,7 +95,7 @@ import { UserManagementComponent, UserManagementDialog } from './user-management
       { path: 'orders', component: OrdersComponent },
       { path: 'orders/:id', component: OrderDetailsComponent },
       { path: 'order/create', component: OrderCreateComponent },
-      { path: 'worker', component: WorkerMenuComponent, canActivate: [AuthorizeGuard, /*WorkerGuard*/] },
+      { path: 'worker', component: WorkerMenuComponent, canActivate: [AuthorizeGuard, /*WorkerGuard*/]},
       { path: 'services-client', component: ServicesClientComponent, canActivate: [AuthorizeGuard] },
       { path: 'services-worker', component: ServicesWorkerComponent, canActivate: [AuthorizeGuard] },
       { path: 'service-request', component: ServiceRequestComponent },
@@ -101,6 +103,9 @@ import { UserManagementComponent, UserManagementDialog } from './user-management
       { path: 'service-details/:id', component: ServiceDetailsComponent },
       { path: 'not-authorized', component: NotAuthorizedComponent },
       { path: 'user-management', component: UserManagementComponent },
+      { path: 'services/:id', component: ServiceDetailsComponent },
+      { path: 'not-authorized', component: NotAuthorizedComponent },
+      { path: 'service-item-add/:id', component: ServiceItemAddComponent },
     ]),
   ],
   providers: [

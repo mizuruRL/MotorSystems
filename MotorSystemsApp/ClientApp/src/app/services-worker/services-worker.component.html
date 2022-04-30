@@ -1,19 +1,26 @@
-<h1 id="tableLabel">Open Services</h1>
+<ng-container *ngIf="showHistory">
+  <h1 id="tableLabel">Your Service History</h1>
+</ng-container>
+<ng-container *ngIf="!showHistory">
+  <h1 id="tableLabel">Open Services</h1>
+</ng-container>
 
-<p *ngIf="!openServices"><em>Loading...</em></p>
+<p *ngIf="!toShow"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="openServices">
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="toShow">
   <thead>
     <tr>
       <th>Service Type</th>
       <th>Assigned Worker</th>
       <th>Client</th>
       <th>State</th>
-      <th>Vehicle</th>
+      <th>Vehicle Plate</th>
+      <th>Request Date</th>
+      <th>Price</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let service of openServices" style="cursor:pointer" (click)="goServiceDetails(service.id!)">
+    <tr *ngFor="let service of toShow" style="cursor:pointer" (click)="goServiceDetails(service.id!)">
       <td>{{ service.type }}</td>
       <ng-container *ngIf="service.assignedWorker; else elseblock">
         <td>{{service.assignedWorker}}</td>
@@ -23,12 +30,21 @@
           <p>No worker assigned yet</p>
           <button class="btn btn-success" (click)="acceptService($event, service)">Accept</button>
         </td>
-      </ng-template>        
+      </ng-template>
       <td>{{ service.client }}</td>
       <td>{{ service.state }}</td>
       <td>{{ service.vehiclePlate }}</td>
+      <td>{{ service.requestDate | date: "dd-MM-yyyy" }}</td>
+      <td>{{ service.price }}</td>
     </tr>
   </tbody>
 </table>
+<button class="btn btn-outline-success" (click)="switchToShow()">
+  <ng-container *ngIf="showHistory">
+    Show Open Services
+  </ng-container>
+  <ng-container *ngIf="!showHistory">
+    Show Your ServiceHistory
+  </ng-container>
+</button>
 
-<!--<a href="service-request" class="btn btn-success">Request Service</a>-->

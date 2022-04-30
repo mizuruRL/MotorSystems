@@ -33,11 +33,24 @@ namespace MotorSystemsApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetService(int id)
         {
+            
             var service = await _context.Service.FindAsync(id);
 
             if (service == null)
             {
                 return NotFound();
+            }
+            
+            service.ServiceItems = await _context.ServiceItem.Where(si => si.ServiceId == service.Id).ToListAsync();
+
+            if (service.ServiceItems.Any())
+            {
+                foreach (ServiceItem item in service.ServiceItems)
+                {
+                    service.Price += item.Price;
+                    item.Items = await _context.ServiceItemItem.Where(sip => sip.ServiceItemId == item.Id).ToListAsync();
+                    item.Items.ForEach(item => item.Product = _context.Product.Find(item.ProductId));
+                }
             }
 
             return service;
@@ -46,7 +59,7 @@ namespace MotorSystemsApp.Controllers
        [HttpGet("servicesByUsername/{username}")]
         public async Task<ActionResult<List<Service>>> GetServicesByUsername(string username)
         {
-            System.Diagnostics.Debug.WriteLine("USERNAME: ", username);
+            
             var services = await _context.Service.Where(s => s.AssignedWorker==username || s.Client == username).ToListAsync();
             
             if (services == null)

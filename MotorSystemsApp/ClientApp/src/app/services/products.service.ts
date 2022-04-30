@@ -27,7 +27,7 @@ export class ProductsService {
     return this.http.post<Product>(this.baseUrl + 'api/products', product);
   }
 
-  updateProductQuantity(id: number, product: Product) {
+  updateProduct(id: number, product: Product) {
     return this.http.put<Product>(this.baseUrl + 'api/products/' + id, product);
   }
 
@@ -41,5 +41,9 @@ export class ProductsService {
 
   deleteProductNeeded(id: number) {
     return this.http.delete<ProductNeeded>(this.baseUrl + 'api/productsNeeded/' + id);
+  }
+
+  uploadProductImage(img: FormData) {
+    return this.http.post<FormData>(this.baseUrl + 'api/images/', img);
   }
 }

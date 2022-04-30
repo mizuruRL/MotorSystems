@@ -24,11 +24,23 @@ export class ServicesService {
   }
 
   updateService(s: Service): Observable<Service[]> {
-    return this.http.put<Service[]>(this.baseUrl + 'api/services/'+s.id, s);
+    return this.http.put<Service[]>(this.baseUrl + 'api/services/'+ s.id, s);
   }
 
   getService(id: number): Observable<Service> {
     return this.http.get<Service>(this.baseUrl + 'api/services/' + id);
+  }
+
+  addServiceItemItem(sii: ServiceItemItem): Observable<ServiceItemItem> {
+    return this.http.post<ServiceItemItem>(this.baseUrl + 'api/serviceItemItems/', sii);
+  }
+
+  addServiceItem(item: ServiceItem): Observable<ServiceItem> {
+    return this.http.post<ServiceItem>(this.baseUrl + 'api/serviceItems/', item);
+  }
+
+  getServiceItemItems(serviceItemId: number): Observable<ServiceItemItem> {
+    return this.http.get<ServiceItemItem>(this.baseUrl + 'api/ServiceItemItems/' + serviceItemId);
   }
 }
 
@@ -40,16 +52,29 @@ export interface Service{
   type: string;
   vehiclePlate: string;
   requestDate: Date;
+  price: number | undefined;
   serviceItems: ServiceItem[] | undefined;
 }
 
 export interface ServiceItem {
+  id: number;
   serviceId: number;
-  productId: number;
   description: string;
+  items: ServiceItemItem[];
+  price: number;
   //service: string;
-  product: Product;
-  productQuantity: number;
 }
+
+export interface ServiceItemItem {
+  id: number | undefined;
+  serviceItemId: number;
+  //service: string;
+  product: Product | undefined;
+  productId: number | undefined;
+  quantity: number;
+}
+
+
+
 
 

@@ -8,6 +8,8 @@ namespace MotorSystemsApp.Models
         public int Id { get; set; }
         public string? AssignedWorker { get; set; }
         public string Client { get; set; }
+
+        [NotMapped]
         public float Price { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -19,10 +21,6 @@ namespace MotorSystemsApp.Models
         public string VehiclePlate { get; set; }
         public DateTime RequestDate { get; set; }
         public ICollection<ServiceItem>? ServiceItems { get; set; }
-        // public Vehicle Vehicle { get; set; }
-        //[ForeignKey("VehiclePlate")]
-        //public int VehiclePlate { get; set; }
-        //public string Plate { get; set; }
     }
 
     public enum ServiceType
