@@ -5,6 +5,7 @@ import { ServiceConcludedDialogComponent } from './service-concluded-dialog.comp
 describe('ServiceConcludedDialogComponent', () => {
   let component: ServiceConcludedDialogComponent;
   let fixture: ComponentFixture<ServiceConcludedDialogComponent>;
+  let buttons: NodeList;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,9 +18,15 @@ describe('ServiceConcludedDialogComponent', () => {
     fixture = TestBed.createComponent(ServiceConcludedDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    buttons = fixture.nativeElement.querySelectorAll("button");
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('all buttons should create', () => {
+    expect(buttons.length == 2).toBeTruthy();
+  });
+
 });
