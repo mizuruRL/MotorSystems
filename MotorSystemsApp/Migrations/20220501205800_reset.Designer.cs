@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220501202342_ble")]
-    partial class ble
+    [Migration("20220501205800_reset")]
+    partial class reset
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -390,12 +390,12 @@ namespace MotorSystemsApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "26a24843-b5f4-4487-8fbf-6896167dbf1d",
+                            Id = "1",
                             AccessFailedCount = 0,
                             Address = "address",
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             City = "city",
-                            ConcurrencyStamp = "a60378b8-3062-469d-9b14-c3b6dc809bce",
+                            ConcurrencyStamp = "769b0864-aaed-4909-8dd4-267b6968530c",
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DocId = 123,
                             Email = "admin@admin.com",
@@ -403,10 +403,10 @@ namespace MotorSystemsApp.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHKdnysX4jGJU5p8J7rWOKwzxel7XTofaAtfv2wfeQZG28JH4Y/byPcdfO72ZtGBog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBkfFNsa+l5e8X4EM5OAiKWifwc7Yyh3u2S0CM0azMYBr3+RTKhH0mK7PPuoQW+HZg==",
                             PhoneNumber = "123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d44fadd8-6ef2-4aaa-a1fb-a83b5cea645b",
+                            SecurityStamp = "e094399e-707c-4afc-aed1-0683da1de8ff",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             Zip = "123"
@@ -770,6 +770,14 @@ namespace MotorSystemsApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Worker");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            IsAdmin = true,
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

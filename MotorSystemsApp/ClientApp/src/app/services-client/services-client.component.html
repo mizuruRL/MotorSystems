@@ -5,24 +5,18 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="toShow">
   <thead>
     <tr>
-      <!--<th>Id</th>-->
       <th>Assigned Worker</th>
-      <!--<th>Client</th>-->
       <th>State</th>
       <th>Vehicle</th>
       <th>Request Date</th>
-      <!--<th>Price</th>-->
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let service of toShow" class="item" style="cursor:pointer" (click)="goServiceDetails(service.id!)">
-      <!--<td>{{ service.id }}</td>-->
+    <tr *ngFor="let service of toShow" class="item" style="cursor:pointer" (click)="goServiceDetails(service.id!)">      
       <td>{{ service.assignedWorker }}</td>
-      <!--<td>{{ service.client }}</td>-->
       <td>{{ service.state }}</td>
       <td>{{ service.vehiclePlate }}</td>
       <td>{{ service.requestDate | date: 'dd-MM-yyyy' }}</td>
-      <!--<td>{{ service.price }}</td>-->
     </tr>
   </tbody>
 </table>

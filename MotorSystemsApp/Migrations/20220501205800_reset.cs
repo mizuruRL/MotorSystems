@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MotorSystemsApp.Migrations
 {
-    public partial class workermanagement : Migration
+    public partial class reset : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,18 +52,6 @@ namespace MotorSystemsApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Client",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Client", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +202,8 @@ namespace MotorSystemsApp.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContractEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Salary = table.Column<double>(type: "float", nullable: true)
+                    Salary = table.Column<double>(type: "float", nullable: true),
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -402,6 +391,11 @@ namespace MotorSystemsApp.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "BirthDate", "City", "ConcurrencyStamp", "CreatedDate", "DocId", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Zip" },
+                values: new object[] { "1", 0, "address", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "city", "769b0864-aaed-4909-8dd4-267b6968530c", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 123, "admin@admin.com", true, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEBkfFNsa+l5e8X4EM5OAiKWifwc7Yyh3u2S0CM0azMYBr3+RTKhH0mK7PPuoQW+HZg==", "123456789", false, "e094399e-707c-4afc-aed1-0683da1de8ff", false, "admin", "123" });
+
+            migrationBuilder.InsertData(
                 table: "Order",
                 columns: new[] { "Id", "OrderDate", "OrderDelivery", "Provider", "State" },
                 values: new object[,]
@@ -430,6 +424,11 @@ namespace MotorSystemsApp.Migrations
                     { 3, new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4 },
                     { 4, new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 10 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Worker",
+                columns: new[] { "Id", "ContractEndDate", "IsAdmin", "JobTitle", "Salary", "Username" },
+                values: new object[] { "1", null, true, null, null, "admin" });
 
             migrationBuilder.InsertData(
                 table: "OrderItem",
@@ -554,9 +553,6 @@ namespace MotorSystemsApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Client");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");

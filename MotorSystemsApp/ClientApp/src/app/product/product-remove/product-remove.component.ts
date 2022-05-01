@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../products/products.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductsService } from '../../services/products.service';
+import { Product, ProductsService } from '../../services/products.service';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
@@ -42,7 +41,7 @@ export class ProductRemoveComponent implements OnInit {
   }
 
   removeProduct(): void {
-    let toUpdate: string = this.removeProductForm.controls.removeFrom.value; //form.value.removeFrom;
+    let toUpdate: string = this.removeProductForm.controls.removeFrom.value;
     let quantity: number = this.removeProductForm.controls.quantity.value;
     
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthorizeService } from '../../api-authorization/authorize.service';
+import { WorkerService } from '../services/worker.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,13 +9,23 @@ import { AuthorizeService } from '../../api-authorization/authorize.service';
 })
 export class NavMenuComponent {
   isExpanded = false;
-  showWorkerOptions: boolean=false
+  showWorkerOptions: boolean = false;
+  showAdminOptions: boolean = false;
 
-  constructor(private service: AuthorizeService) { }
+  constructor(private service: AuthorizeService, private workerService: WorkerService) { }
 
   ngOnInit() {
     this.service.getUser().subscribe(res => {
-      if (res) this.showWorkerOptions = true
+      if (res) {
+        this.workerService.getWorker(res.sub!).subscribe(res => {
+          if (res) {
+            this.showWorkerOptions = true
+            if (res.isAdmin) {
+              this.showAdminOptions = true
+            }
+          }
+        })
+      } 
     });
   }
 

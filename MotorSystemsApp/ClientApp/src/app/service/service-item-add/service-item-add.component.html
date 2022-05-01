@@ -15,13 +15,11 @@
         </div>
         <div class="form-group mt-4">
           <button type="submit" class="btn-success btn">Add Item</button>
-          <!--<a routerLink="/orders" class="btn btn-outline-secondary mx-2">Back</a>-->
         </div>
       </form>
     </div>
     <div class='col-6 offset-3'>
       <form #serviceItemForm="ngForm">
-        <!--(ngSubmit)="addItem(serviceItemForm)"-->
         <div class="form-group">
           <label for="description">Description: </label>
           <textarea required ngModel name="description" id="description" type="text" class="form-control"></textarea>

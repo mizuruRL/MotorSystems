@@ -1,5 +1,3 @@
-import { Product } from '../products/products.component'
-import { ProductNeeded } from '../product/product-details/product-details.component'
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -46,4 +44,30 @@ export class ProductsService {
   uploadProductImage(img: FormData) {
     return this.http.post<FormData>(this.baseUrl + 'api/images/', img);
   }
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  category: string;
+  brand: string;
+  price: number;
+  description: string;
+  quantityNeeded: number;
+  availableQuantity: number;
+  missingQuantity: number;
+  daysUntilNextNeed: number;
+  imgUrl: string;
+}
+
+export interface ProductNeeded {
+  id: number | undefined;
+  productId: number;
+  quantityNeeded: number;
+  neededForDate: Date;
+}
+
+export interface ProductMissing {
+  quantityNeeded: number;
+  neededForDate: Date;
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products.service';
-import { OrdersService } from '../services/orders.service';
-import { Product } from '../products/products.component';
+import { Order, OrdersService } from '../services/orders.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -45,20 +44,4 @@ export class OrdersComponent implements OnInit {
   }
 }
 
-export interface Order {
-  id: number | undefined;
-  orderDate: Date;
-  orderDelivery: Date | undefined;
-  state: string;
-  provider: string;
-  orderItems: OrderItem[] | undefined
-}
 
-export interface OrderItem {
-  orderId: number;
-  productId: number;
-  order: Order;
-  product: Product | undefined;
-  quantity: number;
-  price: number
-}

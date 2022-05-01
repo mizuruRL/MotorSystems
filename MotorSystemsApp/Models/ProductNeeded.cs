@@ -10,7 +10,6 @@ namespace MotorSystemsApp.Models
         public DateTime NeededForDate { get; set; }
         public int QuantityNeeded { get; set; }
 
-        //public Worker Worker;
 
     }
 }

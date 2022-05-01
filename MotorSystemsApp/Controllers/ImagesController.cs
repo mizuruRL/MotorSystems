@@ -29,10 +29,6 @@ namespace MotorSystemsApp.Controllers
 
         // POST api/<ImagesController>
         //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload()
         {

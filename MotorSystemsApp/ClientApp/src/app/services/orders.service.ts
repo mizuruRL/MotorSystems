@@ -1,7 +1,7 @@
-import { Order, OrderItem } from '../orders/orders.component';
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { Product } from './products.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,4 +43,22 @@ export class OrdersService {
     return this.http.put<Order>(this.baseUrl + 'api/orders/' + id, order);
   }
 
+}
+
+export interface Order {
+  id: number | undefined;
+  orderDate: Date;
+  orderDelivery: Date | undefined;
+  state: string;
+  provider: string;
+  orderItems: OrderItem[] | undefined
+}
+
+export interface OrderItem {
+  orderId: number;
+  productId: number;
+  order: Order;
+  product: Product | undefined;
+  quantity: number;
+  price: number
 }

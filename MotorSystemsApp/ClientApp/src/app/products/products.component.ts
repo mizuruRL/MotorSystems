@@ -1,7 +1,5 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ProductsService } from '../services/products.service';
-import { Observable, of } from 'rxjs';
+import { Product, ProductsService } from '../services/products.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -67,16 +65,4 @@ export class ProductsComponent{
   }
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  category: string;
-  brand: string;
-  price: number;
-  description: string;
-  quantityNeeded: number;
-  availableQuantity: number;
-  missingQuantity: number;
-  daysUntilNextNeed: number;
-  imgUrl: string;
-}
+

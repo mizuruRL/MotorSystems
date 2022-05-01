@@ -12,8 +12,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
@@ -35,7 +33,6 @@ import { ServicesService } from './services/services.service';
 import { ServiceRequestComponent } from './service/service-request/service-request.component';
 import { VehiclesService } from './services/vehicles.service';
 import { ServicesWorkerComponent } from './services-worker/services-worker.component';
-import { ServiceEditComponent } from './service/service-edit/service-edit.component';
 import { WorkerService } from './services/worker.service';
 import { ClientService } from './services/client.service';
 import { WorkerGuard } from './worker/worker.guard';
@@ -52,8 +49,6 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     ProductsComponent,
     ProductCreateComponent,
     ProductDetailsComponent,
@@ -68,7 +63,6 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
     ServicesClientComponent,
     ServiceRequestComponent,
     ServicesWorkerComponent,
-    ServiceEditComponent,
     NotAuthorizedComponent,
     ServiceDetailsComponent,
     ServiceItemAddComponent,
@@ -89,25 +83,22 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'products', component: ProductsComponent },
-      { path: 'product/create', component: ProductCreateComponent },
-      { path: 'products/:id', component: ProductDetailsComponent },
-      { path: 'products/add/:id', component: ProductAddComponent },
-      { path: 'products/remove/:id', component: ProductRemoveComponent },
+      { path: 'products', component: ProductsComponent, canActivate: [WorkerGuard] },
+      { path: 'products/create', component: ProductCreateComponent, canActivate: [WorkerGuard] },
+      { path: 'products/:id', component: ProductDetailsComponent, canActivate: [WorkerGuard] },
+      { path: 'products/add/:id', component: ProductAddComponent, canActivate: [WorkerGuard] },
+      { path: 'products/remove/:id', component: ProductRemoveComponent, canActivate: [WorkerGuard] },
       { path: 'orders', component: OrdersComponent, canActivate: [WorkerGuard]},
       { path: 'orders/:id', component: OrderDetailsComponent, canActivate: [WorkerGuard] },
       { path: 'order/create', component: OrderCreateComponent, canActivate: [AdminGuard] },
-      { path: 'worker', component: WorkerMenuComponent, canActivate: [/*AuthorizeGuard*/AdminGuard]},
+      { path: 'worker', component: WorkerMenuComponent, canActivate: [WorkerGuard]},
       { path: 'services-client', component: ServicesClientComponent, canActivate: [AuthorizeGuard] },
-      { path: 'services-worker', component: ServicesWorkerComponent, canActivate: [AuthorizeGuard] },
-      { path: 'service-request', component: ServiceRequestComponent },
-      { path: 'service-edit/:id', component: ServiceEditComponent },
-      { path: 'service-details/:id', component: ServiceDetailsComponent },
+      { path: 'services-worker', component: ServicesWorkerComponent, canActivate: [WorkerGuard] },
+      { path: 'service-request', component: ServiceRequestComponent, canActivate: [AuthorizeGuard]},
       { path: 'not-authorized', component: NotAuthorizedComponent },
-      { path: 'user-management', component: UserManagementComponent },
-      { path: 'services/:id', component: ServiceDetailsComponent },
-      { path: 'not-authorized', component: NotAuthorizedComponent },
-      { path: 'service-item-add/:id', component: ServiceItemAddComponent },
+      { path: 'user-management', component: UserManagementComponent, canActivate: [AdminGuard] },
+      { path: 'services/:id', component: ServiceDetailsComponent, canActivate: [AuthorizeGuard] },
+      { path: 'service-item-add/:id', component: ServiceItemAddComponent, canActivate: [WorkerGuard] },
     ]),
   ],
   providers: [

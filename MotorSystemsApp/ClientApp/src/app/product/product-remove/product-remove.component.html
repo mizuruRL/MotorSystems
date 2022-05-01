@@ -1,6 +1,5 @@
 <h1 *ngIf="product">{{product.name}}</h1>
 
-<!--<form #removeProductForm="ngForm" (ngSubmit)="removeProduct(removeProductForm)">-->
 <form [formGroup] ="removeProductForm" (ngSubmit)="removeProduct()">
   <div class="form-group">
     <label for="removeFrom">Remove from: </label>

@@ -51,8 +51,6 @@ namespace MotorSystemsApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            //var orders = await _context.Order.Where(o => o.ProductId == productId).ToListAsync();
-            //var productNeeded = await _context.ProductNeeded.FindAsync(id);
             var order = await _context.Order.FindAsync(id);
 
             if (order != null) order.OrderItems = await _context.OrderItem.Where(oi => oi.OrderId == order.Id).ToListAsync();

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '../products/products.component';
+import { Product } from './products.service';
 import { Vehicle } from './vehicles.service';
 
 @Injectable({
@@ -10,7 +10,6 @@ import { Vehicle } from './vehicles.service';
 export class ServicesService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
-
   
   getServicesByClient(username: string): Observable<Service[]> {
     return this.http.get<Service[]>(this.baseUrl + 'api/services/servicesByClient/' + username);
@@ -66,13 +65,11 @@ export interface ServiceItem {
   description: string;
   items: ServiceItemItem[];
   price: number;
-  //service: string;
 }
 
 export interface ServiceItemItem {
   id: number | undefined;
   serviceItemId: number;
-  //service: string;
   product: Product | undefined;
   productId: number | undefined;
   quantity: number;

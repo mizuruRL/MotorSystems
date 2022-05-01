@@ -25,10 +25,10 @@
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-white" [routerLink]="['/']">Home</a>
           </li>
-          <li> <!--*ngIf="showWorkerOptions"-->
+          <li *ngIf="showWorkerOptions"> 
             <a class="nav-link text-white" [routerLink]="['/worker']">Worker Menu</a>
           </li>
-          <li>
+          <li *ngIf="showAdminOptions">
             <a class="nav-link text-white" [routerLink]="['/user-management']">Worker Management</a>
           </li>
         </ul>

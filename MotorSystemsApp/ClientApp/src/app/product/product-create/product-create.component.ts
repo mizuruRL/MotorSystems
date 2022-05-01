@@ -2,8 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Product } from '../../products/products.component';
-import { ProductsService } from '../../services/products.service';
+import { Product, ProductsService } from '../../services/products.service';
 
 @Component({
   selector: 'app-product-create',

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Product } from '../../products/products.component';
-import { Order, OrderItem } from '../../orders/orders.component';
-import { ProductsService } from '../../services/products.service';
-import { OrdersService } from '../../services/orders.service';
+import { Product, ProductMissing, ProductNeeded, ProductsService } from '../../services/products.service';
+import { OrderItem, OrdersService } from '../../services/orders.service';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { compareDates } from '../../services/date.service';
 
 @Component({
   selector: 'app-product-details',
@@ -188,25 +187,9 @@ export function removeNeededValidator(dates: Date[]): ValidatorFn {
   }
 }
 
-export interface ProductNeeded{
-  id: number | undefined;
-  productId: number;
-  quantityNeeded: number;
-  neededForDate: Date;
-}
 
-export interface ProductMissing {
-  quantityNeeded: number;
-  neededForDate: Date;
-}
 
-export function compareDates(d1: Date, d2: Date): number {
-  
-  //return new Date(d1).setHours(0, 0, 0, 0) == new Date(d2).setHours(0, 0, 0, 0) ? 0 : 
-  //  new Date(d1).setHours(0, 0, 0, 0) > new Date(d2).setHours(0, 0, 0, 0) ? 1 : -1;
-  return d1.setHours(0, 0, 0, 0) == d2.setHours(0, 0, 0, 0) ? 0 :
-    d1.setHours(0, 0, 0, 0) > d2.setHours(0, 0, 0, 0) ? 1 : -1;
-}
+
 
 
 

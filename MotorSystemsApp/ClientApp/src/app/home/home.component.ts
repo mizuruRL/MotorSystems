@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { User } from 'oidc-client';
 import { AuthorizeGuard } from '../../api-authorization/authorize.guard';
 import { AuthorizeService, IUser } from '../../api-authorization/authorize.service';
 

@@ -15,7 +15,6 @@ namespace MotorSystemsApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "worker")]
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -50,7 +49,6 @@ namespace MotorSystemsApp.Controllers
                 TimeSpan diff = p.neededP.EarliestNeed - DateTime.Now;                
                 p.product.DaysUntilNextNeed = diff.Days;
                 p.product.QuantityNeeded = p.neededP.QuantityNeeded;
-                //System.Diagnostics.Debug.WriteLine("NEEDED: " + p.product.QuantityNeeded);
                 p.product.MissingQuantity = p.product.AvailableQuantity > p.product.QuantityNeeded ? 0 : p.product.QuantityNeeded - p.product.AvailableQuantity;                
             }
 
