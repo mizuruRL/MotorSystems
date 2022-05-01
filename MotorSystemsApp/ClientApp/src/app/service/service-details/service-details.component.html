@@ -1,0 +1,59 @@
+<div class="row" *ngIf="service">
+  <div class="row">
+    <h1 class="d-flex justify-content-center mt-3">Service #{{service.id}} Details</h1>
+  </div>
+  <div class="col-md-2"></div>
+  <div class='col-md-4 mt-3'>
+    <label name="tableLabel">Service Items</label>
+    <table name="Service Items" class='table table-striped' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Products Used</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of service.serviceItems">
+          <td>{{item.description}}</td>
+          <td>
+            <ng-container *ngFor="let i of item.items">
+              <p>{{i.product!.name!}}</p>
+            </ng-container>
+          </td>
+          <td>
+            <ng-container *ngFor="let i of item.items">
+              <p>{{i.quantity}}</p>
+            </ng-container>
+          </td>
+          <td>{{item.price}}€</td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="service-item-add/{{service.id}}" *ngIf="userIsAssignedWorker && service.state=='Processing'" class="btn btn-success">Add item</a>
+  </div>
+  <div class='col-md-1'></div>  
+  <div class='col-md-5 mt-5' name="info">
+    <p><span class="fw-bold">Assigned Worker: </span>{{service.assignedWorker}}</p>
+    <p><span class="fw-bold">Client: </span>{{service.client}}</p>
+    <p><span class="fw-bold">State: </span>{{service.state}}</p>
+    <p><span class="fw-bold">Service Type: </span>{{service.type}}</p>
+    <p><span class="fw-bold">Vehicle Plate: </span>{{service.vehiclePlate}}</p>
+    <p><span class="fw-bold">Request Date: </span>{{service.requestDate | date: 'dd/MM/yyyy'}}</p>
+    <p><span class="fw-bold">Total Price: </span>{{service.price}}€</p>
+  </div>
+  <ng-container *ngIf="userIsAssignedWorker">
+    <div class="d-flex justify-content-center mt-4">
+      <ng-container *ngIf="service.state=='Processing'">
+        <button class="btn btn-success me-2" (click)="openServiceFinishedDialog()">Conclude</button>
+      </ng-container>
+      <ng-container *ngIf="service.state=='In_Queue' || service.state=='Processing'">
+        <button class="btn me-2" (click)="cancelService()" style="color:white; background-color: RGB(127, 26, 26)">Cancel Service</button>
+      </ng-container>
+      <a href="services-worker" class="btn btn-outline-secondary">Back</a>
+    </div>
+  </ng-container>
+</div>
+
+

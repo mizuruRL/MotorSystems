@@ -1,0 +1,53 @@
+<h1 id="tableLabel">Orders Table</h1>
+
+<p *ngIf="!toShow"><em>Loading...</em></p>
+
+<table class='table table-hover' aria-labelledby="tableLabel" *ngIf="toShow">
+  <thead class="thead-dark">
+    <tr>
+      <th>Order Nº</th>
+      <th>Product Ordered</th>
+      <th>Quantity Ordered</th>
+      <th>Order Date</th>
+      <ng-container *ngIf="!showHistory">
+        <th>Expected Delivery</th>
+      </ng-container>
+      <ng-container *ngIf="showHistory">
+        <th>Delivered In</th>
+      </ng-container>      
+      <th>Order State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of toShow" class="item" (click)="getOrderDetails(order.id!)">
+      <td>{{order.id}}</td>
+      <td>
+        <ng-container *ngFor="let item of order.orderItems">
+          <p>{{item.product!.name}}</p>
+        </ng-container>
+      </td>
+      <td>
+        <ng-container *ngFor="let item of order.orderItems">
+          <p>{{item.quantity}}</p>
+        </ng-container>
+      </td>
+      <td>{{order.orderDate | date: 'dd/MM/yyyy'}}</td>
+      <td>
+        <ng-container *ngIf="order.orderDelivery">
+          <p>{{order.orderDelivery | date: 'dd/MM/yyyy'}}</p>
+        </ng-container>
+      </td>
+      <td>{{order.state}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<a routerLink="/order/create" class="btn btn-success me-1">Place Order</a>
+<button class="btn btn-outline-primary" (click)="switchToShow()">
+  <ng-container *ngIf="!showHistory">
+    See order history
+  </ng-container>
+  <ng-container *ngIf="showHistory">
+    See pending orders
+  </ng-container>
+</button>

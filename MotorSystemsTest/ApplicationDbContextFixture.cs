@@ -26,7 +26,9 @@ namespace MotorSystemsTest
 
             DbContext.Database.EnsureCreated();
 
-            DbContext.Users.Add(new ApplicationUser {Address = "Test", BirthDate = null, City = "Test", Client = new Client(), CreatedDate = DateTime.Now, Email = "testestest123@asdasd.com",  UserName = "teste", Id = "1", Zip = "teste"});
+            DbContext.Users.Add(new ApplicationUser {Address = "Test", BirthDate = null, City = "Test", 
+                //Client = new Client(), 
+                CreatedDate = DateTime.Now, Email = "testestest123@asdasd.com",  UserName = "teste", Id = "1", Zip = "teste"});
 
             DbContext.SaveChanges();
         }

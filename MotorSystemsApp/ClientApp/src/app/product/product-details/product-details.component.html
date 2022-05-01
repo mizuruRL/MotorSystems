@@ -1,0 +1,135 @@
+<div class="row" *ngIf="product">
+  <div class='col-md-1'></div>
+  <div class='col-md-4'>
+    <img src={{product.imgUrl}} class="img-fluid" />
+  </div>
+  <div class='col-md-6 mx-3 mt-5'>
+    <p><span class="fw-bold">Name: </span>{{product.name}}</p>
+    <p><span class="fw-bold">Category: </span>{{product.category}}</p>
+    <p><span class="fw-bold">Branc: </span>{{product.brand}}</p>
+    <p><span class="fw-bold">Price: </span>{{product.price}}</p>
+    <p><span class="fw-bold">Description: </span>{{product.description}}</p>
+  </div>
+  </div>
+  <div class="row d-flex justify-content-center my-5" *ngIf="product">
+    <div class='col-md-3'>
+      <p>Available in stock: {{product.availableQuantity}}</p>
+      <button (click)="activeForm = 'AddToAvailable'" class="btn-success btn mx-1">Add</button>
+      <button (click)="activeForm = 'RemoveFromAvailable'" class="btn-secondary btn">Remove</button>
+    </div>
+    <div class='col-md-3'>
+      <p>Stock needed: {{product.quantityNeeded}}</p>
+      <button (click)="activeForm = 'AddToNeeded'" class="btn-success btn mx-1">Add</button>
+      <button (click)="activeForm = 'RemoveFromNeeded'" class="btn-secondary btn">Remove</button>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center my-5">
+    <div class="col-md-3">
+      <form [formGroup]="addProductQtdForm" (ngSubmit)="addProductAvailable()" *ngIf="activeForm=='AddToAvailable'">
+        <div class="form-group">
+          <label for="quantity">Quantity: </label>
+          <input ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-success btn" [disabled]="!addProductQtdForm.valid">Submit</button>
+        </div>
+      </form>
+      <form [formGroup]="removeProductQtdForm" (ngSubmit)="removeProductAvailable()" *ngIf="activeForm=='RemoveFromAvailable'">
+        <div class="form-group">
+          <label for="quantity">Quantity: </label>
+          <input required ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+          <div *ngIf="quantity?.invalid && (quantity?.touched || quantity?.dirty)" class="alert alert-danger">
+            <div *ngIf="quantity?.errors?.['invalidQuantity']">
+              Quantity to remove must be the same or less than quantity available.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-secondary btn" [disabled]="!removeProductQtdForm.valid">Submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <form [formGroup]="addProductNeededForm" (ngSubmit)="addProductNeeded()" *ngIf="activeForm=='AddToNeeded'">
+        <div class="form-group">
+          <label for="quantity">Quantity: </label>
+          <input ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+          <label for="date">Needed for: </label>
+          <input ngModel formControlName="date" id="date" type="date" class="form-control" />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-success btn" [disabled]="!addProductNeededForm.valid">Submit</button>
+        </div>
+      </form>
+      <form [formGroup]="removeProductNeededForm" (ngSubmit)="removeProductNeeded()" *ngIf="activeForm=='RemoveFromNeeded'">
+        <div class="form-group">
+          <label for="quantity">Quantity: </label>
+          <input ngModel formControlName="quantity" id="quantity" type="number" class="form-control" />
+          <label for="date">Needed for: </label>
+          <input ngModel formControlName="date" id="date" type="date" class="form-control" />
+          <div *ngIf="date?.invalid && (date?.touched || date?.dirty)" class="alert alert-danger">
+            <div *ngIf="date?.errors?.['invalidDate']">
+              No product necessity registered for that date.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn-secondary btn" [disabled]="!removeProductNeededForm.valid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-4'>
+      <label id="neededTable">Stock Needed</label>
+      <table class='table table-striped' aria-labelledby="neededTable" *ngIf="product && productNeeded">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Needed for Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let needed of productNeeded">
+            <td>{{ needed.quantityNeeded }}</td>
+            <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class='col-md-4'>
+      <label id="misssingTable">Stock Missing</label>
+      <table class='table table-striped' aria-labelledby="misssingTable" *ngIf="product && productMissing">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Needed for Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let needed of productMissing">
+            <td>{{ needed.quantityNeeded }}</td>
+            <td>{{ needed.neededForDate | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class='col-md-4'>
+      <label id="ordersTable">Pending orders</label>
+      <table class='table table-striped' aria-labelledby="ordersTable" *ngIf="orderItems">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Expected Delivery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of orderItems">
+            <td>{{ item.quantity }}</td>
+            <td *ngIf="item.order">{{ item.order.orderDelivery | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+

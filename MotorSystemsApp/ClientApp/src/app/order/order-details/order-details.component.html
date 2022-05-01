@@ -1,0 +1,67 @@
+<div *ngIf="order && order.state">
+  <div class="row">
+    <h1 class="d-flex justify-content-center">Order from {{order.provider}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class='col-md-2 mt-5'>
+      <table name="products" class='table table-borderless' aria-labelledby="tableLabel">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of order.orderItems">
+            <td *ngIf="item.product">{{item.product.name}}</td>
+            <td>{{item.quantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class='col-md-2'></div>
+    <div class='col-md-5 mt-5'>
+      <p><span class="fw-bold">Order Number: </span>{{order.id}}</p>
+      <p><span class="fw-bold">Order Date: </span>{{order.orderDate | date: 'dd/MM/yyyy'}}</p>
+      <p *ngIf="order.state">
+        <span class="fw-bold">
+          <ng-container *ngIf="order.state == 'Pending' || order.state=='Delayed'">
+            Expected Delivery:
+          </ng-container>
+          <ng-container *ngIf="order.state == 'Delivered' || order.state=='Cancelled'">
+            Delivered in:
+          </ng-container>
+        </span>
+        <ng-container *ngIf="order.state == 'Pending' || order.state=='Delayed'">
+          <ng-container *ngIf="edit">
+            <input [formControl]="inputDate" type="date" class="form-control" />
+            <div *ngIf="inputDate?.invalid && (inputDate?.touched || inputDate?.dirty)" class="alert alert-danger">
+              <div *ngIf="inputDate?.errors?.['invalidDate']">
+                Expected delivery date can't be before order date
+              </div>
+            </div>
+            <button (click)="newDeliveryDate()" [disabled]="!inputDate.valid" class="btn btn-sm btn-success mt-1 me-1">Submit</button>
+            <button (click)="edit=false" class="btn btn-sm btn-outline-secondary mt-1">Cancel</button>
+          </ng-container>
+          <ng-container *ngIf="!edit">
+            {{order.orderDelivery | date: 'dd/MM/yyyy'}}
+            <button (click)="edit=true" class="btn btn-sm ms-2" style="color: RGB(127, 26, 26); border-color: RGB(127, 26, 26) ">Edit</button>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="order.state == 'Delivered' || order.state=='Cancelled'">
+          {{order.orderDelivery | date: 'dd/MM/yyyy'}}
+        </ng-container>
+      </p>
+      <p>
+        <span class="fw-bold">State: </span>
+        {{order.state}}        
+      </p>
+    </div>
+  </div>
+  <div *ngIf="order.state=='Pending' || order.state=='Delayed'" class="d-flex justify-content-center mt-4">
+    <button class="btn btn-success me-2" (click)="openDialog()">Register as Delivered</button>
+    <button class="btn me-2" (click)="cancelOrder()" style="color:white; background-color: RGB(127, 26, 26)">Cancel Order</button>
+    <a href="orders" class="btn btn-outline-secondary">Back</a>
+  </div>
+</div>

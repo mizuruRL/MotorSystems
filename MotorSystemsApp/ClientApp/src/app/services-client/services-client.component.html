@@ -1,0 +1,31 @@
+<h1 id="tableLabel">Your Services</h1>
+
+<p *ngIf="!services"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="toShow">
+  <thead>
+    <tr>
+      <th>Assigned Worker</th>
+      <th>State</th>
+      <th>Vehicle</th>
+      <th>Request Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let service of toShow" class="item" style="cursor:pointer" (click)="goServiceDetails(service.id!)">      
+      <td>{{ service.assignedWorker }}</td>
+      <td>{{ service.state }}</td>
+      <td>{{ service.vehiclePlate }}</td>
+      <td>{{ service.requestDate | date: 'dd-MM-yyyy' }}</td>
+    </tr>
+  </tbody>
+</table>
+<a href="service-request" class="btn btn-success">Request Service</a>
+<button class="btn btn-outline-primary ms-1" (click)="switchToShow()">
+  <ng-container *ngIf="showHistory">
+    Show Open Services
+  </ng-container>
+  <ng-container *ngIf="!showHistory">
+    Show Your ServiceHistory
+  </ng-container>
+</button>

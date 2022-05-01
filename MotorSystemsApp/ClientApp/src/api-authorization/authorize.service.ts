@@ -31,6 +31,7 @@ export enum AuthenticationResultStatus {
 
 export interface IUser {
   name?: string;
+  sub?: string;
 }
 
 @Injectable({
@@ -105,6 +106,7 @@ export class AuthorizeService {
         }
       }
     }
+    
   }
 
   public async completeSignIn(url: string): Promise<IAuthenticationResult> {

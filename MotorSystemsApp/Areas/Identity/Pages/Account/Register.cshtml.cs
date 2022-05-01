@@ -131,7 +131,7 @@ namespace MotorSystemsApp.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.UserName, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -180,7 +180,7 @@ namespace MotorSystemsApp.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     UserName = Input.UserName,
                     CreatedDate = DateTime.Now,
-                    Client = new Client(),
+                    //Client = new Client(),
                     Address = Input.Address,
                     City = Input.City,
                     Zip = Input.Zip

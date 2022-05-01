@@ -1,0 +1,46 @@
+<h1 id="tableLabel">Stock Table</h1>
+
+<p *ngIf="!products"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="products">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Brand</th>
+      <th>Price</th>
+      <th>Available</th>
+      <th>Needed</th>
+      <th>Missing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products" class="item" (click)="getProductPage(product.id)">
+      <td>{{ product.name }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.brand }}</td>
+      <td>{{ product.price | currency: 'EUR' }}</td>
+      <td>{{ product.availableQuantity }}</td>
+      <td>{{ product.quantityNeeded }}</td>
+      <td [style.background]="getBackground(product.missingQuantity, product.daysUntilNextNeed)">{{ product.missingQuantity }}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="mt-2">
+  <a routerLink="/products/create" class="btn btn-success me-2">Add Product</a>
+  <button (click)="sortByUrgency()" class="btn btn-primary">Order by missing stock urgency</button>
+  <div class="float-end mt-0">
+    <p>
+      <span style="color:red">&#9724;</span>
+      - At least some of the stock missing is needed in less than a week
+    </p>
+    <p>
+      <span style="color:yellow">&#9724;</span>
+      - At least some of the stock missing is needed in less than a month
+    </p>
+    <p>
+      <span style="color:green">&#9724;</span>
+      - Product missing is needed in more than a month
+    </p>
+  </div>
+</div>

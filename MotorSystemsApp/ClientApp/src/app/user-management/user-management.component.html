@@ -1,0 +1,38 @@
+<h1>Worker Management</h1>
+<table class="table table-striped" *ngIf="workers">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Work Title</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Contract End</th>
+      <th scope="col">Admin</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let worker of workers">
+      <td>{{worker.username}}</td>
+      <td>{{worker.jobTitle}}</td>
+      <td>{{worker.salary}}</td>
+      <td>{{worker.contractEndDate | date: 'dd-MM-yyyy'}}</td>
+      <td>{{worker.isAdmin}}</td>
+      <td>
+        <button (click)="switchAdmin(worker.id)" class="btn btn-outline-success me-1">
+          <ng-container *ngIf="worker.isAdmin; else notAdmin">
+            Remove Admin
+          </ng-container>
+          <ng-template #notAdmin>
+            Give Admin
+          </ng-template>
+        </button>
+        <button mat-flat-button color="warn" (click)="deleteWorker(worker.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button mat-flat-button id="workerbtn" type="submit" (click)="openDialog()" color="primary"><mat-icon>person_add</mat-icon> Add Worker</button>
+

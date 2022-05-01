@@ -1,0 +1,50 @@
+<h3>Add Service Item</h3>
+<div class="container" *ngIf="itemItems">
+  <div class='row'>
+    <div class='col-3'>
+      <form #productForm="ngForm" (ngSubmit)="addItem(productForm)">
+        <div class="form-group">
+          <label for="productId">Product Used:</label>
+          <select required ngModel name="productId" id="productId" class="form-control">
+            <option *ngFor="let prod of products" [ngValue]="prod.id">{{prod.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input ngModel name="quantity" id="quantity" type="number" class="form-control" />
+        </div>
+        <div class="form-group mt-4">
+          <button type="submit" class="btn-success btn">Add Item</button>
+        </div>
+      </form>
+    </div>
+    <div class='col-6 offset-3'>
+      <form #serviceItemForm="ngForm">
+        <div class="form-group">
+          <label for="description">Description: </label>
+          <textarea required ngModel name="description" id="description" type="text" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="price">Price: </label>
+          <input required ngModel name="price" id="price" type="number" class="form-control"/>
+        </div>
+      </form>
+        <label name="tableLabel">Order Items</label>
+        <table class='table' aria-labelledby="tableLabel" *ngIf = "itemItems">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itemItems">
+              <td>{{item.product!.name}}</td>
+              <td>{{item.quantity}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="submit" id="addtoservice" (click)="addToService(serviceItemForm)" [disabled]="!serviceItemForm.valid || itemItems.length<1" class="btn-success btn">Add to Service</button>        
+    </div>
+  </div>
+</div>
