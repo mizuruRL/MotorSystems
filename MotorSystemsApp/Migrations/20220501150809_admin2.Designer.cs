@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220430221018_gh")]
-    partial class gh
+    [Migration("20220501150809_admin2")]
+    partial class admin2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -527,7 +527,7 @@ namespace MotorSystemsApp.Migrations
                             Id = 1,
                             AvailableQuantity = 30f,
                             Brand = "Castrol",
-                            Category = "Category1",
+                            Category = "Engine Oil",
                             Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
                             ImgUrl = "/assets/images/castrol-oil.jpg",
                             Name = "Castrol Oil",
@@ -537,22 +537,22 @@ namespace MotorSystemsApp.Migrations
                         {
                             Id = 2,
                             AvailableQuantity = 30f,
-                            Brand = "Brand2",
+                            Brand = "R³",
                             Category = "Rims",
-                            Description = "Desc2",
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
                             ImgUrl = "/assets/images/rims.jpg",
-                            Name = "Prod2",
+                            Name = "R³ Wheels R3H03",
                             Price = 10f
                         },
                         new
                         {
                             Id = 3,
                             AvailableQuantity = 5f,
-                            Brand = "Brand3",
-                            Category = "Category3",
-                            Description = "Desc3",
-                            ImgUrl = "/assets/images/castrol-oil.jpg",
-                            Name = "Prod3",
+                            Brand = "ABP",
+                            Category = "Bumpers",
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+                            ImgUrl = "/assets/images/Bumper.jpg",
+                            Name = "EK9 Front Bumper",
                             Price = 13f
                         });
                 });
@@ -582,21 +582,21 @@ namespace MotorSystemsApp.Migrations
                         new
                         {
                             Id = 1,
-                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 10
                         },
                         new
                         {
                             Id = 2,
-                            NeededForDate = new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 38
                         },
                         new
                         {
                             Id = 3,
-                            NeededForDate = new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 3,
                             QuantityNeeded = 4
                         },
@@ -723,11 +723,8 @@ namespace MotorSystemsApp.Migrations
 
             modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ContractEndDate")
                         .HasColumnType("datetime2");

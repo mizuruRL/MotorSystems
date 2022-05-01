@@ -12,8 +12,8 @@ using MotorSystemsApp.Data;
 namespace MotorSystemsApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220430223251_ghg")]
-    partial class ghg
+    [Migration("20220501203320_t")]
+    partial class t
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -386,6 +386,31 @@ namespace MotorSystemsApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            Address = "address",
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "city",
+                            ConcurrencyStamp = "17d5276f-6d7a-436e-a7bd-60ddd3cf3936",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DocId = 123,
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMJcRLMW35s4tGgr6ZlrEg2HVq5rGBnotcRlKSJUYvTETSO5u+A1wQ4OqUn9vcTsMw==",
+                            PhoneNumber = "123456789",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b9f16eb1-f5a3-4694-80e0-ac5eeaf423ff",
+                            TwoFactorEnabled = false,
+                            UserName = "admin",
+                            Zip = "123"
+                        });
                 });
 
             modelBuilder.Entity("MotorSystemsApp.Models.Order", b =>
@@ -527,7 +552,7 @@ namespace MotorSystemsApp.Migrations
                             Id = 1,
                             AvailableQuantity = 30f,
                             Brand = "Castrol",
-                            Category = "Category1",
+                            Category = "Engine Oil",
                             Description = "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.",
                             ImgUrl = "/assets/images/castrol-oil.jpg",
                             Name = "Castrol Oil",
@@ -582,21 +607,21 @@ namespace MotorSystemsApp.Migrations
                         new
                         {
                             Id = 1,
-                            NeededForDate = new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 10
                         },
                         new
                         {
                             Id = 2,
-                            NeededForDate = new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 1,
                             QuantityNeeded = 38
                         },
                         new
                         {
                             Id = 3,
-                            NeededForDate = new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NeededForDate = new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductId = 3,
                             QuantityNeeded = 4
                         },
@@ -723,14 +748,14 @@ namespace MotorSystemsApp.Migrations
 
             modelBuilder.Entity("MotorSystemsApp.Models.Worker", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ContractEndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
 
                     b.Property<string>("JobTitle")
                         .HasColumnType("nvarchar(max)");
@@ -738,13 +763,16 @@ namespace MotorSystemsApp.Migrations
                     b.Property<double?>("Salary")
                         .HasColumnType("float");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Worker");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            IsAdmin = true
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

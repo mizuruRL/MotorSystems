@@ -24,7 +24,7 @@ export class ServiceRequestComponent implements OnInit {
       this.user = res!.name;
       this.vService.getVehicles().subscribe(res => {
         this.allVehicles = res;
-        this.requestServiceForm.controls["plate"].addValidators(vehicleValidator(res, this.user!));
+        this.requestServiceForm.controls["vehiclePlate"].addValidators(vehicleValidator(res, this.user!));
       })
     })    
   }

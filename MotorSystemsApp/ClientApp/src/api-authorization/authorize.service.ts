@@ -31,6 +31,7 @@ export enum AuthenticationResultStatus {
 
 export interface IUser {
   name?: string;
+  sub?: string;
 }
 
 @Injectable({
@@ -75,7 +76,6 @@ export class AuthorizeService {
     try {
       user = await this.userManager!.signinSilent(this.createArguments());
       this.userSubject.next(user.profile);
-     // console.log(user);
       return this.success(state);
     } catch (silentError) {
       // User might not be authenticated, fallback to popup authentication

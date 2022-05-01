@@ -13,5 +13,7 @@ namespace MotorSystemsApp.Models
         public string? JobTitle { get; set; }
         public DateTime? ContractEndDate { get; set; }
         public double? Salary { get; set; }
+
+        public bool IsAdmin { get; set; } = false;
     }
 }

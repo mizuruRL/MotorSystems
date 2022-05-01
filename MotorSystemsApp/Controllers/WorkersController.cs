@@ -48,7 +48,7 @@ namespace MotorSystemsApp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutWorker(string id, Worker worker)
         {
-            if (id != worker.Username)
+            if (id != worker.Id)
             {
                 return BadRequest();
             }
@@ -86,7 +86,7 @@ namespace MotorSystemsApp.Controllers
             }
             catch (DbUpdateException)
             {
-                if (WorkerExists(worker.Username))
+                if (WorkerExists(worker.Id))
                 {
                     return Conflict();
                 }
@@ -96,7 +96,7 @@ namespace MotorSystemsApp.Controllers
                 }
             }
 
-            return CreatedAtAction("GetWorker", new { id = worker.Username }, worker);
+            return CreatedAtAction("GetWorker", new { id = worker.Id }, worker);
         }
 
         // DELETE: api/Workers/5
@@ -117,7 +117,7 @@ namespace MotorSystemsApp.Controllers
 
         private bool WorkerExists(string id)
         {
-            return _context.Worker.Any(e => e.Username == id);
+            return _context.Worker.Any(e => e.Id == id);
         }
     }
 }

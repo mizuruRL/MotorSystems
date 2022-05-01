@@ -39,11 +39,13 @@ import { ServiceEditComponent } from './service/service-edit/service-edit.compon
 import { WorkerService } from './services/worker.service';
 import { ClientService } from './services/client.service';
 import { WorkerGuard } from './worker/worker.guard';
+import { AdminGuard } from './admin/admin.guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { ServiceDetailsComponent } from './service/service-details/service-details.component';
 import { ServiceItemAddComponent } from './service/service-item-add/service-item-add.component';
 import { UserManagementComponent, UserManagementDialog } from './user-management/user-management.component';
 import { ServiceConcludedDialogComponent } from './service/service-concluded-dialog/service-concluded-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -92,10 +94,10 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
       { path: 'products/:id', component: ProductDetailsComponent },
       { path: 'products/add/:id', component: ProductAddComponent },
       { path: 'products/remove/:id', component: ProductRemoveComponent },
-      { path: 'orders', component: OrdersComponent },
-      { path: 'orders/:id', component: OrderDetailsComponent },
-      { path: 'order/create', component: OrderCreateComponent },
-      { path: 'worker', component: WorkerMenuComponent, canActivate: [AuthorizeGuard, /*WorkerGuard*/]},
+      { path: 'orders', component: OrdersComponent, canActivate: [WorkerGuard]},
+      { path: 'orders/:id', component: OrderDetailsComponent, canActivate: [WorkerGuard] },
+      { path: 'order/create', component: OrderCreateComponent, canActivate: [AdminGuard] },
+      { path: 'worker', component: WorkerMenuComponent, canActivate: [/*AuthorizeGuard*/AdminGuard]},
       { path: 'services-client', component: ServicesClientComponent, canActivate: [AuthorizeGuard] },
       { path: 'services-worker', component: ServicesWorkerComponent, canActivate: [AuthorizeGuard] },
       { path: 'service-request', component: ServiceRequestComponent },
@@ -110,7 +112,8 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService, WorkerGuard, ClientService
+    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService,
+    ClientService, AdminGuard, WorkerGuard
   ],
   bootstrap: [AppComponent]
 })

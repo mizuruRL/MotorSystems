@@ -4,20 +4,20 @@
   <form #workerForm="ngForm">
     <div class="form-group mt-2">
       <select required ngModel name="id" id="id" class="form-control">
-        <option *ngFor="let client of clients" [ngValue]="client.id">{{client.username + client.docid}}</option>
+        <option *ngFor="let client of clients" [ngValue]="client.id">{{client.userName}}</option>
       </select>
     </div>
     <div class="form-group mt-2">
       <label for="worktitle">Work Title:</label>
-      <input required id="worktitle" type="text" class="form-control mb-3" />
+      <input required ngModel name ="worktitle" id="worktitle" type="text" class="form-control mb-3" />
     </div>
     <div class="form-group mt-2">
       <label for="salary">Salary:</label>
-      <input required name="salary" id="salary" type="number" class="form-control" />
+      <input required ngModel name="salary" id="salary" type="number" class="form-control" />
     </div>
     <div class="form-group mt-2">
       <label for="contractend">Contract End: </label>
-      <input required id="contractend" type="date" class="form-control" />
+      <input required ngModel name ="contractend" id="contractend" type="date" class="form-control" />
     </div>
     <mat-dialog-actions align="end">
       <button mat-flat-button mat-dialog-close>Cancel</button>

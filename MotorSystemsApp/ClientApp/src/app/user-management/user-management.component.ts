@@ -30,6 +30,23 @@ export class UserManagementComponent implements OnInit {
       subscribe(allWorkers => this.workers = allWorkers)
   }
 
+  deleteWorker(id: string) {
+    this.workerService.deleteWorker(id).subscribe(res => location.reload());
+  }
+
+  getWorker(id: string): Worker | undefined{
+    return this.workers.find(w => w.id == id);
+  }
+
+  switchAdmin(id: string) {
+    let worker: Worker | undefined = this.getWorker(id);
+    if (worker) {
+      console.log(worker);
+      worker.isAdmin = !worker.isAdmin;
+      console.log(worker);
+      this.workerService.updateWorker(worker).subscribe(res => console.log(res));
+    }    
+  }
 }
 
 @Component({
@@ -50,7 +67,7 @@ export class UserManagementDialog implements OnInit {
 
   populateClients() {
     this.clientService.getClients().
-      subscribe(allClients => this.clients = allClients)
+      subscribe(allClients => { this.clients = allClients; })
   }
 
   addToWorker(workerForm: NgForm) {
@@ -59,8 +76,10 @@ export class UserManagementDialog implements OnInit {
       let workTitle = workerForm.value.worktitle;
       let salary = workerForm.value.salary;
       let contractEnd = workerForm.value.contractend;
-      let worker: Worker = { id: this.client.id, worktitle: workTitle, salary: salary, username: client.username, contractend: contractEnd }
-      this.workerService.addWorker(worker).subscribe();
+      let worker: Worker = { id: this.client.id, jobTitle: workTitle, salary: salary, username: client.userName, contractEndDate: contractEnd, isAdmin: false }
+      this.workerService.addWorker(worker).subscribe(res=>location.reload());
     });
   }
+
+  
 }

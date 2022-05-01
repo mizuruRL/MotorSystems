@@ -9,8 +9,8 @@ export class WorkerService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  getWorker(username: string): Observable<Worker> {
-    return this.http.get<Worker>(this.baseUrl + 'api/workers/' + username);
+  getWorker(id: string): Observable<Worker> {
+    return this.http.get<Worker>(this.baseUrl + 'api/workers/' + id);
   }
 
   addWorker(user: Worker): Observable<Worker> {
@@ -20,12 +20,21 @@ export class WorkerService {
   getWorkers(): Observable<Worker[]> {
     return this.http.get<Worker[]>(this.baseUrl + 'api/workers');
   }
+
+  deleteWorker(id: string) {
+    return this.http.delete<Worker>(this.baseUrl + 'api/workers/'+id)
+  }
+
+  updateWorker(worker: Worker): Observable<Worker> {
+    return this.http.put<Worker>(this.baseUrl + 'api/workers/' + worker.id, worker);
+  }
 }
 
 export interface Worker {
   id: string;
   username: string;
-  worktitle: string;
-  contractend: Date;
+  jobTitle: string;
+  contractEndDate: Date;
   salary: number;
+  isAdmin: boolean;
 }

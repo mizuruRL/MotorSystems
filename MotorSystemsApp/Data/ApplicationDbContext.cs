@@ -1,5 +1,6 @@
 ﻿using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Options;
@@ -41,17 +42,40 @@ namespace MotorSystemsApp.Data
                         .WithMany(p => p.OrderItems)
                         .HasForeignKey(oi => oi.ProductId);
 
-            //modelBuilder.Entity<ServiceItem>().HasKey(si => new { si.ServiceId, si.ProductId });
+            ApplicationUser admin = new ApplicationUser
+            {
+                Id = "1",
+                UserName = "admin",
+                Email = "admin@admin.com",
+                NormalizedEmail = "admin@admin.com".ToUpper(),
+                NormalizedUserName = "admin".ToUpper(),
+                TwoFactorEnabled = false,
+                EmailConfirmed = true,
+                PhoneNumber = "123456789",
+                PhoneNumberConfirmed = false,
+                DocId = 123,
+                BirthDate = new DateTime(),
+                CreatedDate = new DateTime(),
+                Address = "address",
+                City = "city",
+                Zip = "123"
+            };
 
-            //modelBuilder.Entity<ServiceItem>()
-            //            .HasOne(si => si.Service)
-            //            .WithMany(s => s.ServiceItems)
-            //            .HasForeignKey(si => si.ServiceId);
+            PasswordHasher<ApplicationUser> ph = new PasswordHasher<ApplicationUser>();
+            admin.PasswordHash = ph.HashPassword(admin, "admin");
 
-            //modelBuilder.Entity<ServiceItemProduct>()
-            //            .HasOne(si => si.ServiceItemId)
-            //            .WithMany(p => p.ServiceItems)
-            //            .HasForeignKey(si => si.ProductId);
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                admin
+             );
+
+            modelBuilder.Entity<Worker>().HasData(
+                new Worker
+                {
+                    Id = "1",
+                    IsAdmin = true,
+                    Username = "admin"
+                }
+             );
 
             modelBuilder.Entity<Product>().HasData
                 (
@@ -175,9 +199,7 @@ namespace MotorSystemsApp.Data
                     }
                 );
 
+            
         }
-
-        public DbSet<MotorSystemsApp.Models.Client> Client { get; set; }
-
     }
 }

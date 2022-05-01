@@ -4,8 +4,6 @@ namespace MotorSystemsApp.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        //public virtual Client Client { get; set; }
-        //public virtual Worker? Worker { get; set; }
         [PersonalData]
         public int DocId { get; set; }
         [PersonalData]

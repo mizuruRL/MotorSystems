@@ -20,10 +20,12 @@ export class ClientService {
 
 export interface Client {
   id: string;
-  docid: number;
-  createddate: Date;
+  userName: string;
+  docId: number;
+  createdDate: Date;
   address: string;
   city: string;
-  zip: string;
-  username: string;
+  zip: string;  
 }
+
+

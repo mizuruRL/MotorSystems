@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MotorSystemsApp.Migrations
 {
-    public partial class b : Migration
+    public partial class workermanagement : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,6 +52,18 @@ namespace MotorSystemsApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Client",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Client", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,7 +181,6 @@ namespace MotorSystemsApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AssignedWorker = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Client = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     VehiclePlate = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -199,8 +210,7 @@ namespace MotorSystemsApp.Migrations
                 name: "Worker",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContractEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -405,9 +415,9 @@ namespace MotorSystemsApp.Migrations
                 columns: new[] { "Id", "AvailableQuantity", "Brand", "Category", "Description", "ImgUrl", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 30f, "Brand1", "Category1", "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.", "/assets/images/castrol-oil.jpg", "Prod1", 30f },
-                    { 2, 30f, "Brand2", "Category2", "Desc2", "/assets/images/castrol-oil.jpg", "Prod2", 10f },
-                    { 3, 5f, "Brand3", "Category3", "Desc3", "/assets/images/castrol-oil.jpg", "Prod3", 13f }
+                    { 1, 30f, "Castrol", "Engine Oil", "Óleo multigraduado totalmente sintético adequado para motores a gasolina e diesel. Preparado para intervalos de manutenção prolongados, pois é um óleo com designação 'longa vida' (máximo 30.000 km). Lubrificante com baixo teor de cinzas e enxofre, por isso é respeitoso com os filtros de partículas (DPF) e conversores catalíticos de três vias dos carros mais atuais.", "/assets/images/castrol-oil.jpg", "Castrol Oil", 30f },
+                    { 2, 30f, "R³", "Rims", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum", "/assets/images/rims.jpg", "R³ Wheels R3H03", 10f },
+                    { 3, 5f, "ABP", "Bumpers", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum", "/assets/images/Bumper.jpg", "EK9 Front Bumper", 13f }
                 });
 
             migrationBuilder.InsertData(
@@ -415,16 +425,11 @@ namespace MotorSystemsApp.Migrations
                 columns: new[] { "Id", "NeededForDate", "ProductId", "QuantityNeeded" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10 },
-                    { 2, new DateTime(2022, 5, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 38 },
-                    { 3, new DateTime(2022, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4 },
+                    { 1, new DateTime(2022, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10 },
+                    { 2, new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 38 },
+                    { 3, new DateTime(2022, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4 },
                     { 4, new DateTime(2022, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 10 }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Vehicle",
-                columns: new[] { "Plate", "Brand", "Client", "Model", "Type" },
-                values: new object[] { "A1-B7-30", "BMW", "tiago", "M3", 0 });
 
             migrationBuilder.InsertData(
                 table: "OrderItem",
@@ -549,6 +554,9 @@ namespace MotorSystemsApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Client");
 
             migrationBuilder.DropTable(
                 name: "DeviceCodes");

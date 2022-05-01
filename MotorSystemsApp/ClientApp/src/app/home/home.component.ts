@@ -16,7 +16,6 @@ export class HomeComponent {
   ngOnInit() {
     this.service.getUser().subscribe(async user => {
       this.user = user;
-      console.log(user);      
     });
   }
 
