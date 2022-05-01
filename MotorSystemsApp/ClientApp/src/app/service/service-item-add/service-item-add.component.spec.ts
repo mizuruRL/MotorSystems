@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ServiceItemAddComponent } from './service-item-add.component';
 
@@ -10,7 +13,9 @@ describe('ServiceItemAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ServiceItemAddComponent ]
+      declarations: [ServiceItemAddComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
+      providers: [{ provide: 'BASE_URL', useValue: 'http://localhost' }]
     })
     .compileComponents();
   });
@@ -19,7 +24,7 @@ describe('ServiceItemAddComponent', () => {
     fixture = TestBed.createComponent(ServiceItemAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    addToServiceBtn = fixture.nativeElement.querySelector("addtoservice");
+    addToServiceBtn = fixture.nativeElement.querySelector("#addtoservice");
     forms = fixture.nativeElement.querySelectorAll("form");
   });
 

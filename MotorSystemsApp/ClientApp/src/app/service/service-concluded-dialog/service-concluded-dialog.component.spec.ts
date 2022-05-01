@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ServiceConcludedDialogComponent } from './service-concluded-dialog.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 describe('ServiceConcludedDialogComponent', () => {
   let component: ServiceConcludedDialogComponent;
@@ -9,7 +10,15 @@ describe('ServiceConcludedDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ServiceConcludedDialogComponent ]
+      declarations: [ServiceConcludedDialogComponent],
+      providers: [{
+        provide: MatDialogRef,
+        useValue: []
+      },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: []
+        } ]
     })
     .compileComponents();
   });

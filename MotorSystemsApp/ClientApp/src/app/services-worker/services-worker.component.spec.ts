@@ -1,15 +1,19 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ServicesWorkerComponent } from './services-worker.component';
 
 describe('ServicesWorkerComponent', () => {
   let component: ServicesWorkerComponent;
   let fixture: ComponentFixture<ServicesWorkerComponent>;
-  let table: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ServicesWorkerComponent ]
+      declarations: [ServicesWorkerComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
+      providers: [{ provide: 'BASE_URL', useValue: 'http://localhost' }]
     })
     .compileComponents();
   });
@@ -18,15 +22,9 @@ describe('ServicesWorkerComponent', () => {
     fixture = TestBed.createComponent(ServicesWorkerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    table = fixture.nativeElement.querySelector("table");
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('table should create', () => {
-    expect(table).toBeTruthy();
-  })
-
 });
