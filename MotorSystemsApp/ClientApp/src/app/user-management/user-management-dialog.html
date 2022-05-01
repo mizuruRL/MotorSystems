@@ -21,7 +21,7 @@
     </div>
     <mat-dialog-actions align="end">
       <button mat-flat-button mat-dialog-close>Cancel</button>
-      <button mat-flat-button type="submit" [disabled]="!workerForm.valid" (click)="addToWorker(workerForm)" color="primary"><mat-icon>arrow_upward</mat-icon> Promote</button>
+      <button mat-flat-button type="submit" id="promote" [disabled]="!workerForm.valid" (click)="addToWorker(workerForm)" color="primary"><mat-icon>arrow_upward</mat-icon> Promote</button>
     </mat-dialog-actions>
   </form>
 </mat-dialog-content>

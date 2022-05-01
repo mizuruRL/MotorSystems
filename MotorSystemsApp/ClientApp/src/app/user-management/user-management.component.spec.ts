@@ -5,15 +5,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ProductCreateComponent } from './product-create.component';
+import { UserManagementComponent } from './user-management.component';
 
-describe('ProductCreateComponent', () => {
-  let component: ProductCreateComponent;
-  let fixture: ComponentFixture<ProductCreateComponent>;
+describe('UserManagementComponent', () => {
+  let component: UserManagementComponent;
+  let fixture: ComponentFixture<UserManagementComponent>;
+  let workerBtn: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProductCreateComponent],
+      declarations: [UserManagementComponent],
       imports: [RouterTestingModule, HttpClientTestingModule, FormsModule, MatButtonModule, MatDialogModule],
       providers: [{ provide: 'BASE_URL', useValue: 'http://localhost' }]
     })
@@ -21,12 +22,17 @@ describe('ProductCreateComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductCreateComponent);
+    fixture = TestBed.createComponent(UserManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    workerBtn = fixture.nativeElement.querySelector("#workerbtn");
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('worker add button should create', () => {
+    expect(workerBtn).toBeTruthy();
+  })
 });

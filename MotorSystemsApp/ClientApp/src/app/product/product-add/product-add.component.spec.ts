@@ -1,4 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ProductAddComponent } from './product-add.component';
 
@@ -8,7 +12,9 @@ describe('ProductAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProductAddComponent ]
+      declarations: [ProductAddComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
+      providers: [{ provide: 'BASE_URL', useValue: 'http://localhost' }, { provide: MatDialogRef, useValue: [] }, { provide: MatDialog, useValue: [] }]
     })
     .compileComponents();
   });

@@ -112,8 +112,7 @@ import { ServiceConcludedDialogComponent } from './service/service-concluded-dia
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService,
-    ClientService, AdminGuard, WorkerGuard
+    ProductsService, OrdersService, ServicesService, AuthorizeGuard, VehiclesService, WorkerService, WorkerGuard, ClientService, AdminGuard
   ],
   bootstrap: [AppComponent]
 })
